@@ -12,12 +12,21 @@
         INITIAL SETUP (preload and setup)
         0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
-
+let gameState,player,gameMap,gameHitbox,inventory,clearnceLevel,enemyGroup,readerGroup,playerSpeed,playerStamina;
 function preload() {
-    //This preloads all of the game's asset files.
+    //Preloading the game's asset files to avoid any errors.
 };
 
 function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
+    canvas = new Canvas(windowWidth,windowHeight);
+    player = new Sprite();
+    enemyGroup = new Group();
+    readerGroup = new Group();
+    clearnceLevel = 0;
+    playerSpeed = 5;
+    playerStamina = 120;
+    inventory = new Array();
+    gameState = 1;
 };
 
