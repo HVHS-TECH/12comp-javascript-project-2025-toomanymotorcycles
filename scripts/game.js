@@ -17,7 +17,7 @@ function playerMovement () {
                 playerSpeed = 9;
                 playerStamina --;
         } else if (playerFatigued) {
-                playerSpeed = 1
+                playerSpeed = 3;
                 playerStamina += 0.5; 
         } else {
                 playerSpeed = 5;
