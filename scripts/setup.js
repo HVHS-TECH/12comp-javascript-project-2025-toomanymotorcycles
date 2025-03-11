@@ -17,15 +17,11 @@ gameState,
 player,
 gameMap,
 gameHitbox,
-inventory,
-clearnceLevel,
 enemyGroup,
 readerGroup,
-itemGroup,
-playerSpeed,
-playerStamina,
-playerStaminaMax,
-playerFatigued;
+itemGroup;
+
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 function preload() {
     //Preloading the game's asset files to avoid any errors.
@@ -38,11 +34,13 @@ function setup() {
     enemyGroup = new Group();
     readerGroup = new Group();
     itemGroup = new Group();
-    clearnceLevel = 0;
-    playerSpeed = 5;
-    playerStaminaMax = 120;
-    playerStamina = playerStaminaMax
-    inventory = new Array();
+    itemGroup.overlap(player);
+    player.clearnceLevel = 0;
+    player.speed = 5;
+    player.staminaMax = 120;
+    player.stamina = player.staminaMax;
+    player.fatigued = false;
+    player.inventory = [];
     gameState = 1;
-    ITEM_FUNCTIONS[0]();
+    randomItem = new Item(30,30,30,30,0)
 };

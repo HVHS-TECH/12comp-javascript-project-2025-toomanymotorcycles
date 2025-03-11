@@ -13,35 +13,35 @@
         0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
 function playerMovement () {
-        if (kb.pressing("shift") && playerStamina > 0 && !playerFatigued) {
-                playerSpeed = 9;
-                playerStamina --;
-        } else if (playerFatigued) {
-                playerSpeed = 3;
-                playerStamina += 0.5; 
+        if (kb.pressing("shift") && player.stamina > 0 && !player.fatigued) {
+                player.speed = 9;
+                player.stamina --;
+        } else if (player.fatigued) {
+                player.speed = 3;
+                player.stamina += 0.5; 
         } else {
-                playerSpeed = 5;
-                if (playerStamina < playerStaminaMax) {
-                  playerStamina += 0.5;      
+                player.speed = 5;
+                if (player.stamina < player.staminaMax) {
+                  player.stamina += 0.5;      
                 } 
         }
-        if (playerStamina <= 0) {
-                playerFatigued = true;
+        if (player.stamina <= 0) {
+                player.fatigued = true;
         }
-        if (playerStamina == playerStaminaMax) {
-                playerFatigued = false;
+        if (player.stamina == player.staminaMax) {
+                player.fatigued = false;
         }
         if (kb.pressing("w")) {
-                player.vel.y = playerSpeed*-1;
+                player.vel.y = player.speed*-1;
         } else if (kb.pressing("s")) {
-                player.vel.y = playerSpeed;
+                player.vel.y = player.speed;
         } else {
                 player.vel.y = 0;
         }
         if (kb.pressing("a")) {
-                player.vel.x = playerSpeed*-1;
+                player.vel.x = player.speed*-1;
         } else if (kb.pressing("d")) {
-                player.vel.x = playerSpeed;
+                player.vel.x = player.speed;
         } else {
                 player.vel.x = 0;
         }
@@ -58,5 +58,5 @@ function draw () {
                 background("black");
                 playerMovement();
         }
-        
+        itemGroup.overlapping(player, (item) => {item.parentRef.onPickup()})
 };
