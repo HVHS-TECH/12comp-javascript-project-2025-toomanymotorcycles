@@ -1,6 +1,6 @@
 const ITEM_FUNCTIONS = [
-    (test) => {console.log("ADRENALINE STIM USED"),player.staminaMax = 600,player.stamina = 600,sleep(20),player.staminaMax = 120},
-    (test) => {console.log("BBBBBBB")}
+    (test) => {console.log("ADRENALINE STIM USED"),player.staminaMax = 600,player.stamina = 600,player.fatigued = false,sleep(20),player.staminaMax = 120},
+    (test) => {console.log("EXPERIMENTAL STEROIDS USED"),player.staminaMax = 9999,player.stamina = 9999,player.fatigued = false,sleep(20),player.staminaMax = 9999}
 ]
 
 class Item{
@@ -11,11 +11,12 @@ class Item{
         itemGroup.add(this.sprite);
     }
     onPickup() {
-       this.sprite.remove();
        if (player.inventory.length < 5) {
+        this.sprite.remove();
         player.inventory.push(this);
         console.log(player.inventory.toString());
-        ITEM_FUNCTIONS[console.inventory[0].itemID]();
+       } else {
+        console.log("TOO MANY ITEMS");
        }
     }
 }
