@@ -1,6 +1,34 @@
 const ITEM_FUNCTIONS = [
-    (test) => {console.log("ADRENALINE STIM USED"),player.staminaMax = 600,player.stamina = 600,player.fatigued = false,sleep(20),player.staminaMax = 120},
-    (test) => {console.log("EXPERIMENTAL STEROIDS USED"),player.staminaMax = 9999,player.stamina = 9999,player.fatigued = false,sleep(20),player.staminaMax = 9999}
+    async () => {
+        if (player.canUseStaminaItems) {
+            itemExecution = true;
+            player.canUseStaminaItems = false, 
+            console.log("ADRENALINE STIM USED"),
+            player.staminaMax = 600,
+            player.stamina = 600,
+            player.fatigued = false,
+            await sleep(20000),
+            player.staminaMax = 120,
+            player.canUseStaminaItems = true
+        } else {
+            console.warn("Player attempted to use stamina-related item while stamina-related item cooldown was active.")
+        }
+    },
+    async () => {
+        if (player.canUseStaminaItems) {
+            itemExecution = true;
+            player.canUseStaminaItems = false, 
+            console.log("EXPERIMENTAL STEROIDS USED"),
+            player.staminaMax = 9999,
+            player.stamina = 9999,
+            player.fatigued = false,
+            await sleep(20000),
+            player.staminaMax = 120
+            player.canUseStaminaItems = true
+        } else {
+            console.warn("Player attempted to use stamina-related item while stamina-related item cooldown was active.")
+        }
+    }
 ]
 
 class Item{
@@ -16,41 +44,61 @@ class Item{
         player.inventory.push(this);
         console.log(player.inventory.toString());
        } else {
-        console.log("TOO MANY ITEMS");
+        console.warn("Player has too many items.");
        }
     }
 }
 
 function playerInventory() {
-    if (kb.pressed("1")) {
+    console.log(player.canUseItems)
+    if (player.canUseItems) {
+        if (kb.pressed("1")) {
            if (player.inventory.length > 0) {
                    ITEM_FUNCTIONS[player.inventory[0].itemID]();
-                   player.inventory.splice(0,0);
+                   if (itemExecution) {
+                        player.inventory.splice(0,1);
+                        itemExecution = false;
+                   }
                    print(player.inventory)
            }
-    }
-    if (kb.pressed("2")) {
+        }
+        if (kb.pressed("2")) {
            if (player.inventory.length > 1) {
                    ITEM_FUNCTIONS[player.inventory[1].itemID]();
-                   player.inventory.splice(1,1);
+                    if (itemExecution) {
+                        player.inventory.splice(1,1);
+                        itemExecution = false;
+                    }
            }
-    }
-    if (kb.pressed("3")) {
+        }
+        if (kb.pressed("3")) {
            if (player.inventory.length > 2) {
                    ITEM_FUNCTIONS[player.inventory[2].itemID]();
-                   player.inventory.splice(2,2);
+                   if (itemExecution) {
+                        player.inventory.splice(2,1);
+                        itemExecution = false;
+                    }
            }
-    }
-    if (kb.pressed("4")) {
+        }
+        if (kb.pressed("4")) {
            if (player.inventory.length > 3) {
                    ITEM_FUNCTIONS[player.inventory[3].itemID]();
-                   player.inventory.splice(3,3);
+                   if (itemExecution) {
+                        player.inventory.splice(3,1);
+                        itemExecution = false;
+                    }
            }
-    }
-    if (kb.pressed("5")) {
+        }
+        if (kb.pressed("5")) {
            if (player.inventory.length > 4) {
                    ITEM_FUNCTIONS[player.inventory[4].itemID]();
-                   player.inventory.splice(4,4);
+                   if (itemExecution) {
+                        player.inventory.splice(4,1);
+                        itemExecution = false;
+                    }
            }
+        }
+    }  else if (kb.pressed("1") || kb.pressed("2") || kb.pressed("3") || kb.pressed("4") || kb.pressed("5")) {
+        console.warn("Player attempted to use item while full item cooldown was active.")
     }
    }

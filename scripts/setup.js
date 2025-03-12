@@ -14,6 +14,7 @@
 ************************************************/
 let 
 gameState,
+itemExecution,
 player,
 gameMap,
 gameHitbox,
@@ -41,6 +42,9 @@ function setup() {
     player.stamina = player.staminaMax;
     player.fatigued = false;
     player.inventory = [];
+    player.canUseItems = true;
+    player.canUseStaminaItems = true;
+    itemExecution = true;
     gameState = 1;
     randomItem = new Item(30,30,30,30,0)
     randomItem2 = new Item(50,50,30,30,0)
