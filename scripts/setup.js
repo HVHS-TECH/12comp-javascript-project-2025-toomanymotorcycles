@@ -20,7 +20,8 @@ gameMap,
 gameHitbox,
 enemyGroup,
 readerGroup,
-itemGroup;
+itemGroup,
+interactPrompt;
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -32,11 +33,19 @@ function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
     canvas = new Canvas(windowWidth,windowHeight);
     player = new Sprite();
+    interactPrompt = new Sprite(camera.x,camera.y+windowWidth/8,150,150,'s');
+    interactPrompt.textSize = 100
+    interactPrompt.textColor = "white"
+    interactPrompt.text = "E"
+    interactPrompt.color = "black"
+    interactPrompt.layer = 999;
+    interactPrompt.visible = false;
+    interactPrompt.overlap(allSprites)
     enemyGroup = new Group();
     readerGroup = new Group();
     itemGroup = new Group();
     itemGroup.overlap(player);
-    player.clearnceLevel = 0;
+    player.clearanceLevel = 5;
     player.speed = 5;
     player.staminaMax = 120;
     player.stamina = player.staminaMax;
@@ -52,4 +61,5 @@ function setup() {
     randomItem4 = new Item(90,90,30,30,0)
     randomItem5 = new Item(110,110,30,30,1)
     randomItem6 = new Item(210,210,30,30,1)
+    randomReader = new Reader(610,800,1,null,5000)
 };

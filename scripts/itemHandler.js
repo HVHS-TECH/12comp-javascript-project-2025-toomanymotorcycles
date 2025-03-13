@@ -5,10 +5,11 @@ const ITEM_FUNCTIONS = [
             player.canUseStaminaItems = false, 
             console.log("ADRENALINE STIM USED"),
             player.staminaMax = 600,
-            player.stamina = 600,
+            player.stamina = player.staminaMax,
             player.fatigued = false,
             await sleep(20000),
             player.staminaMax = 120,
+            player.stamina = player.staminaMax-10,
             player.canUseStaminaItems = true
         } else {
             console.warn("Player attempted to use stamina-related item while stamina-related item cooldown was active.")
@@ -16,14 +17,17 @@ const ITEM_FUNCTIONS = [
     },
     async () => {
         if (player.canUseStaminaItems) {
-            itemExecution = true;
+            itemExecution = true,
             player.canUseStaminaItems = false, 
             console.log("EXPERIMENTAL STEROIDS USED"),
             player.staminaMax = 9999,
-            player.stamina = 9999,
+            player.stamina = player.staminaMax,
             player.fatigued = false,
             await sleep(20000),
-            player.staminaMax = 120
+            player.stamina = 0,
+            await sleep(2000),
+            player.staminaMax = 120,
+            player.stamina = player.staminaMax-10,
             player.canUseStaminaItems = true
         } else {
             console.warn("Player attempted to use stamina-related item while stamina-related item cooldown was active.")
@@ -50,7 +54,7 @@ class Item{
 }
 
 function playerInventory() {
-    console.log(player.canUseItems)
+    console.log(player.canUseStaminaItems)
     if (player.canUseItems) {
         if (kb.pressed("1")) {
            if (player.inventory.length > 0) {

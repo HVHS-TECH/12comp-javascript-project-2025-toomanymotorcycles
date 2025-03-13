@@ -45,11 +45,11 @@ function playerMovement () {
         } else {
                 player.vel.x = 0;
         }
-        //camera.pos = player.pos;
+        camera.pos = player.pos;
 };
 
 function spawnItem () {
-        newItem = new Item(windowWidth/2,windowHeight/2,1);
+        newItem = new Item(windowWidth/2,windowHeight/2,30,30,1);
 }
 
 function draw () {
@@ -60,5 +60,16 @@ function draw () {
                 playerMovement();
                 playerInventory();
         }
-        itemGroup.overlap(player, (item) => {item.parentRef.onPickup()})
+
+        itemGroup.overlap(player, () => {if (player.inventory.length < 5) {interactPrompt.visible = true}})
+        itemGroup.overlapping(player, (item) => {if (kb.pressed("e")) {item.parentRef.onPickup()}})
+        itemGroup.overlapped(player, () => {interactPrompt.visible = false})
+
+        readerGroup.overlap(player, (reader) => {if (!reader.parentRef.active) {interactPrompt.visible = true}})
+        readerGroup.overlapping(player, (reader) => {if (kb.pressed("e") && !reader.parentRef.active) {interactPrompt.visible = false,reader.parentRef.onInteract()}})
+        readerGroup.overlapped(player, () => {interactPrompt.visible = false})
+
+        interactPrompt.x = camera.x;
+        interactPrompt.y = camera.y+windowWidth/8;
+
 };
