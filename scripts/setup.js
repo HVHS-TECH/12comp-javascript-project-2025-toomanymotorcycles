@@ -36,6 +36,8 @@ function preload() {
     accessGranted = loadSound("././assets/access_granted.ogg");
     smallBlastDoorOpen = loadSound("././assets/small_blast_door_open.ogg");
     smallBlastDoorClose = loadSound("././assets/small_blast_door_close.ogg");
+    largeBlastDoorOpen = loadSound("././assets/large_blast_door_open.ogg");
+    largeBlastDoorClose = loadSound("././assets/large_blast_door_close.ogg");
 };
 
 function setup() {
@@ -74,9 +76,9 @@ function setup() {
     randomItem5 = new Item(110,110,30,30,8)
     randomItem6 = new Item(210,210,30,30,8)
     keycard1 = new Item(310,310,30,30,1,true)
-    randomDoor = new Door(660,800,0,1,4500)
-    randomReader = new Reader(610,800,1,randomDoor,null,5000)
-    randomReader2 = new Reader(710,750,1,randomDoor,randomReader,5000)
+    randomDoor = new Door(660,800,0,2,4500)
+    randomReader = new Reader(350,810,1,randomDoor,null,12000)
+    randomReader2 = new Reader(1000,625,1,randomDoor,randomReader,12000)
     randomReader.linkedReader = randomReader2;
     player.layer = 1000;
 };
