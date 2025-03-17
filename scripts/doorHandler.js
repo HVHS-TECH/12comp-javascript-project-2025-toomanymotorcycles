@@ -21,7 +21,7 @@ class Door{
                 this.sprite.height = 500;
                 this.sprite.width = 250;
                 this.sprite.hitbox.height = 500;
-                this.sprite.hitbox.width = 90;  
+                this.sprite.hitbox.width = 90;
             } else {
                 this.sprite.width = 500;
                 this.sprite.height = 250;
