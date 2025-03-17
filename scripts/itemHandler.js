@@ -3,6 +3,35 @@ const ITEM_FUNCTIONS = [
         if (player.canUseStaminaItems) {
             itemExecution = true;
             player.canUseStaminaItems = false, 
+            console.log("AHOOGA"),
+            player.staminaMax = 0,
+            player.stamina = player.staminaMax
+        } else {
+            console.warn("Player attempted to use stamina-related item while stamina-related item cooldown was active.")
+        }
+    },
+    () => {
+        player.clearanceLevel = 1;
+    },
+    () => {
+        player.clearanceLevel = 2;
+    },
+    () => {
+        player.clearanceLevel = 3;
+    },
+    () => {
+        player.clearanceLevel = 4;
+    },
+    () => {
+        player.clearanceLevel = 5;
+    },
+    () => {
+        player.clearanceLevel = 6;
+    },
+    async () => {
+        if (player.canUseStaminaItems) {
+            itemExecution = true;
+            player.canUseStaminaItems = false, 
             console.log("ADRENALINE STIM USED"),
             player.staminaMax = 600,
             player.stamina = player.staminaMax,
@@ -36,19 +65,21 @@ const ITEM_FUNCTIONS = [
 ]
 
 class Item{
-    constructor(x,y,w,h,itemID) {
+    constructor(x,y,w,h,itemID,triggerOnPickup) {
         this.sprite = new Sprite(x,y,w,h)
         this.sprite.parentRef = this;
         this.itemID = itemID;
+        this.triggerOnPickup = triggerOnPickup;
         itemGroup.add(this.sprite);
     }
     onPickup() {
-       if (player.inventory.length < 5) {
+        if (this.triggerOnPickup) {
+            this.sprite.remove();
+            ITEM_FUNCTIONS[this.itemID]();
+        } else if (player.inventory.length < 5) {
         this.sprite.remove();
         player.inventory.push(this);
         console.log(player.inventory.toString());
-       } else {
-        console.warn("Player has too many items.");
        }
     }
 }

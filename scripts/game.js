@@ -72,4 +72,6 @@ function draw () {
         interactPrompt.x = camera.x;
         interactPrompt.y = camera.y+windowWidth/8;
 
+        player.rotation = 0;
+
 };
