@@ -57,12 +57,14 @@ class Door{
             smallBlastDoorClose.play();
             this.open = false;
             this.active = false;
-        } else if (this.doorType == 2) {
+        } else if (this.doorType == 2) {2
             this.active = true;
             largeBlastDoorOpen.play();
             await sleep(3000)
             this.open = true;
-            await sleep(this.activeTime);
+            await sleep(this.activeTime-1500);
+            bigDoorAlarm.play();
+            await sleep(1500)
             largeBlastDoorClose.play();
             this.open = false;
             this.active = false;
