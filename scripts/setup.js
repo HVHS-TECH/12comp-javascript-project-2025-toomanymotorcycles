@@ -81,5 +81,6 @@ function setup() {
     randomReader = new Reader(350,810,1,randomDoor,null,12000)
     randomReader2 = new Reader(1000,625,1,randomDoor,randomReader,12000)
     randomReader.linkedReader = randomReader2;
+    dumbTestEnemy = new Enemy(1000,1000,75,1000,1000,3,3,1)
     player.layer = 1000;
 };
