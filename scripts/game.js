@@ -69,6 +69,8 @@ function draw () {
         readerGroup.overlapping(player, (reader) => {if (kb.pressed("e") && !reader.parentRef.active) {interactPrompt.visible = false,reader.parentRef.onInteract()}})
         readerGroup.overlapped(player, () => {interactPrompt.visible = false})
 
+        enemyBulletGroup.overlap(enemyGroup)
+
         interactPrompt.x = camera.x;
         interactPrompt.y = camera.y+windowWidth/8;
 

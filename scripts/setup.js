@@ -13,22 +13,23 @@
         0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
 let 
-gameState,
-itemExecution,
-player,
-gameMap,
-gameHitbox,
-enemyGroup,
-readerGroup,
-doorGroup,
-itemGroup,
-interactPrompt;
+gameState, //what state the game is in (on the menu screen, playing the game, on the win screen, on the losing screen etc.)
+itemExecution, //a check variable - whenever an item is used successfully this is set to true. This is to make sure that an item isn't removed from the player's inventory when it isn't supposed to be.
+player, //the player sprite
+gameMap, //the game map, this shows the textures.
+gameHitbox, //the game hitbox, this controls where you can and can't go. This is where the walls are actually placed.
+enemyGroup, //all the enemies currently spawned
+readerGroup, //all the card readers in the game
+doorGroup, //all the doors in the game
+itemGroup, //all the loose items in the game
+enemyBulletGroup, //more like enemy bullet hell group...
+interactPrompt; // the "E" interaction prompt that appears whenever you interact with something
 
 let
 randomReader,
 randomReader2;
 
-const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function (WHY IS THIS NOT NATIVE IN JAVASCRIPT)
 
 function preload() {
     //Preloading the game's asset files to avoid any errors.
@@ -55,6 +56,7 @@ function setup() {
     interactPrompt.visible = false;
     interactPrompt.overlap(allSprites)
     enemyGroup = new Group();
+    enemyBulletGroup = new Group();
     readerGroup = new Group();
     doorGroup = new Group();
     itemGroup = new Group();
@@ -81,6 +83,6 @@ function setup() {
     randomReader = new Reader(350,810,1,randomDoor,null,12000)
     randomReader2 = new Reader(1000,625,1,randomDoor,randomReader,12000)
     randomReader.linkedReader = randomReader2;
-    dumbTestEnemy = new Enemy(1000,1000,75,1000,1000,3,3,1)
+    dumbTestEnemy = new Enemy(1000,1000,75,1000,1000,5,200,2)
     player.layer = 1000;
 };
