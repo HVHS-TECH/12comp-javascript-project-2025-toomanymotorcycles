@@ -45,8 +45,27 @@ function playerMovement () {
         } else {
                 player.vel.x = 0;
         }
+        if (player.health <= 0) {
+                gameState = 2;
+        }
         camera.pos = player.pos;
 };
+
+async function playerDeath(deathType) {
+        player.colour = "red"
+        player.velocity = 0
+        player.lives --;
+        await sleep(2000)
+        allSprites.opacity = 0;
+        if (typeof(currentCheckpoint) != undefined && player.lives > 0) {
+                player.pos = currentCheckpoint.pos;
+                player.health = 100;
+                await sleep(1000)
+                allSprites.opacity = 1;
+        } else {
+                gameState = 3;
+        }
+}
 
 function spawnItem () {
         newItem = new Item(windowWidth/2,windowHeight/2,30,30,1);
@@ -60,6 +79,11 @@ function draw () {
                 playerMovement();
                 playerInventory();
         }
+        if (gameState == 2) {
+                background("black");
+                player.velocity = 0
+                playerDeath()
+        }
 
         itemGroup.overlap(player, () => {if (player.inventory.length < 5) {interactPrompt.visible = true}})
         itemGroup.overlapping(player, (item) => {if (kb.pressed("e")) {item.parentRef.onPickup()}})
@@ -69,7 +93,13 @@ function draw () {
         readerGroup.overlapping(player, (reader) => {if (kb.pressed("e") && !reader.parentRef.active) {interactPrompt.visible = false,reader.parentRef.onInteract()}})
         readerGroup.overlapped(player, () => {interactPrompt.visible = false})
 
-        enemyBulletGroup.overlap(enemyGroup)
+        checkpointGroup.overlap(player, (checkpoint) => {if (currentCheckpoint != checkpoint) {interactPrompt.visible = true}})
+        checkpointGroup.overlapping(player, (checkpoint) => {if (kb.pressed("e") && currentCheckpoint != checkpoint) {interactPrompt.visible = false,checkpoint.parentRef.onInteract()}})
+        checkpointGroup.overlapped(player, () => {interactPrompt.visible = false})
+
+        enemyBulletGroup.overlap(player, (bullet) => {print("bulletpower "+bullet.power), player.health += bullet.power, print("health " + player.health), bullet.remove()})
+
+        allSprites.overlap(enemyBulletGroup)
 
         interactPrompt.x = camera.x;
         interactPrompt.y = camera.y+windowWidth/8;
