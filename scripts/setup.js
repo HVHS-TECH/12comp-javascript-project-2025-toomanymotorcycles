@@ -14,6 +14,8 @@
 ************************************************/
 let 
 gameState, //what state the game is in (on the menu screen, playing the game, on the win screen, on the losing screen etc.)
+freeze,
+deathlock,
 currentCheckpoint, //the player's current checkpoint.
 itemExecution, //a check variable - whenever an item is used successfully this is set to true. This is to make sure that an item isn't removed from the player's inventory when it isn't supposed to be.
 player, //the player sprite.
@@ -47,7 +49,7 @@ function preload() {
 function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
     canvas = new Canvas(windowWidth,windowHeight);
-    player = new Sprite();
+    player = new Sprite(1000,300,50,50,'d');
     interactPrompt = new Sprite(camera.x,camera.y+windowWidth/8,150,150,'s');
     interactPrompt.textSize = 100
     interactPrompt.textColor = "white"
@@ -73,9 +75,10 @@ function setup() {
     player.canUseStaminaItems = true;
     player.health = 100;
     player.lives = 3;
-    player.layer = -1000;
+    player.mass = 1000
     itemExecution = true;
     gameState = 1;
+    freeze = false;
     randomItem = new Item(30,30,30,30,7)
     randomItem2 = new Item(50,50,30,30,7)
     randomItem3 = new Item(70,70,30,30,7)
@@ -87,7 +90,7 @@ function setup() {
     randomReader = new Reader(350,810,1,randomDoor,null,12000)
     randomReader2 = new Reader(1000,625,1,randomDoor,randomReader,12000)
     randomReader.linkedReader = randomReader2;
-    dumbTestEnemy = new Enemy(1000,1,75,1000,1,5,10,2,20)
-    player.layer = 1000;
+    dumbTestEnemy = new Enemy(1000,1,75,1000,1,5,100,2,20)
+    checkpoint1 = new Checkpoint(1500,300)
     allSprites.autoCull = false
 };

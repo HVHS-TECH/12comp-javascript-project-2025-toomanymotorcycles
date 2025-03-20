@@ -46,24 +46,43 @@ function playerMovement () {
                 player.vel.x = 0;
         }
         if (player.health <= 0) {
+                freeze = true;
+                player.vel.x = 0;
+                player.vel.y = 0;
                 gameState = 2;
         }
         camera.pos = player.pos;
 };
 
+function drawHUD() {
+        fill("gray")
+        rect(camera.x-windowWidth/2-30,camera.y+windowHeight/2-100,1000,100)
+        fill("black")
+        rect(camera.x-windowWidth/2+30,camera.y+windowHeight/2-75,900,50)
+        fill("red")
+        rect(camera.x-windowWidth/2+30,camera.y+windowHeight/2-75,900/100*player.health,50)
+}
+
 async function playerDeath(deathType) {
+        if (!deathlock) {
+        deathlock = true;
         player.colour = "red"
-        player.velocity = 0
         player.lives --;
+        print("lives "+player.lives)
         await sleep(2000)
         allSprites.opacity = 0;
-        if (typeof(currentCheckpoint) != undefined && player.lives > 0) {
+        if (currentCheckpoint != undefined && player.lives > 0) {
                 player.pos = currentCheckpoint.pos;
                 player.health = 100;
                 await sleep(1000)
                 allSprites.opacity = 1;
+                player.colour = "purple"
+                freeze = false;
+                deathlock = false;
+                gameState = 1;
         } else {
                 gameState = 3;
+        }
         }
 }
 
@@ -81,9 +100,19 @@ function draw () {
         }
         if (gameState == 2) {
                 background("black");
-                player.velocity = 0
-                playerDeath()
+                enemyGroup.vel.x = 0;
+                enemyGroup.vel.y = 0;
+                playerDeath();
         }
+        if (gameState == 3) {
+                deathlock = false;
+                background("red")  
+        }
+        if (gameState == 4) {
+                
+        }
+
+        player.collide(doorGroup)
 
         itemGroup.overlap(player, () => {if (player.inventory.length < 5) {interactPrompt.visible = true}})
         itemGroup.overlapping(player, (item) => {if (kb.pressed("e")) {item.parentRef.onPickup()}})
@@ -97,7 +126,7 @@ function draw () {
         checkpointGroup.overlapping(player, (checkpoint) => {if (kb.pressed("e") && currentCheckpoint != checkpoint) {interactPrompt.visible = false,checkpoint.parentRef.onInteract()}})
         checkpointGroup.overlapped(player, () => {interactPrompt.visible = false})
 
-        enemyBulletGroup.overlap(player, (bullet) => {print("bulletpower "+bullet.power), player.health += bullet.power, print("health " + player.health), bullet.remove()})
+        enemyBulletGroup.overlap(player, (bullet) => {print("bulletpower "+bullet.power), player.health -= bullet.power, print("health " + player.health), bullet.remove()})
 
         allSprites.overlap(enemyBulletGroup)
 
@@ -106,4 +135,5 @@ function draw () {
 
         player.rotation = 0;
 
+        drawHUD();
 };

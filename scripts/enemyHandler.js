@@ -1,4 +1,17 @@
+
 class Enemy{
+    /**
+     * 
+     * @param {int} x The starting x position of the enemy.
+     * @param {int} y The starting y position of the enemy.
+     * @param {int} size The size of the enemy.
+     * @param {int} health The health of the enemy.
+     * @param {int} power How much damage the enemy does to the player.
+     * @param {int} speed How fast the enemy is.
+     * @param {int} attackSpeed How fast the enemy attacks (in milliseconds).
+     * @param {int} attackType The type of attack the enemy performs. 1: melee attack, 2: ranged attack.
+     * @param {int} bulletSpread How inaccurate the enemy's attacks are - this value is added or subtracted from the enemy's firing direction. Only relevant for ranged enemies.
+     */
     constructor(x,y,size,health,power,speed,attackSpeed,attackType,bulletSpread) {
         this.sprite = new Sprite(x,y,size,size,'k')
         enemyGroup.add(this.sprite)
@@ -11,6 +24,7 @@ class Enemy{
         this.attackCooldown = 0
         this.bulletSpread = bulletSpread
         setInterval(() => {
+        if (!freeze) {
             if (this.attackCooldown > 0) {
                 this.attackCooldown --;
                 this.sprite.rotationalVelocity = 0;
@@ -45,7 +59,13 @@ class Enemy{
                         let newBullet = new Sprite(this.sprite.x,this.sprite.y,10,10,'d')
                         newBullet.power = this.sprite.power;
                         enemyBulletGroup.add(newBullet)
-                        newBullet.colour = "yellow";
+                        if (newBullet.power > 50) {
+                            newBullet.colour = "white";
+                            newBullet.width = 40;
+                            newBullet.height = 40;
+                        } else {
+                            newBullet.colour = "yellow";
+                        }
                         print("enemypower "+this.sprite.power)
                         print("bulletpower "+newBullet.power)
                         if (random(1,2) == 1) {
@@ -60,6 +80,7 @@ class Enemy{
             console.error("Enemy has invalid attack type! Enemy sprite has been removed.")
             this.sprite.remove()
             }
+        }
         },1)
     }
 }
