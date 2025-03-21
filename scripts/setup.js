@@ -14,6 +14,7 @@
 ************************************************/
 let 
 gameState, //what state the game is in (on the menu screen, playing the game, on the win screen, on the losing screen etc.)
+hudLayer,
 freeze,
 deathlock,
 currentCheckpoint, //the player's current checkpoint.
@@ -30,10 +31,24 @@ enemyBulletGroup, //more like enemy bullet hell group...
 interactPrompt; // the "E" interaction prompt that appears whenever you interact with something.
 
 let
+securityIDTextures;
+
+let
 randomReader,
 randomReader2;
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function (WHY IS THIS NOT NATIVE IN JAVASCRIPT)
+
+function loadSecurityIDTextures() {
+    testImage = loadImage("././assets/testing.jpeg");
+    ident1 = loadImage("././assets/SecurityID-1.png");
+    ident2 = loadImage("././assets/SecurityID-2.png");
+    ident3 = loadImage("././assets/SecurityID-3.png");
+    ident4 = loadImage("././assets/SecurityID-4.png");
+    ident5 = loadImage("././assets/SecurityID-5.png");
+    ident6 = loadImage("././assets/SecurityID-6.png");
+    securityIDTextures = [testImage,ident1,ident2,ident3,ident4,ident5,ident6];
+}
 
 function preload() {
     //Preloading the game's asset files to avoid any errors.
@@ -44,18 +59,19 @@ function preload() {
     smallBlastDoorClose = loadSound("././assets/small_blast_door_close.ogg");
     largeBlastDoorOpen = loadSound("././assets/large_blast_door_open.ogg");
     largeBlastDoorClose = loadSound("././assets/large_blast_door_close.ogg");
+    loadSecurityIDTextures();
 };
 
 function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
     canvas = new Canvas(windowWidth,windowHeight);
     player = new Sprite(1000,300,50,50,'d');
+    hudLayer = createGraphics(windowWidth,windowHeight);
     interactPrompt = new Sprite(camera.x,camera.y+windowWidth/8,150,150,'s');
     interactPrompt.textSize = 100
     interactPrompt.textColor = "white"
     interactPrompt.text = "E"
     interactPrompt.color = "black"
-    interactPrompt.layer = 999;
     interactPrompt.visible = false;
     interactPrompt.overlap(allSprites)
     enemyGroup = new Group();
@@ -92,5 +108,13 @@ function setup() {
     randomReader.linkedReader = randomReader2;
     dumbTestEnemy = new Enemy(1000,1,75,1000,1,5,100,2,20)
     checkpoint1 = new Checkpoint(1500,300)
+    testImage.resize(125,125)
+    ident1.resize(125,125);
+    ident2.resize(125,125);
+    ident3.resize(125,125);
+    ident4.resize(125,125);
+    ident5.resize(125,125);
+    ident6.resize(125,125);
     allSprites.autoCull = false
+    interactPrompt.layer = 999;
 };

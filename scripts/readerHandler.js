@@ -1,6 +1,6 @@
 class Reader{
     constructor(x,y,clearanceRequired,linkedObject,linkedReader,activeTime) {
-        this.sprite = new Sprite(x,y,15,5)
+        this.sprite = new Sprite(x,y,15,5,'k')
         this.sprite.parentRef = this;
         this.clearanceRequired = clearanceRequired;
         this.linkedObject = linkedObject;

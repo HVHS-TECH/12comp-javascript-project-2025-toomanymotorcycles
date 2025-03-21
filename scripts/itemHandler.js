@@ -66,7 +66,7 @@ const ITEM_FUNCTIONS = [
 
 class Item{
     constructor(x,y,w,h,itemID,triggerOnPickup) {
-        this.sprite = new Sprite(x,y,w,h)
+        this.sprite = new Sprite(x,y,w,h,'k')
         this.sprite.parentRef = this;
         this.itemID = itemID;
         this.triggerOnPickup = triggerOnPickup;

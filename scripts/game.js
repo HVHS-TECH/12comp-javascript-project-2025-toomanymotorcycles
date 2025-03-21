@@ -55,12 +55,29 @@ function playerMovement () {
 };
 
 function drawHUD() {
-        fill("gray")
-        rect(camera.x-windowWidth/2-30,camera.y+windowHeight/2-100,1000,100)
-        fill("black")
-        rect(camera.x-windowWidth/2+30,camera.y+windowHeight/2-75,900,50)
-        fill("red")
-        rect(camera.x-windowWidth/2+30,camera.y+windowHeight/2-75,900/100*player.health,50)
+        hudLayer.fill("gray")
+        hudLayer.rect(0,windowHeight-100,1000,100)
+        hudLayer.fill("black")
+        hudLayer.rect(50,windowHeight-75,900,50)
+        hudLayer.fill("red")
+        hudLayer.rect(50,windowHeight-75,900/100*player.health,50)
+        hudLayer.fill("darkgray")
+        hudLayer.rect(0,0,900,200)
+        hudLayer.rect(25,25,150,150)
+        hudLayer.rect(200,25,150,150)
+        hudLayer.rect(375,25,150,150)
+        hudLayer.rect(550,25,150,150)
+        hudLayer.rect(725,25,150,150)
+        hudLayer.fill("gray")
+        hudLayer.rect(900,0,200,200)
+        hudLayer.rect(915,15,170,170)
+        hudLayer.rect(925,25,150,150)
+        hudLayer.image(testImage,37,37)
+        hudLayer.image(testImage,212,37)
+        hudLayer.image(testImage,387,37)
+        hudLayer.image(testImage,562,37)
+        hudLayer.image(testImage,737,37)
+        hudLayer.image(securityIDTextures[player.clearanceLevel],937,37)
 }
 
 async function playerDeath(deathType) {
@@ -97,6 +114,7 @@ function draw () {
                 background("black");
                 playerMovement();
                 playerInventory();
+                drawHUD();
         }
         if (gameState == 2) {
                 background("black");
@@ -134,6 +152,15 @@ function draw () {
         interactPrompt.y = camera.y+windowWidth/8;
 
         player.rotation = 0;
+        //gameMap.layer = 0;
+        //gameHitbox.layer = 1;
+        checkpointGroup.layer = 2;
+        itemGroup.layer = 3;
+        doorGroup.layer = 4;
+        enemyBulletGroup.layer = 5;
+        enemyGroup.layer = 6;
+        player.layer = 7;
+        readerGroup.layer = 8;
 
-        drawHUD();
+        image(hudLayer, camera.x-windowWidth/2,camera.y-windowHeight/2);
 };
