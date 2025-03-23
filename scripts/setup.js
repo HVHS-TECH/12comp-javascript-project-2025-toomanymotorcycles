@@ -9,7 +9,7 @@
 *************************************************/
 /************************************************
         0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
-        INITIAL SETUP (preload and setup)
+                INITIAL SETUP
         0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
 let 
@@ -38,29 +38,6 @@ randomReader,
 randomReader2;
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function (WHY IS THIS NOT NATIVE IN JAVASCRIPT)
-
-function loadSecurityIDTextures() {
-    testImage = loadImage("././assets/testing.jpeg");
-    ident1 = loadImage("././assets/SecurityID-1.png");
-    ident2 = loadImage("././assets/SecurityID-2.png");
-    ident3 = loadImage("././assets/SecurityID-3.png");
-    ident4 = loadImage("././assets/SecurityID-4.png");
-    ident5 = loadImage("././assets/SecurityID-5.png");
-    ident6 = loadImage("././assets/SecurityID-6.png");
-    securityIDTextures = [testImage,ident1,ident2,ident3,ident4,ident5,ident6];
-}
-
-function preload() {
-    //Preloading the game's asset files to avoid any errors.
-    accessDenied = loadSound("././assets/access_denied.flac");
-    accessGranted = loadSound("././assets/access_granted.ogg");
-    bigDoorAlarm = loadSound("././assets/klaxon1.mp3");
-    smallBlastDoorOpen = loadSound("././assets/small_blast_door_open.ogg");
-    smallBlastDoorClose = loadSound("././assets/small_blast_door_close.ogg");
-    largeBlastDoorOpen = loadSound("././assets/large_blast_door_open.ogg");
-    largeBlastDoorClose = loadSound("././assets/large_blast_door_close.ogg");
-    loadSecurityIDTextures();
-};
 
 function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
@@ -106,7 +83,7 @@ function setup() {
     randomReader = new Reader(350,810,1,randomDoor,null,12000)
     randomReader2 = new Reader(1000,625,1,randomDoor,randomReader,12000)
     randomReader.linkedReader = randomReader2;
-    dumbTestEnemy = new Enemy(1000,1,75,1000,1,5,100,2,20)
+    //dumbTestEnemy = new Enemy(1000,1,75,1000,1,5,100,2,20)
     checkpoint1 = new Checkpoint(1500,300)
     testImage.resize(125,125)
     ident1.resize(125,125);
@@ -115,6 +92,15 @@ function setup() {
     ident4.resize(125,125);
     ident5.resize(125,125);
     ident6.resize(125,125);
+    readerT1.resize(30,40);
+    readerT2.resize(30,40);
+    readerT3.resize(30,40);
+    readerT4.resize(30,40);
+    readerT5.resize(30,40);
+    readerT6.resize(30,40);
+    readerTFail.resize(30,40);
+    readerTPass.resize(30,40);
+    readerTLockdown.resize(30,40);
     allSprites.autoCull = false
     interactPrompt.layer = 999;
 };

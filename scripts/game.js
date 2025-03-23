@@ -157,10 +157,10 @@ function draw () {
         checkpointGroup.layer = 2;
         itemGroup.layer = 3;
         doorGroup.layer = 4;
+        readerGroup.layer = 4;
         enemyBulletGroup.layer = 5;
         enemyGroup.layer = 6;
         player.layer = 7;
-        readerGroup.layer = 8;
 
         image(hudLayer, camera.x-windowWidth/2,camera.y-windowHeight/2);
 };
