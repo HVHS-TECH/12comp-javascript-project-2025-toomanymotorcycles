@@ -22,6 +22,7 @@ itemExecution, //a check variable - whenever an item is used successfully this i
 player, //the player sprite.
 gameMap, //the game map, this shows the textures.
 gameHitbox, //the game hitbox, this controls where you can and can't go. This is where the walls are actually placed.
+escapeZone, //the win zone - if the player touches this they win.
 enemyGroup, //all the enemies currently spawned.
 readerGroup, //all the card readers in the game.
 doorGroup, //all the doors in the game.
@@ -29,6 +30,8 @@ itemGroup, //all the loose items in the game.
 checkpointGroup, //all the checkpoints in the game.
 enemyBulletGroup, //more like enemy bullet hell group...
 interactPrompt; // the "E" interaction prompt that appears whenever you interact with something.
+
+let cheatPrevention = false; //cheat prevention
 
 let
 securityIDTextures;
@@ -43,6 +46,8 @@ function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
     canvas = new Canvas(windowWidth,windowHeight);
     player = new Sprite(1000,300,50,50,'d');
+    escapeZone = new Sprite(1000,-1000,200,200,'d');
+    escapeZone.color = "white";
     hudLayer = createGraphics(windowWidth,windowHeight);
     interactPrompt = new Sprite(camera.x,camera.y+windowWidth/8,150,150,'s');
     interactPrompt.textSize = 100
@@ -80,8 +85,8 @@ function setup() {
     randomItem6 = new Item(210,210,30,30,8)
     keycard1 = new Item(310,310,30,30,1,true)
     randomDoor = new Door(660,800,0,2,4500)
-    randomReader = new Reader(350,810,1,randomDoor,null,12000)
-    randomReader2 = new Reader(1000,625,1,randomDoor,randomReader,12000)
+    randomReader = new Reader(350,810,6,randomDoor,null,12000)
+    randomReader2 = new Reader(1000,625,6,randomDoor,randomReader,12000)
     randomReader.linkedReader = randomReader2;
     //dumbTestEnemy = new Enemy(1000,1,75,1000,1,5,100,2,20)
     checkpoint1 = new Checkpoint(1500,300)
@@ -101,6 +106,6 @@ function setup() {
     readerTFail.resize(30,40);
     readerTPass.resize(30,40);
     readerTLockdown.resize(30,40);
-    allSprites.autoCull = false
+    allSprites.autoCull = false;
     interactPrompt.layer = 999;
 };

@@ -87,16 +87,24 @@ async function playerDeath(deathType) {
         player.lives --;
         print("lives "+player.lives)
         await sleep(2000)
-        allSprites.opacity = 0;
+        for (i=1; i<101; i++) {
+                allSprites.opacity = 1 - i*0.01
+                print(player.opacity)
+                await sleep(1)
+        }
         if (currentCheckpoint != undefined && player.lives > 0) {
                 player.pos = currentCheckpoint.pos;
                 player.health = 100;
                 await sleep(1000)
-                allSprites.opacity = 1;
                 player.colour = "purple"
                 freeze = false;
                 deathlock = false;
                 gameState = 1;
+                for (i=1; i<101; i++) {
+                        allSprites.opacity = i*0.01
+                        print(player.opacity)
+                        await sleep(1)
+                }
         } else {
                 gameState = 3;
         }
@@ -127,10 +135,14 @@ function draw () {
                 background("red")  
         }
         if (gameState == 4) {
-                
+                deathlock = false;
+                allSprites.opacity = 0;
+                background("green")
         }
 
         player.collide(doorGroup)
+
+        escapeZone.overlap(player, () => {gameState = 4})
 
         itemGroup.overlap(player, () => {if (player.inventory.length < 5) {interactPrompt.visible = true}})
         itemGroup.overlapping(player, (item) => {if (kb.pressed("e")) {item.parentRef.onPickup()}})
@@ -163,4 +175,6 @@ function draw () {
         player.layer = 7;
 
         image(hudLayer, camera.x-windowWidth/2,camera.y-windowHeight/2);
+
+        cheatPrevention = false;
 };

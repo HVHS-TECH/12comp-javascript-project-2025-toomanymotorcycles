@@ -14,13 +14,16 @@ class Door{
             if (horizontal) {
                 this.sprite.height = 500;
                 this.sprite.width = 250;
-                this.sprite.addAni('open',largeBlastDoorOpenAni, {
-                    width: 1024, height: 704, frames: 13
-                });
             } else {
-                this.sprite.width = 500;
-                this.sprite.height = 250;
-                  
+                this.sprite.width = 550;
+                this.sprite.height = 380;
+                this.sprite.addAni('closed', largeBlastDoorOpenAni, {width: 512, height: 352, frames: [0]});
+                this.sprite.addAni('open', largeBlastDoorOpenAni, {width: 512, height: 352, frames: [12]});
+                this.sprite.addAni('opening', largeBlastDoorOpenAni, {width: 512, height: 352, frames: 13});
+                this.sprite.ani.frameDelay = 17;
+                this.sprite.addAni('closing', largeBlastDoorCloseAni, {width: 512, height: 352, frames: 13});
+                this.sprite.ani.frameDelay = 17;
+                this.sprite.changeAni('closed')
             }
         }
         this.sprite.parentRef = this;
@@ -48,15 +51,23 @@ class Door{
             this.active = false;
         } else if (this.doorType == 2) {2
             this.active = true;
-            this.sprite.changeAni('open')
+            this.sprite.changeAni('opening')
+            this.sprite.ani.frame = 0;
             largeBlastDoorOpen.play();
             await sleep(3000)
             this.open = true;
-            await sleep(this.activeTime-1500);
+            await sleep(500)
+            this.sprite.changeAni('open')
+            await sleep(this.activeTime-1000);
             bigDoorAlarm.play();
             await sleep(1500)
             largeBlastDoorClose.play();
+            this.sprite.changeAni('closing')
+            this.sprite.ani.frame = 0;
+            await sleep(500)
             this.open = false;
+            await sleep(3000)
+            this.sprite.changeAni('closed')
             this.active = false;
         }
         
