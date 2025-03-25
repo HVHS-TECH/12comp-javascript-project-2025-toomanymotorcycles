@@ -15,6 +15,8 @@
 let 
 gameState, //what state the game is in (on the menu screen, playing the game, on the win screen, on the losing screen etc.)
 hudLayer,
+hudTint,
+hudHealthbarLerpCurrentValue = 900,
 freeze,
 deathlock,
 currentCheckpoint, //the player's current checkpoint.
@@ -35,10 +37,6 @@ let cheatPrevention = false; //cheat prevention
 
 let
 securityIDTextures;
-
-let
-randomReader,
-randomReader2;
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function (WHY IS THIS NOT NATIVE IN JAVASCRIPT)
 
@@ -77,19 +75,6 @@ function setup() {
     itemExecution = true;
     gameState = 1;
     freeze = false;
-    randomItem = new Item(30,30,30,30,7)
-    randomItem2 = new Item(50,50,30,30,7)
-    randomItem3 = new Item(70,70,30,30,7)
-    randomItem4 = new Item(90,90,30,30,7)
-    randomItem5 = new Item(110,110,30,30,8)
-    randomItem6 = new Item(210,210,30,30,8)
-    keycard1 = new Item(310,310,30,30,1,true)
-    randomDoor = new Door(660,800,0,2,4500)
-    randomReader = new Reader(350,810,6,randomDoor,null,12000)
-    randomReader2 = new Reader(1000,625,6,randomDoor,randomReader,12000)
-    randomReader.linkedReader = randomReader2;
-    //dumbTestEnemy = new Enemy(1000,1,75,1000,1,5,100,2,20)
-    checkpoint1 = new Checkpoint(1500,300)
     testImage.resize(125,125)
     ident1.resize(125,125);
     ident2.resize(125,125);
@@ -108,4 +93,6 @@ function setup() {
     readerTLockdown.resize(30,40);
     allSprites.autoCull = false;
     interactPrompt.layer = 999;
+    hudTint = 255;
+    buildMap();
 };

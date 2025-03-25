@@ -55,10 +55,13 @@ function playerMovement () {
 };
 
 function drawHUD() {
+        hudHealthbarLerpCurrentValue = lerp(hudHealthbarLerpCurrentValue,900/100*player.health,0.075)
         hudLayer.fill("gray")
         hudLayer.rect(0,windowHeight-100,1000,100)
         hudLayer.fill("black")
         hudLayer.rect(50,windowHeight-75,900,50)
+        hudLayer.fill("maroon")
+        hudLayer.rect(50,windowHeight-75,hudHealthbarLerpCurrentValue,50)
         hudLayer.fill("red")
         hudLayer.rect(50,windowHeight-75,900/100*player.health,50)
         hudLayer.fill("darkgray")
@@ -78,6 +81,9 @@ function drawHUD() {
         hudLayer.image(testImage,562,37)
         hudLayer.image(testImage,737,37)
         hudLayer.image(securityIDTextures[player.clearanceLevel],937,37)
+        camera.off();
+        image(hudLayer,0,0);
+        camera.on();
 }
 
 async function playerDeath(deathType) {
@@ -86,6 +92,7 @@ async function playerDeath(deathType) {
         player.colour = "red"
         player.lives --;
         print("lives "+player.lives)
+        deathSting.play()
         await sleep(2000)
         for (i=1; i<101; i++) {
                 allSprites.opacity = 1 - i*0.01
@@ -122,9 +129,9 @@ function draw () {
                 background("black");
                 playerMovement();
                 playerInventory();
-                drawHUD();
         }
         if (gameState == 2) {
+                camera.on();
                 background("black");
                 enemyGroup.vel.x = 0;
                 enemyGroup.vel.y = 0;
@@ -159,6 +166,7 @@ function draw () {
         enemyBulletGroup.overlap(player, (bullet) => {print("bulletpower "+bullet.power), player.health -= bullet.power, print("health " + player.health), bullet.remove()})
 
         allSprites.overlap(enemyBulletGroup)
+        enemyBulletGroup.overlap(doorGroup, (bullet) => {bullet.remove()})
 
         interactPrompt.x = camera.x;
         interactPrompt.y = camera.y+windowWidth/8;
@@ -174,7 +182,8 @@ function draw () {
         enemyGroup.layer = 6;
         player.layer = 7;
 
-        image(hudLayer, camera.x-windowWidth/2,camera.y-windowHeight/2);
-
-        cheatPrevention = false;
+        allSprites.draw()
+        if (gameState == 1) {
+            drawHUD();    
+        }   
 };

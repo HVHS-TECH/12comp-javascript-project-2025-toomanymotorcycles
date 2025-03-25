@@ -59,13 +59,19 @@ class Enemy{
                         let newBullet = new Sprite(this.sprite.x,this.sprite.y,10,10,'d')
                         newBullet.power = this.sprite.power;
                         enemyBulletGroup.add(newBullet)
-                        if (newBullet.power > 50) {
+                        if (newBullet.power >= 25) {
                             newBullet.colour = "white";
                             newBullet.width = 40;
                             newBullet.height = 40;
+                        } else if (this.attackSpeed < 2) {
+                            newBullet.colour = "red";
+                            newBullet.stroke = "red";
+                            newBullet.width = 25;
+                            newBullet.height = 25;
                         } else {
                             newBullet.colour = "yellow";
                         }
+                        newBullet.life = 30
                         print("enemypower "+this.sprite.power)
                         print("bulletpower "+newBullet.power)
                         if (random(1,2) == 1) {

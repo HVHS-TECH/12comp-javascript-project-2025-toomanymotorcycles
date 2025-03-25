@@ -37,10 +37,12 @@ function loadSecurityIDTextures() {
     securityIDTextures = [testImage,ident1,ident2,ident3,ident4,ident5,ident6];
 }
 
-function preload() {
-    //Preloading the game's asset files to avoid any errors.
+function loadDoorTextures() {
     largeBlastDoorOpenAni = loadImage("././assets/doors/bigDoorOpen.png")
     largeBlastDoorCloseAni = loadImage("././assets/doors/bigDoorClose.png")
+}
+
+function loadWorldSounds() {
     accessDenied = loadSound("././assets/access_denied.flac");
     accessGranted = loadSound("././assets/access_granted.ogg");
     bigDoorAlarm = loadSound("././assets/klaxon1.mp3");
@@ -48,6 +50,17 @@ function preload() {
     smallBlastDoorClose = loadSound("././assets/small_blast_door_close.ogg");
     largeBlastDoorOpen = loadSound("././assets/large_blast_door_open.ogg");
     largeBlastDoorClose = loadSound("././assets/large_blast_door_close.ogg");
+}
+
+function loadSFX() {
+    deathSting = loadSound("././assets/death.wav")
+}
+
+function preload() {
+    //Preloading the game's asset files to avoid any errors.
+    loadWorldSounds();
+    loadSFX();
+    loadDoorTextures();
     loadSecurityIDTextures();
     loadCardReaderTextures();
 };
