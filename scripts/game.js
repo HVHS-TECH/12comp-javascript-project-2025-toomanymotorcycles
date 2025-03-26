@@ -96,6 +96,7 @@ async function playerDeath(deathType) {
         await sleep(2000)
         for (i=1; i<101; i++) {
                 allSprites.opacity = 1 - i*0.01
+                hiddenGroup.opacity = 0;
                 print(player.opacity)
                 await sleep(1)
         }
@@ -108,7 +109,8 @@ async function playerDeath(deathType) {
                 deathlock = false;
                 gameState = 1;
                 for (i=1; i<101; i++) {
-                        allSprites.opacity = i*0.01
+                        allSprites.opacity = i*0.01;
+                        hiddenGroup.opacity = 0;
                         print(player.opacity)
                         await sleep(1)
                 }
@@ -163,7 +165,7 @@ function draw () {
         checkpointGroup.overlapping(player, (checkpoint) => {if (kb.pressed("e") && currentCheckpoint != checkpoint) {interactPrompt.visible = false,checkpoint.parentRef.onInteract()}})
         checkpointGroup.overlapped(player, () => {interactPrompt.visible = false})
 
-        enemyBulletGroup.overlap(player, (bullet) => {print("bulletpower "+bullet.power), player.health -= bullet.power, print("health " + player.health), bullet.remove()})
+        enemyBulletGroup.overlap(player, (bullet) => {takeDamage.play(), player.health -= bullet.power, bullet.remove()})
 
         allSprites.overlap(enemyBulletGroup)
         enemyBulletGroup.overlap(doorGroup, (bullet) => {bullet.remove()})
@@ -185,5 +187,7 @@ function draw () {
         allSprites.draw()
         if (gameState == 1) {
             drawHUD();    
-        }   
+        }
+
+        hiddenGroup.opacity = 0;
 };

@@ -31,6 +31,7 @@ doorGroup, //all the doors in the game.
 itemGroup, //all the loose items in the game.
 checkpointGroup, //all the checkpoints in the game.
 enemyBulletGroup, //more like enemy bullet hell group...
+hiddenGroup,
 interactPrompt; // the "E" interaction prompt that appears whenever you interact with something.
 
 let cheatPrevention = false; //cheat prevention
@@ -59,6 +60,7 @@ function setup() {
     readerGroup = new Group();
     doorGroup = new Group();
     itemGroup = new Group();
+    hiddenGroup = new Group();
     checkpointGroup = new Group();
     itemGroup.overlap(player);
     player.clearanceLevel = 0;
@@ -69,6 +71,7 @@ function setup() {
     player.inventory = [];
     player.canUseItems = true;
     player.canUseStaminaItems = true;
+    player.canUseHealthItems = true;
     player.health = 100;
     player.lives = 3;
     player.mass = 1000

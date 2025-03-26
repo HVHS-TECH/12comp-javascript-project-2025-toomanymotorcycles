@@ -29,7 +29,7 @@ class Enemy{
                 this.attackCooldown --;
                 this.sprite.rotationalVelocity = 0;
             } else {
-                player.collide(this.sprite, () => {player.health -= this.sprite.power, print(player.health)})
+                player.collide(this.sprite, () => {takeDamage.play(), player.health -= this.sprite.power})
             }
             if (this.attackType == 1) {
                 if (world.rayCast(this.sprite,player) == player) {
@@ -72,8 +72,6 @@ class Enemy{
                             newBullet.colour = "yellow";
                         }
                         newBullet.life = 30
-                        print("enemypower "+this.sprite.power)
-                        print("bulletpower "+newBullet.power)
                         if (random(1,2) == 1) {
                             newBullet.bearing = this.sprite.rotation + random(0,bulletSpread)
                         } else {

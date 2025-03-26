@@ -53,7 +53,8 @@ function loadWorldSounds() {
 }
 
 function loadSFX() {
-    deathSting = loadSound("././assets/death.wav")
+    deathSting = loadSound("././assets/death_sting.wav");
+    takeDamage = loadSound("././assets/take_damage.ogg");
 }
 
 function preload() {

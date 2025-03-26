@@ -11,12 +11,22 @@ class Door{
                 this.sprite.height = 60;
             }
         } else if (this.doorType == 2) {
+            this.sprite.hitbox1 = new Sprite(x,y,1,1,'k')
+            this.sprite.hitbox2 = new Sprite(x,y,1,1,'k')
             if (horizontal) {
-                this.sprite.height = 500;
-                this.sprite.width = 250;
+                this.sprite.height = 550;
+                this.sprite.width = 100;
             } else {
                 this.sprite.width = 550;
                 this.sprite.height = 380;
+                this.sprite.hitbox1.width = 125;
+                this.sprite.hitbox1.height = 380;
+                this.sprite.hitbox2.width = 125;
+                this.sprite.hitbox2.height = 380;
+                this.sprite.hitbox1.x -= 212;
+                this.sprite.hitbox2.x += 212;
+                hiddenGroup.add(this.sprite.hitbox1);
+                hiddenGroup.add(this.sprite.hitbox2);
                 this.sprite.addAni('closed', largeBlastDoorOpenAni, {width: 512, height: 352, frames: [0]});
                 this.sprite.addAni('open', largeBlastDoorOpenAni, {width: 512, height: 352, frames: [12]});
                 this.sprite.addAni('opening', largeBlastDoorOpenAni, {width: 512, height: 352, frames: 13});
@@ -38,6 +48,8 @@ class Door{
             } else {
                 this.sprite.collide(player);
             }
+            this.sprite.hitbox1.collide(player);
+            this.sprite.hitbox2.collide(player);
         },1)
     }
     async onTrigger() {

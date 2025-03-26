@@ -1,13 +1,14 @@
 const ITEM_FUNCTIONS = [
     async () => {
-        if (player.canUseStaminaItems) {
+        if (player.canUseHealthItems) {
             itemExecution = true;
-            player.canUseStaminaItems = false, 
-            console.log("AHOOGA"),
-            player.staminaMax = 0,
-            player.stamina = player.staminaMax
+            player.canUseHealthItems = false;
+            for(i=player.health; i>0; i--) {
+                console.log("WHY DID YOU DO THIS");
+                player.health --;
+            };
         } else {
-            console.warn("Player attempted to use stamina-related item while stamina-related item cooldown was active.")
+            console.warn("Player attempted to use health-related item while health-related item cooldown was active.")
         }
     },
     () => {
@@ -85,7 +86,6 @@ class Item{
 }
 
 function playerInventory() {
-    console.log(player.canUseStaminaItems)
     if (player.canUseItems) {
         if (kb.pressed("1")) {
            if (player.inventory.length > 0) {
