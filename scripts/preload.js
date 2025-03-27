@@ -37,6 +37,24 @@ function loadSecurityIDTextures() {
     securityIDTextures = [testImage,ident1,ident2,ident3,ident4,ident5,ident6];
 }
 
+function loadItemTextures() {
+    item0T = loadImage("././assets/items/item_0.png");
+    item1ST = loadImage("././assets/items/SecurityID-1.png");
+    item2ST = loadImage("././assets/items/SecurityID-2.png");
+    item3ST = loadImage("././assets/items/SecurityID-3.png");
+    item4ST = loadImage("././assets/items/SecurityID-4.png");
+    item5ST = loadImage("././assets/items/SecurityID-5.png");
+    item6ST = loadImage("././assets/items/SecurityID-6.png");
+    item7T = loadImage("././assets/items/item_1.png");
+    item8T = loadImage("././assets/items/item_2.png");
+    item9T = loadImage("././assets/items/item_3.png");
+    item10T = loadImage("././assets/items/item_4.png");
+    item11T = loadImage("././assets/items/item_5.png");
+    item12T = loadImage("././assets/items/item_6.png");
+    item13T = loadImage("././assets/items/item_7.png");
+    itemTextures = [item0T,item1ST,item2ST,item3ST,item4ST,item5ST,item6ST,item7T,item8T,item9T,item10T,item11T,item12T,item13T];
+}
+
 function loadDoorTextures() {
     largeBlastDoorOpenAni = loadImage("././assets/doors/bigDoorOpen.png")
     largeBlastDoorCloseAni = loadImage("././assets/doors/bigDoorClose.png")
@@ -64,4 +82,5 @@ function preload() {
     loadDoorTextures();
     loadSecurityIDTextures();
     loadCardReaderTextures();
+    loadItemTextures();
 };
