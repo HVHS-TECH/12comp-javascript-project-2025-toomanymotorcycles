@@ -41,7 +41,7 @@ securityIDTextures;
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function (WHY IS THIS NOT NATIVE IN JAVASCRIPT)
 function resizeImages() {
-    testImage.resize(125,125)
+    testImage.resize(125,125);
     ident1.resize(125,125);
     ident2.resize(125,125);
     ident3.resize(125,125);
