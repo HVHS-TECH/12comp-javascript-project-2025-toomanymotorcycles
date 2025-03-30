@@ -1,3 +1,4 @@
+let usingVoiceKey = false;
 
 const ITEM_FUNCTIONS = [
     async () => { // Item ID: 0
@@ -75,15 +76,63 @@ const ITEM_FUNCTIONS = [
         } else {
             console.warn("Player attempted to use health-related item while health-related item cooldown was active.")
         }
+    },
+    async () => { // Item ID: 10
+        if (player.canUseHealthItems) {
+            itemExecution = true;
+            player.canUseHealthItems = false; 
+            for(i=player.health; i<100; i++) {
+                player.health ++;
+                await sleep(50);
+            };
+            player.canUseHealthItems = true;
+        } else {
+            console.warn("Player attempted to use health-related item while health-related item cooldown was active.")
+        }
+    },
+    async () => { // Item ID: 11
+        if (player.canUseHealthItems) {
+            itemExecution = true;
+            player.canUseHealthItems = false; 
+            for(i=player.health; i<100; i++) {
+                player.health ++;
+                await sleep(50);
+            };
+            player.canUseHealthItems = true;
+        } else {
+            console.warn("Player attempted to use health-related item while health-related item cooldown was active.")
+        }
+    },
+    async () => { // Item ID: 12
+        if (player.canUseHealthItems) {
+            itemExecution = true;
+            player.canUseHealthItems = false; 
+            for(i=player.health; i<100; i++) {
+                player.health ++;
+                await sleep(50);
+            };
+            player.canUseHealthItems = true;
+        } else {
+            console.warn("Player attempted to use health-related item while health-related item cooldown was active.")
+        }
+    },
+    async () => { // Item ID: 13
+        if (!usingVoiceKey) {
+            itemExecution = false;
+            usingVoiceKey = true;
+            usingVoiceKey = false;
+        } else {
+            console.warn("Player attempted to use voice key while voice key was already being used.")
+        }
     }
 ]
 
 class Item{
     constructor(x,y,itemID,triggerOnPickup) {
-        this.sprite = new Sprite(x,y,30,30,'k')
+        this.sprite = new Sprite(x,y,30,30,'k');
         this.sprite.parentRef = this;
         this.itemID = itemID;
-        this.sprite.image = itemTextures[this.itemID]
+        this.sprite.image = itemTextures[this.itemID];
         this.triggerOnPickup = triggerOnPickup;
         itemGroup.add(this.sprite);
     }

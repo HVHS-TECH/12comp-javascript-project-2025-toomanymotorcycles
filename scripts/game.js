@@ -76,21 +76,21 @@ function drawHUD() {
         hudLayer.rect(915,15,170,170)
         hudLayer.rect(925,25,150,150)
         if (player.inventory.length > 0) {
-          hudLayer.image(itemTextures[player.inventory[0].itemID],37,37)      
+          hudLayer.image(itemDisplayTextures[player.inventory[0].itemID],37,37)      
         }
         if (player.inventory.length > 1) {
-        hudLayer.image(itemTextures[player.inventory[1].itemID],212,37)
+        hudLayer.image(itemDisplayTextures[player.inventory[1].itemID],212,37)
         }
         if (player.inventory.length > 2) {
-        hudLayer.image(itemTextures[player.inventory[2].itemID],387,37)
+        hudLayer.image(itemDisplayTextures[player.inventory[2].itemID],387,37)
         }
         if (player.inventory.length > 3) {
-        hudLayer.image(itemTextures[player.inventory[3].itemID],562,37)
+        hudLayer.image(itemDisplayTextures[player.inventory[3].itemID],562,37)
         }
         if (player.inventory.length > 4) {
-        hudLayer.image(itemTextures[player.inventory[4].itemID],737,37)
+        hudLayer.image(itemDisplayTextures[player.inventory[4].itemID],737,37)
         }
-        hudLayer.image(securityIDTextures[player.clearanceLevel],937,37)
+        hudLayer.image(itemDisplayTextures[player.clearanceLevel],937,37)
         camera.off();
         image(hudLayer,0,0);
         camera.on();

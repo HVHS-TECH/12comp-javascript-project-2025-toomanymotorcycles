@@ -5,7 +5,7 @@ function buildMap() {
     randomItem3 = new Item(70,70,7)
     randomItem4 = new Item(90,90,8)
     randomItem5 = new Item(110,110,9)
-    randomItem6 = new Item(210,210,9)
+    randomItem6 = new Item(210,210,13)
     keycard1 = new Item(310,310,1,true)
     randomDoor = new Door(660,800,0,2,4500)
     randomReader = new Reader(350,810,1,randomDoor,null,12000)

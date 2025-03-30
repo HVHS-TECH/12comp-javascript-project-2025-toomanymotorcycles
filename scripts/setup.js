@@ -37,17 +37,13 @@ interactPrompt; // the "E" interaction prompt that appears whenever you interact
 let cheatPrevention = false; //cheat prevention
 
 let
+itemTextures,
+itemDisplayTextures,
 securityIDTextures;
+
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function (WHY IS THIS NOT NATIVE IN JAVASCRIPT)
 function resizeImages() {
-    testImage.resize(125,125);
-    ident1.resize(125,125);
-    ident2.resize(125,125);
-    ident3.resize(125,125);
-    ident4.resize(125,125);
-    ident5.resize(125,125);
-    ident6.resize(125,125);
     readerT1.resize(30,40);
     readerT2.resize(30,40);
     readerT3.resize(30,40);
@@ -57,20 +53,12 @@ function resizeImages() {
     readerTFail.resize(30,40);
     readerTPass.resize(30,40);
     readerTLockdown.resize(30,40);
-    item0T.resize(30,30);
-    item1ST.resize(30,30);
-    item2ST.resize(30,30);
-    item3ST.resize(30,30);
-    item4ST.resize(30,30);
-    item5ST.resize(30,30);
-    item6ST.resize(30,30);
-    item7T.resize(30,30);
-    item8T.resize(30,30);
-    item9T.resize(30,30);
-    item10T.resize(30,30);
-    item11T.resize(30,30);
-    item12T.resize(30,30);
-    item13T.resize(30,30);
+    for (i=0; i<itemTextures.length; i++) {
+            itemTextures[i].resize(30,30)
+    }
+    for (i=0; i<itemDisplayTextures.length; i++) {
+        itemDisplayTextures[i].resize(125,125)
+}
 }
 function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
