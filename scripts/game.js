@@ -1,16 +1,16 @@
 /************************************************ 
-										BLACKSITE
-						 A game by Joshua K-H
-				Written using p5.js and p5.play
-						 --------------------
-							Started on 07/03/25
-						 Finished on ??/??/??
-						 --------------------
+				  BLACKSITE
+			 A game by Joshua K-H
+	   Written using p5.js and p5.play
+			 --------------------
+			 Started on 07/03/25
+			 Finished on ??/??/??
+			 --------------------
 *************************************************/
 /************************************************
-				0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
-								MAIN GAME LOOP
-				0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
+		0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
+				MAIN GAME LOOP
+		0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
 function playerMovement() {
 	if (kb.pressing("shift") && player.stamina > 0 && !player.fatigued) {

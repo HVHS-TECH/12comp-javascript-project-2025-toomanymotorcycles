@@ -133,7 +133,9 @@ const ITEM_FUNCTIONS = [
         if (!usingVoiceKey) {
             print("VOICE KEY USED")
             usingVoiceKey = true;
-            print("PLAYER WAS NOT CLOSE ENOUGH TO VOICE LOCK")
+            voiceKeyAudio.play();
+            await sleep(5000)
+            print("VOICE KEY USE COMPLETE")
             usingVoiceKey = false;
         } else {
             console.warn("Player attempted to use voice key while voice key was already being used.")

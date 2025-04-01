@@ -8,8 +8,8 @@ function buildMap() {
     randomItem6 = new Item(210,210,13)
     keycard1 = new Item(310,310,1,true)
     randomDoor = new Door(660,800,0,2,4500)
-    randomReader = new Reader(350,810,4,randomDoor,null,12000,true)
-    randomReader2 = new Reader(1000,625,4,randomDoor,randomReader,12000)
+    randomReader = new Reader(350,810,1,randomDoor,null,12000,true)
+    randomReader2 = new Reader(1000,625,1,randomDoor,randomReader,12000,true)
     hiddenGroup.add(randomReader2.sprite);
     randomReader.linkedReader = randomReader2;
     //dumbTestEnemy = new Enemy(1000,0,60,1000,1,5,10,2,0)

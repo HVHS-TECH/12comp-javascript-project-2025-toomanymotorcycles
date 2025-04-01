@@ -82,6 +82,7 @@ function loadWorldSounds() {
     accessDenied = loadSound("././assets/access_denied.flac");
     accessGranted = loadSound("././assets/access_granted.ogg");
     bigDoorAlarm = loadSound("././assets/klaxon1.mp3");
+    voiceKeyAudio = loadSound("././assets/voicekey.ogg");
     smallBlastDoorOpen = loadSound("././assets/small_blast_door_open.ogg");
     smallBlastDoorClose = loadSound("././assets/small_blast_door_close.ogg");
     largeBlastDoorOpen = loadSound("././assets/large_blast_door_open.ogg");

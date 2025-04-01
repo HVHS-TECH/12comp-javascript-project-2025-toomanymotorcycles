@@ -7,9 +7,21 @@ class Reader{
         this.linkedReader = linkedReader;
         this.activeTime =  activeTime;
         this.active = false;
-        this.voiceLocked = voiceLocked
+        this.voiceLocked = voiceLocked;
         if (this.voiceLocked) {
            this.sprite.image = readerTLockdown
+           this.interval = setInterval(async () => {
+            if (this.voiceLocked && usingVoiceKey == true && dist(this.sprite.x,this.sprite.y,player.x,player.y) < 200) {
+                print("READER TRIGGERED")
+                clearInterval(this.interval);
+                await sleep(5000);
+                accessGranted.play();
+                this.voiceLocked = false;
+                this.linkedReader.voiceLocked = false;
+                this.sprite.image = cardReaderClearanceTextures[this.clearanceRequired-1];
+                this.linkedReader.sprite.image = cardReaderClearanceTextures[this.clearanceRequired-1];
+            }
+           },1);
         } else {
            this.sprite.image = cardReaderClearanceTextures[this.clearanceRequired-1]; 
         }
