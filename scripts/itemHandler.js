@@ -51,21 +51,21 @@ const ITEM_FUNCTIONS = [
         }
     },
     async () => { // Item ID: 8
-        if (player.canUseStaminaItems) {
+        if (player.canUseSpeedItems) {
+            print("SPEED STEROIDS USED")
             itemExecution = true;
-            player.canUseHealthItems = false; 
-            for(i=0; i<25; i++) {
-                if (player.health >= 100) {break}
-                player.health ++;
-                await sleep(50);
-            };
-            player.canUseHealthItems = true;
+            player.canUseSpeedItems = false; 
+            player.speedMultiplier = 1.2;
+            await sleep(20000),
+            player.speedMultiplier = 1;
+            player.canUseSpeedItems = true;
         } else {
-            console.warn("Player attempted to use health-related item while health-related item cooldown was active.")
+            console.warn("Player attempted to use speed-related item while speed-related item cooldown was active.")
         }
     },
     async () => { // Item ID: 9
         if (player.canUseHealthItems) {
+            print("HEALING INJECTION USED")
             itemExecution = true;
             player.canUseHealthItems = false; 
             for(i=player.health; i<100; i++) {
@@ -78,16 +78,29 @@ const ITEM_FUNCTIONS = [
         }
     },
     async () => { // Item ID: 10
-        if (player.canUseHealthItems) {
+        if (player.canUseStaminaItems && player.canUseSpeedItems && player.canUseHealthItems) {
+            print("EXPERIMENTAL INJECTION 1 USED")
             itemExecution = true;
-            player.canUseHealthItems = false; 
-            for(i=player.health; i<100; i++) {
-                player.health ++;
-                await sleep(50);
+            player.canUseStaminaItems = false;
+            player.canUseSpeedItems = false;
+            player.canUseHealthItems = false;
+            player.staminaMax = 600;
+            player.stamina = player.staminaMax;
+            player.fatigued = false;
+            player.speedMultiplier = 1.6;
+            print(player.speedMultiplier)
+            for (i=0; i<75; i++) {
+                player.health --;
+                await sleep(266);
             };
+            player.staminaMax = 120;
+            player.stamina = player.staminaMax-10;
+            player.speedMultiplier = 1;
+            player.canUseStaminaItems = true;
+            player.canUseSpeedItems = true;
             player.canUseHealthItems = true;
         } else {
-            console.warn("Player attempted to use health-related item while health-related item cooldown was active.")
+            console.warn("Player attempted to use experimental injection 1 while an item cooldown was active.")
         }
     },
     async () => { // Item ID: 11
@@ -118,8 +131,9 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 13
         if (!usingVoiceKey) {
-            itemExecution = false;
+            print("VOICE KEY USED")
             usingVoiceKey = true;
+            print("PLAYER WAS NOT CLOSE ENOUGH TO VOICE LOCK")
             usingVoiceKey = false;
         } else {
             console.warn("Player attempted to use voice key while voice key was already being used.")
@@ -151,6 +165,7 @@ class Item{
 function playerInventory() {
     if (player.canUseItems) {
         if (kb.pressed("1")) {
+            itemExecution = false;
            if (player.inventory.length > 0) {
             try {ITEM_FUNCTIONS[player.inventory[0].itemID]();}
             finally {
@@ -162,6 +177,7 @@ function playerInventory() {
            }
         }
         if (kb.pressed("2")) {
+            itemExecution = false;
            if (player.inventory.length > 1) {
                 try {ITEM_FUNCTIONS[player.inventory[1].itemID]();}
                 finally {
@@ -173,6 +189,7 @@ function playerInventory() {
            }
         }
         if (kb.pressed("3")) {
+            itemExecution = false;
            if (player.inventory.length > 2) {
             try {ITEM_FUNCTIONS[player.inventory[2].itemID]();}
             finally {
@@ -184,6 +201,7 @@ function playerInventory() {
            }
         }
         if (kb.pressed("4")) {
+            itemExecution = false;
            if (player.inventory.length > 3) {
             try {ITEM_FUNCTIONS[player.inventory[3].itemID]();}
             finally {
@@ -195,6 +213,7 @@ function playerInventory() {
            }
         }
         if (kb.pressed("5")) {
+            itemExecution = false;
            if (player.inventory.length > 4) {
             try {ITEM_FUNCTIONS[player.inventory[4].itemID]();}
             finally {

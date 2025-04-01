@@ -1,5 +1,5 @@
 class Reader{
-    constructor(x,y,clearanceRequired,linkedObject,linkedReader,activeTime) {
+    constructor(x,y,clearanceRequired,linkedObject,linkedReader,activeTime,voiceLocked) {
         this.sprite = new Sprite(x,y,30,40,'k')
         this.sprite.parentRef = this;
         this.clearanceRequired = clearanceRequired;
@@ -7,11 +7,17 @@ class Reader{
         this.linkedReader = linkedReader;
         this.activeTime =  activeTime;
         this.active = false;
-        this.sprite.image = cardReaderClearanceTextures[this.clearanceRequired-1];
+        this.voiceLocked = voiceLocked
+        if (this.voiceLocked) {
+           this.sprite.image = readerTLockdown
+        } else {
+           this.sprite.image = cardReaderClearanceTextures[this.clearanceRequired-1]; 
+        }
+        
         readerGroup.add(this.sprite);
     }
     async onInteract() {
-    if (!this.active) {
+    if (!this.active && !this.voiceLocked) {
         this.active = true;
         if (player.clearanceLevel >= this.clearanceRequired) {
             console.log("Access granted.");

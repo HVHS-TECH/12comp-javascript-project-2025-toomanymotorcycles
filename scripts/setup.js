@@ -84,6 +84,7 @@ function setup() {
     itemGroup.overlap(player);
     player.clearanceLevel = 0;
     player.speed = 5;
+    player.speedMultiplier = 1;
     player.staminaMax = 120;
     player.stamina = player.staminaMax;
     player.fatigued = false;
@@ -91,6 +92,7 @@ function setup() {
     player.canUseItems = true;
     player.canUseStaminaItems = true;
     player.canUseHealthItems = true;
+    player.canUseSpeedItems = true;
     player.health = 100;
     player.lives = 3;
     player.mass = 1000
