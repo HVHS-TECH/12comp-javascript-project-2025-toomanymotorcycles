@@ -12,6 +12,9 @@
                    PRELOAD
         0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
+function loadTilemaps() {
+    facilityTileset = loadImage("././assets/world/facility_tiles.png");
+}
 
 function loadCardReaderTextures() {
     readerT1 = loadImage("././assets/card_reader/reader_1.png");
@@ -96,6 +99,7 @@ function loadSFX() {
 
 function preload() {
     //Preloading the game's asset files to avoid any errors.
+    loadTilemaps();
     loadWorldSounds();
     loadSFX();
     loadDoorTextures();

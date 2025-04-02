@@ -138,6 +138,7 @@ function spawnItem() {
 
 function draw() {
 	// Draw function; the primary game loop. Runs 60 times a second.
+	clear();
 	if (gameState == 1) {
 		camera.on();
 		background("black");
