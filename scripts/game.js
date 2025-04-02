@@ -93,6 +93,8 @@ function drawHUD() {
 	if (player.clearanceLevel > 0) {
 		hudLayer.image(itemDisplayTextures[player.clearanceLevel], 937, 37)
 	}
+	player.character.x = player.x;
+	player.character.y = player.y-50;
 	camera.off();
 	image(hudLayer, 0, 0);
 	camera.on();
@@ -170,24 +172,25 @@ function draw() {
 	itemGroup.overlapping(player, (item) => { if (kb.pressed("e")) { item.parentRef.onPickup() } })
 	itemGroup.overlapped(player, () => { interactPrompt.visible = false })
 
-	readerGroup.overlap(player, (reader) => { if (!reader.parentRef.active && !reader.parentRef.voiceLocked) { interactPrompt.visible = true } })
-	readerGroup.overlapping(player, (reader) => { if (kb.pressed("e") && !reader.parentRef.active) { interactPrompt.visible = false, reader.parentRef.onInteract() } })
-	readerGroup.overlapped(player, () => { interactPrompt.visible = false })
+	readerGroup.overlap(player.character, (reader) => { if (!reader.parentRef.active && !reader.parentRef.voiceLocked) { interactPrompt.visible = true } })
+	readerGroup.overlapping(player.character, (reader) => { if (kb.pressed("e") && !reader.parentRef.active) { interactPrompt.visible = false, reader.parentRef.onInteract() } })
+	readerGroup.overlapped(player.character, () => { interactPrompt.visible = false })
 
 	checkpointGroup.overlap(player, (checkpoint) => { if (currentCheckpoint != checkpoint) { interactPrompt.visible = true } })
 	checkpointGroup.overlapping(player, (checkpoint) => { if (kb.pressed("e") && currentCheckpoint != checkpoint) { interactPrompt.visible = false, checkpoint.parentRef.onInteract() } })
 	checkpointGroup.overlapped(player, () => { interactPrompt.visible = false })
 
-	enemyBulletGroup.overlap(player, (bullet) => { takeDamage.play(), player.health -= bullet.power, bullet.remove() })
+	enemyBulletGroup.overlap(player.character, (bullet) => { takeDamage.play(), player.health -= bullet.power, bullet.remove() })
 
 	allSprites.overlap(enemyBulletGroup)
+	allSprites.overlap(player.character)
 	enemyBulletGroup.overlap(doorGroup, (bullet) => { bullet.remove() })
 
 	interactPrompt.x = camera.x;
 	interactPrompt.y = camera.y + windowWidth / 8;
 
 	player.rotation = 0;
-	//gameMap.layer = 0;
+	gameMap.layer = 0;
 	//gameHitbox.layer = 1;
 	checkpointGroup.layer = 2;
 	itemGroup.layer = 3;
@@ -196,6 +199,30 @@ function draw() {
 	enemyBulletGroup.layer = 5;
 	enemyGroup.layer = 6;
 	player.layer = 7;
+	player.character.layer = 7;
+
+	for(i=0; i<lczFloor.length; i++) {
+		lczFloor[i].removeColliders()
+	};
+
+	for(i=0; i<lczFloorStart.length; i++) {
+		lczFloorStart[i].removeColliders()
+	};
+
+
+	for(i=0; i<hczFloor.length; i++) {
+		hczFloor[i].removeColliders()
+	};
+
+	for(i=0;i<allSprites.length;i++) {
+		if (dist(camera.x,camera.y,allSprites[i].x,allSprites[i].y < windowWidth)) {
+			allSprites[i].visible = true;
+			allSprites[i].sleeping = false;
+		} else {
+			allSprites[i].visible = false;
+			allSprites[i].sleeping = true;
+		}
+	}
 
 	allSprites.draw()
 	if (gameState == 1) {

@@ -5,6 +5,12 @@ lczFloor.spriteSheet = facilityTileset;
 lczFloor.addAni({w:64,h:64,row:0,col:0});
 lczFloor.tile = "f";
 
+lczFloorStart = new Group();
+lczFloorStart.collider = "static";
+lczFloorStart.spriteSheet = facilityTileset;
+lczFloorStart.addAni({w:64,h:64,row:0,col:0});
+lczFloorStart.tile = "S";
+
 lczWallBlue = new Group();
 lczWallBlue.collider = "static";
 lczWallBlue.spriteSheet = facilityTileset;
@@ -287,20 +293,36 @@ wallTopCorner2.spriteSheet = facilityTileset;
 wallTopCorner2.addAni({w:64,h:64,row:5,col:3});
 wallTopCorner2.tile = "R";
 
-    map = new Tiles(
+    gameMap = new Tiles(
         [
-            "vvvvvvvvvv",
-            "tttttttttt",
-            "mmm1mmmmmm",
-            "mmmm6m2mmm",
-            "mmmmmmmmmm",
-            "bbbbbbbbbb",
-            "ffffffffff",
-            "ffffffffff",
-            "ffffffffff"
+            ".vvvvvvvvvvvvvvvvvvvvvvvvvvvv.",
+            "<TTTTTTTTTTTTTTTTTTTTTTTTTTTT>",
+            "<MMMMMMMMMMMMMMMMMMMMMMMMMMMM>",
+            "<MMMMMMMMMMMMMMMMMMMMMMMMMMMM>",
+            "<MMMMMMMMMMMMMMMMMMMMMMMMMMMM>",
+            "<BBBBBBBBBBBBBBBBBBBBBBBBBBBB>",
+            "<FFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
+            "<FFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
+            "<FFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
+            "<FFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
+            "<FFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
+            "<FFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
+            "<FFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
+            "<FFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
+            "<FFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
+            ".^^^^^^^^^^FFFFFFFF^^^^^^^^^^.",
+            ".vvvvvvvvvvFFFFFFFFvvvvvvvvvv.",
+            "<tttttttttxFFFFFFFFxttttttttt>",
+            "<mmm1mmmmmyffffffffymmmmmmmmm>",
+            "<mmmm6m2mmxffffffffxmmmmmmmmm>",
+            "<mmmmmmmmmyffffffffymmmmmmmmm>",
+            "<bbbbbbbbbxffffffffxbbbbbbbbb>",
+            "<ffffffffffffffffffffffffffff>",
+            "<fffffffffffffSffffffffffffff>",
+            "<ffffffffffffffffffffffffffff>"
         ],
         0, 0, //x, y
-        60, 60 //w, h
+        64, 64 //w, h
     )
 };
 
@@ -312,11 +334,11 @@ function buildMap() {
     randomItem3 = new Item(70,70,10)
     randomItem4 = new Item(90,90,8)
     randomItem5 = new Item(110,110,9)
-    randomItem6 = new Item(210,210,13)
-    keycard1 = new Item(310,310,1,true)
-    randomDoor = new Door(660,800,0,2,4500)
-    randomReader = new Reader(350,810,1,randomDoor,null,12000,true)
-    randomReader2 = new Reader(1000,625,1,randomDoor,randomReader,12000,true)
+    randomItem6 = new Item(210,1500,13)
+    keycard1 = new Item(310,1540,4,true)
+    randomDoor = new Door(928,1120,0,2,4500)
+    randomReader = new Reader(640,1320,4,randomDoor,null,12000,true)
+    randomReader2 = new Reader(1000,625,4,randomDoor,randomReader,12000,true)
     hiddenGroup.add(randomReader2.sprite);
     randomReader.linkedReader = randomReader2;
     //dumbTestEnemy = new Enemy(1000,0,60,1000,1,5,10,2,0)
