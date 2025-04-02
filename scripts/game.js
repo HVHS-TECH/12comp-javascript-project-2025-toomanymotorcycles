@@ -164,6 +164,16 @@ function draw() {
 		background("green")
 	}
 
+	/*for(i=0;i<allSprites.length;i++) {
+		if (dist(camera.x,camera.y,allSprites[i].x,allSprites[i].y < windowWidth)) {
+			allSprites[i].visible = true;
+			allSprites[i].sleeping = false;
+		} else {
+			allSprites[i].visible = false;
+			allSprites[i].sleeping = true;
+		}
+	}*/
+
 	player.collide(doorGroup)
 
 	escapeZone.overlap(player, () => { gameState = 4 })
@@ -209,20 +219,13 @@ function draw() {
 		lczFloorStart[i].removeColliders()
 	};
 
+	for(i=0; i<lczFloorBigDoor.length; i++) {
+		lczFloorBigDoor[i].removeColliders()
+	};
 
 	for(i=0; i<hczFloor.length; i++) {
 		hczFloor[i].removeColliders()
 	};
-
-	for(i=0;i<allSprites.length;i++) {
-		if (dist(camera.x,camera.y,allSprites[i].x,allSprites[i].y < windowWidth)) {
-			allSprites[i].visible = true;
-			allSprites[i].sleeping = false;
-		} else {
-			allSprites[i].visible = false;
-			allSprites[i].sleeping = true;
-		}
-	}
 
 	allSprites.draw()
 	if (gameState == 1) {
