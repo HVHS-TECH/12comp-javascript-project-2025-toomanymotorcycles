@@ -13,6 +13,7 @@
 		0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
 function playerMovement() {
+	if (!deathlock) {
 	if (kb.pressing("shift") && player.stamina > 0 && !player.fatigued) {
 		player.speed = 9;
 		player.stamina--;
@@ -50,6 +51,7 @@ function playerMovement() {
 		player.vel.x = 0;
 		player.vel.y = 0;
 		gameState = 2;
+	}
 	}
 	camera.pos = player.pos;
 };
@@ -144,7 +146,7 @@ function draw() {
 	clear();
 	if (gameState == 1) {
 		camera.on();
-		background("black");
+		background("black")
 		playerMovement();
 		playerInventory();
 	}
@@ -187,6 +189,12 @@ function draw() {
 	readerGroup.overlap(player.character, (reader) => { if (!reader.parentRef.active && !reader.parentRef.voiceLocked) { interactPrompt.visible = true } })
 	readerGroup.overlapping(player.character, (reader) => { if (kb.pressed("e") && !reader.parentRef.active) { interactPrompt.visible = false, reader.parentRef.onInteract() } })
 	readerGroup.overlapped(player.character, () => { interactPrompt.visible = false })
+	
+	teleporterGroup.overlap(player)
+	teleporterGroup.overlap(player.character, (teleporter) => { if (!teleporter.parentRef.active && !teleporter.parentRef.voiceLocked) { interactPrompt.visible = true } })
+	teleporterGroup.overlapping(player.character, (teleporter) => { if (kb.pressed("e") && !teleporter.parentRef.active) { interactPrompt.visible = false, teleporter.parentRef.onInteract() } })
+	teleporterGroup.overlapped(player.character, () => { interactPrompt.visible = false })
+
 
 	checkpointGroup.overlap(player);
 	checkpointGroup.overlap(player.character, (checkpoint) => { if (currentCheckpoint != checkpoint) { interactPrompt.visible = true } })
@@ -224,6 +232,10 @@ function draw() {
 
 	for(i=0; i<lczFloorBigDoor.length; i++) {
 		lczFloorBigDoor[i].removeColliders()
+	};
+
+	for(i=0; i<teleporterCreator.length; i++) {
+		teleporterCreator[i].removeColliders()
 	};
 
 	for(i=0; i<hczFloor.length; i++) {

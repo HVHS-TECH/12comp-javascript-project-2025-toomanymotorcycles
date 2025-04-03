@@ -1,4 +1,4 @@
-let doorClearances = [{clearance: 1, rotation:0 ,locked: false},{clearance: 1, rotation:1 ,locked: false}]
+let doorClearances = [{clearance: 1, rotation:0 ,locked: true},{clearance: 1, rotation:1 ,locked: false}]
 let teleporterPositions = [{x:500,y:100}]
 
 function createDoor(tile, rotation, clearance, voicelocked) {
@@ -38,6 +38,8 @@ lczFloorStart.tile = "S";
 
 teleporterCreator = new Group();
 teleporterCreator.collider = "static";
+teleporterCreator.spriteSheet = facilityTileset;
+teleporterCreator.addAni({w:64,h:64,row:0,col:0});
 teleporterCreator.tile = "'";
 
 lczFloorBigDoor = new Group();
