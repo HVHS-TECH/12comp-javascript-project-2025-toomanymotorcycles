@@ -9,8 +9,8 @@ const ITEM_FUNCTIONS = [
                 console.log("WHY DID YOU DO THIS");
                 takeDamage.play();
                 player.health --;
-                await sleep(20);
-            };
+                await sleep(10);
+            }
             player.canUseHealthItems = true;
         } else {
             console.warn("Player attempted to use health-related item while health-related item cooldown was active.")

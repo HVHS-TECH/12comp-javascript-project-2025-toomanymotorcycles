@@ -30,6 +30,7 @@ readerGroup, //all the card readers in the game.
 doorGroup, //all the doors in the game.
 itemGroup, //all the loose items in the game.
 checkpointGroup, //all the checkpoints in the game.
+teleporterGroup,
 enemyBulletGroup, //more like enemy bullet hell group...
 hiddenGroup,
 interactPrompt; // the "E" interaction prompt that appears whenever you interact with something.
@@ -82,6 +83,7 @@ function setup() {
     itemGroup = new Group();
     hiddenGroup = new Group();
     checkpointGroup = new Group();
+    teleporterGroup = new Group();
     itemGroup.overlap(player);
     player.clearanceLevel = 0;
     player.speed = 5;
@@ -96,7 +98,8 @@ function setup() {
     player.canUseSpeedItems = true;
     player.health = 100;
     player.lives = 3;
-    player.mass = 1000
+    player.mass = 1000;
+    hiddenGroup.add(player)
     itemExecution = true;
     gameState = 1;
     freeze = false;

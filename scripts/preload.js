@@ -14,6 +14,7 @@
 ************************************************/
 function loadTilemaps() {
     facilityTileset = loadImage("././assets/world/facility_tiles.png");
+    checkpointTileTex = loadImage("././assets/world/checkpoint.png");
 }
 
 function loadCardReaderTextures() {
@@ -28,17 +29,6 @@ function loadCardReaderTextures() {
     readerTLockdown = loadImage("././assets/card_reader/reader_lockdown.png");
     cardReaderClearanceTextures = [readerT1,readerT2,readerT3,readerT4,readerT5,readerT6];
 }
-
-/** function loadSecurityIDTextures() {
-    testImage = loadImage("././assets/testing.jpeg");
-    ident1 = loadImage("././assets/SecurityID-1.png");
-    ident2 = loadImage("././assets/SecurityID-2.png");
-    ident3 = loadImage("././assets/SecurityID-3.png");
-    ident4 = loadImage("././assets/SecurityID-4.png");
-    ident5 = loadImage("././assets/SecurityID-5.png");
-    ident6 = loadImage("././assets/SecurityID-6.png");
-    securityIDTextures = [testImage,ident1,ident2,ident3,ident4,ident5,ident6];
-} **/
 
 function loadItemTextures() {
     item0T = loadImage("././assets/items/item_0.png");

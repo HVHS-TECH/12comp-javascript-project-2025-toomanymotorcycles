@@ -8,10 +8,11 @@ class Checkpoint{
     onInteract() {
         if (currentCheckpoint != this.sprite) {
             if (currentCheckpoint) {
-                currentCheckpoint.color = "gray";
+                currentCheckpoint.remove();
             }
             currentCheckpoint = this.sprite;
             player.lives = 3;
+            player.health = 100;
         }
     }
 }

@@ -1,4 +1,5 @@
 let doorClearances = [{clearance: 1, rotation:0 ,locked: false},{clearance: 1, rotation:1 ,locked: false}]
+let teleporterPositions = [{x:500,y:100}]
 
 function createDoor(tile, rotation, clearance, voicelocked) {
     newDoor = new Door(tile.x+32,tile.y-160,rotation,2,4500)
@@ -15,6 +16,7 @@ function createDoor(tile, rotation, clearance, voicelocked) {
     }
     
 }
+
 function setupTilemaps() {
 lczFloor = new Group();
 lczFloor.collider = "static";
@@ -22,11 +24,21 @@ lczFloor.spriteSheet = facilityTileset;
 lczFloor.addAni({w:64,h:64,row:0,col:0});
 lczFloor.tile = "f";
 
+checkpointTile = new Group();
+checkpointTile.collider = "static";
+checkpointTile.spriteSheet = checkpointTileTex;
+checkpointTile.addAni({w:64,h:64,row:0,col:0});
+checkpointTile.tile = "C";
+
 lczFloorStart = new Group();
 lczFloorStart.collider = "static";
 lczFloorStart.spriteSheet = facilityTileset;
 lczFloorStart.addAni({w:64,h:64,row:0,col:0});
 lczFloorStart.tile = "S";
+
+teleporterCreator = new Group();
+teleporterCreator.collider = "static";
+teleporterCreator.tile = "'";
 
 lczFloorBigDoor = new Group();
 lczFloorBigDoor.collider = "static";
@@ -331,7 +343,7 @@ wallTopCorner2.tile = "R";
             "<tttttxffffffffxttttt>..................................................................................................................................................................................",
             "<mmmmmyffffffffymmmmm>..................................................................................................................................................................................",
             "<mmmmmxffffffffxmmmmm>..................................................................................................................................................................................",
-            "<mmmmmyfffDffffymmmmm>..................................................................................................................................................................................",
+            "<mmCmmyfffDffffymmmmm>..................................................................................................................................................................................",
             "<oooooxffffffffxooooo><.................................................................................................................................................................................",
             "<ffffffffffffffffffff><.................................................................................................................................................................................",
             "<ffffffffffffffffffff><.................................................................................................................................................................................",
@@ -347,7 +359,7 @@ wallTopCorner2.tile = "R";
             "<ffffffffffffffffffff><.................................................................................................................................................................................",
             "<ffffffffffffffffffff><.................................................................................................................................................................................",
             "<ffffffffffffffffffff><.................................................................................................................................................................................",
-            "<ffffffffffffffffffff><.................................................................................................................................................................................",
+            "<ffff'fffffffffffffff><.................................................................................................................................................................................",
             ".^^^^^^^^^^^^^^^^^^^^...................................................................................................................................................................................",
             "........................................................................................................................................................................................................",
             "........................................................................................................................................................................................................",
@@ -526,6 +538,12 @@ wallTopCorner2.tile = "R";
     for (i=0; i<lczFloorBigDoor.length; i++) {
         createDoor(lczFloorBigDoor[i],doorClearances[i].rotation,doorClearances[i].clearance,doorClearances[i].locked);
     }
+    for (i=0; i<checkpointTile.length; i++) {
+        hiddenGroup.add(new Checkpoint(checkpointTile[i].x,checkpointTile[i].y).sprite);
+    }
+    for (i=0; i<teleporterCreator.length; i++) {
+        new Teleporter(teleporterCreator[i].x,teleporterCreator[i].y,teleporterPositions[i].x,teleporterPositions[i].y);
+    }
 };
 
 function buildMap() {
@@ -539,7 +557,6 @@ function buildMap() {
     randomItem6 = new Item(210,1500,13)
     keycard1 = new Item(310,1540,4,true)
     //dumbTestEnemy = new Enemy(1000,0,60,1000,1,5,10,2,0)
-    checkpoint1 = new Checkpoint(1500,300)
 }
 
 //lczFloor.removeColliders()

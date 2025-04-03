@@ -116,6 +116,7 @@ async function playerDeath(deathType) {
 		}
 		if (currentCheckpoint != undefined && player.lives > 0) {
 			player.pos = currentCheckpoint.pos;
+			player.y = currentCheckpoint.y + 100;
 			player.health = 100;
 			await sleep(1000)
 			player.colour = "purple"
@@ -182,13 +183,15 @@ function draw() {
 	itemGroup.overlapping(player, (item) => { if (kb.pressed("e")) { item.parentRef.onPickup() } })
 	itemGroup.overlapped(player, () => { interactPrompt.visible = false })
 
+	readerGroup.overlap(player)
 	readerGroup.overlap(player.character, (reader) => { if (!reader.parentRef.active && !reader.parentRef.voiceLocked) { interactPrompt.visible = true } })
 	readerGroup.overlapping(player.character, (reader) => { if (kb.pressed("e") && !reader.parentRef.active) { interactPrompt.visible = false, reader.parentRef.onInteract() } })
 	readerGroup.overlapped(player.character, () => { interactPrompt.visible = false })
 
-	checkpointGroup.overlap(player, (checkpoint) => { if (currentCheckpoint != checkpoint) { interactPrompt.visible = true } })
-	checkpointGroup.overlapping(player, (checkpoint) => { if (kb.pressed("e") && currentCheckpoint != checkpoint) { interactPrompt.visible = false, checkpoint.parentRef.onInteract() } })
-	checkpointGroup.overlapped(player, () => { interactPrompt.visible = false })
+	checkpointGroup.overlap(player);
+	checkpointGroup.overlap(player.character, (checkpoint) => { if (currentCheckpoint != checkpoint) { interactPrompt.visible = true } })
+	checkpointGroup.overlapping(player.character, (checkpoint) => { if (kb.pressed("e") && currentCheckpoint != checkpoint) { interactPrompt.visible = false, checkpoint.parentRef.onInteract() } })
+	checkpointGroup.overlapped(player.character, () => { interactPrompt.visible = false })
 
 	enemyBulletGroup.overlap(player.character, (bullet) => { takeDamage.play(), player.health -= bullet.power, bullet.remove() })
 
