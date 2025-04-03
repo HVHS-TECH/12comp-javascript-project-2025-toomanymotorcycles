@@ -14,8 +14,24 @@ class Door{
             this.sprite.hitbox1 = new Sprite(x,y,1,1,'k')
             this.sprite.hitbox2 = new Sprite(x,y,1,1,'k')
             if (horizontal) {
-                this.sprite.height = 550;
-                this.sprite.width = 100;
+                this.sprite.height = 100;
+                this.sprite.width = 500;
+                this.sprite.rotation = 90;
+                this.sprite.hitbox1.width = 100;
+                this.sprite.hitbox1.height = 50;
+                this.sprite.hitbox2.width = 100;
+                this.sprite.hitbox2.height = 80;
+                this.sprite.hitbox1.y -= 232;
+                this.sprite.hitbox2.y += 212;
+                hiddenGroup.add(this.sprite.hitbox1);
+                hiddenGroup.add(this.sprite.hitbox2);
+                this.sprite.addAni('closed', largeBlastDoorOpenAni2, {width: 512, height: 96, frames: [0]});
+                this.sprite.addAni('open', largeBlastDoorOpenAni2, {width: 512, height: 96, frames: [12]});
+                this.sprite.addAni('opening', largeBlastDoorOpenAni2, {width: 512, height: 96, frames: 13});
+                this.sprite.ani.frameDelay = 17;
+                this.sprite.addAni('closing', largeBlastDoorCloseAni2, {width: 512, height: 96, frames: 13});
+                this.sprite.ani.frameDelay = 17;
+                this.sprite.changeAni('closed')
             } else {
                 this.sprite.width = 550;
                 this.sprite.height = 380;

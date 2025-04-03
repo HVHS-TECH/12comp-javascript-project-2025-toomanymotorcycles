@@ -78,7 +78,9 @@ function loadItemDisplayTextures() {
 
 function loadDoorTextures() {
     largeBlastDoorOpenAni = loadImage("././assets/doors/bigDoorOpen.png")
+    largeBlastDoorOpenAni2 = loadImage("././assets/doors/bigDoorVertOpen.png")
     largeBlastDoorCloseAni = loadImage("././assets/doors/bigDoorClose.png")
+    largeBlastDoorCloseAni2 = loadImage("././assets/doors/bigDoorVertClose.png")
 }
 
 function loadWorldSounds() {

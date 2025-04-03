@@ -108,8 +108,8 @@ async function playerDeath(deathType) {
 		print("lives " + player.lives)
 		deathSting.play()
 		await sleep(2000)
-		for (i = 1; i < 101; i++) {
-			allSprites.opacity = 1 - i * 0.01
+		for (v = 1; v < 101; v++) {
+			allSprites.opacity = 1 - v * 0.01
 			hiddenGroup.opacity = 0;
 			print(player.opacity)
 			await sleep(1)
@@ -122,8 +122,8 @@ async function playerDeath(deathType) {
 			freeze = false;
 			deathlock = false;
 			gameState = 1;
-			for (i = 1; i < 101; i++) {
-				allSprites.opacity = i * 0.01;
+			for (v = 1; v < 101; v++) {
+				allSprites.opacity = v * 0.01;
 				hiddenGroup.opacity = 0;
 				print(player.opacity)
 				await sleep(1)

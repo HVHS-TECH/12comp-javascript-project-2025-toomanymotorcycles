@@ -62,7 +62,7 @@ function resizeImages() {
 }
 function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
-    canvas = new Canvas(windowWidth,windowHeight, "pixellated x4");
+    canvas = new Canvas(windowWidth,windowHeight, "pixellated x100");
     player = new Sprite(1000,500,50,15,'d');
     player.character = new Sprite(player.x,player.y,50,120,'d');
     escapeZone = new Sprite(1000,-1000,200,200,'d');
