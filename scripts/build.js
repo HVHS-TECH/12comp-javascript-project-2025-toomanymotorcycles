@@ -1,5 +1,6 @@
-let doorClearances = [{clearance: 1, rotation:0 ,locked: true},{clearance: 1, rotation:1 ,locked: false}]
-let teleporterPositions = [{x:500,y:100}]
+let doorClearances = [{clearance: 1, rotation:0 ,locked: false},{clearance: 1, rotation:0 ,locked: true},{clearance: 2, rotation:1 ,locked: false},{clearance: 1, rotation:1 ,locked: false}]
+let teleporterPositions = [{id:0,linkId:2},{id:1,linkId:3},{id:2,linkId:0},{id:3,linkId:1}]
+let objectsCreated = false;
 
 function createDoor(tile, rotation, clearance, voicelocked) {
     newDoor = new Door(tile.x+32,tile.y-160,rotation,2,4500)
@@ -18,6 +19,7 @@ function createDoor(tile, rotation, clearance, voicelocked) {
 }
 
 function setupTilemaps() {
+    if (!objectsCreated) {
 lczFloor = new Group();
 lczFloor.collider = "static";
 lczFloor.spriteSheet = facilityTileset;
@@ -329,46 +331,47 @@ wallTopCorner2.collider = "static";
 wallTopCorner2.spriteSheet = facilityTileset;
 wallTopCorner2.addAni({w:64,h:64,row:5,col:3});
 wallTopCorner2.tile = "R";
+}
 
     gameMap = new Tiles(
         [
-            ".....<ffffffffff>.......................................................................................................................................................................................",
-            ".....<ffffffffff>.......................................................................................................................................................................................",
-            ".....<ffffffffff>.......................................................................................................................................................................................",
-            ".....<ffffffffff>.......................................................................................................................................................................................",
-            ".....<ffffffffff>.......................................................................................................................................................................................",
-            ".....<ffffffffff>.......................................................................................................................................................................................",
-            ".....<ffffffffff>.......................................................................................................................................................................................",
-            ".....<ffffffffff>.......................................................................................................................................................................................",
-            ".....R^ffffffff^|.......................................................................................................................................................................................",
-            ".vvvvvvffffffffvvvvvv...................................................................................................................................................................................",
-            "<tttttxffffffffxttttt>..................................................................................................................................................................................",
-            "<mmmmmyffffffffymmmmm>..................................................................................................................................................................................",
-            "<mmmmmxffffffffxmmmmm>..................................................................................................................................................................................",
-            "<mmCmmyfffDffffymmmmm>..................................................................................................................................................................................",
-            "<oooooxffffffffxooooo><.................................................................................................................................................................................",
-            "<ffffffffffffffffffff><.................................................................................................................................................................................",
-            "<ffffffffffffffffffff><.................................................................................................................................................................................",
-            "<ffffffffffffffffffff><.................................................................................................................................................................................",
-            "<fffffffffffffffffffff..................................................................................................................................................................................",
-            "<fffffffffffffffffffff..................................................................................................................................................................................",
-            "<fffffffffffffffffffff..................................................................................................................................................................................",
-            "<fffffffffffffffffffff..................................................................................................................................................................................",
-            "<fffffffffSfffffffffff..................................................................................................................................................................................",
-            "<fffffffffffffffffffff..................................................................................................................................................................................",
-            "<ffffffffffffffffffffD..................................................................................................................................................................................",
-            "<fffffffffffffffffffff..................................................................................................................................................................................",
-            "<ffffffffffffffffffff><.................................................................................................................................................................................",
-            "<ffffffffffffffffffff><.................................................................................................................................................................................",
-            "<ffffffffffffffffffff><.................................................................................................................................................................................",
-            "<ffff'fffffffffffffff><.................................................................................................................................................................................",
-            ".^^^^^^^^^^^^^^^^^^^^...................................................................................................................................................................................",
-            "........................................................................................................................................................................................................",
-            "........................................................................................................................................................................................................",
-            "........................................................................................................................................................................................................",
-            "........................................................................................................................................................................................................",
-            "........................................................................................................................................................................................................",
-            "........................................................................................................................................................................................................",
+            ".....<ffffffffff>..........................................................................................vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv.",
+            ".....<ffffffffff>.........................................................................................<tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt>",
+            ".....<ffffffffff>.........................................................................................<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
+            ".....<ffffffffff>.........................................................................................<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
+            ".....<ffffffffff>.........................................................................................<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
+            ".....<ffffffffff>.........................................................................................<oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>",
+            ".....<ffffffffff>................................<vvvvvvvvvvvvvvvvvvvvvvffffffffvvvvvvvvvvvvvvvvvvvvvvvvv><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            ".....<ffffffffff>................................<ttttttttttttttttttttttffffffffttttttttttttttttttttttttt><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            ".....R^ffffffff^|................................<mmmmmmmmmmmmmmmmmmmmmmffffffffmmmmmmmmmmmmmmmmmmmmmmmmm><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            ".vvvvvvffffffffvvvvvv..............vvvvvvvvvvvvv.<mmmmmmmmmmmmmmmmmmmmmmffffffffmmmmmmmmmmmmmmmmmmmmmmmmm>.^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.",
+            "<tttttxffffffffxttttt>............<ttttttttttttt><mmmmmmmmmmmmmmmmmmmmmmfffDffffmmmmmmmmmmmmmmmmmmmmmmmmm>.vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv.",
+            "<mmmmmyffffffffymmmmm>............<mmmmmmmmmmmmm><bbbbbbbbbbbbbbbbbbbbbbffffffffbbbbbbbbbbbbbbbbbbbbbbbbb><tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt>",
+            "<mmmmmxffffffffxmmmmm>............<mmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
+            "<mmCmmyfffDffffymmmmm>............<mmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
+            "<bbbbbxffffffffxbbbbb>............<ggggggggggggg><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
+            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>",
+            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<fffffffffffffffffffffffffffffffffffffffffSffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffffff'fffffffff'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>^^^^^^^^^^^^^<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>.............<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>vvvvvvvvvvvvv<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<fffffffffffffDfffffffffffffffffffftttttttttttttttfffffffffffffffffffffDfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffffmmmmmmmmmmmmmmmfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffmmmmmmmmmmmmmmmfffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffmmmmmmmmmmmmmmmfffffffffffffffffffff>.^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.",
+            "<ffffffffffffffffffff>.............^^^^^^^^^^^^^.<fffffffffffffffffffbbbbbbbbbbbbbbbfffffffffffffffffffff>.vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv.",
+            "<ffffffffffffffffffff>...........................<fffffffffffffffffffffffffffffffffffffffffffffffffffffff><tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt>",
+            "<ffff'ffffffffff'ffff>...........................<fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
+            ".^^^^^^^^^^^^^^^^^^^^.............................^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
+            "..........................................................................................................<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
+            "..........................................................................................................<bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb>",
+            "..........................................................................................................<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "..........................................................................................................<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "..........................................................................................................<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "...........................................................................................................^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.",
             "........................................................................................................................................................................................................",
             "........................................................................................................................................................................................................",
             "........................................................................................................................................................................................................",
@@ -536,15 +539,17 @@ wallTopCorner2.tile = "R";
         0, 0, //x, y
         64, 64 //w, h
     )
-
-    for (i=0; i<lczFloorBigDoor.length; i++) {
-        createDoor(lczFloorBigDoor[i],doorClearances[i].rotation,doorClearances[i].clearance,doorClearances[i].locked);
-    }
-    for (i=0; i<checkpointTile.length; i++) {
-        hiddenGroup.add(new Checkpoint(checkpointTile[i].x,checkpointTile[i].y).sprite);
-    }
-    for (i=0; i<teleporterCreator.length; i++) {
-        new Teleporter(teleporterCreator[i].x,teleporterCreator[i].y,teleporterPositions[i].x,teleporterPositions[i].y);
+    if (!objectsCreated) {
+        objectsCreated = true;
+        for (i=0; i<lczFloorBigDoor.length; i++) {
+            createDoor(lczFloorBigDoor[i],doorClearances[i].rotation,doorClearances[i].clearance,doorClearances[i].locked);
+        }
+        for (i=0; i<checkpointTile.length; i++) {
+            hiddenGroup.add(new Checkpoint(checkpointTile[i].x,checkpointTile[i].y).sprite);
+        }
+        for (i=0; i<teleporterCreator.length; i++) {
+            new Teleporter(teleporterCreator[i].x,teleporterCreator[i].y,teleporterPositions[i].id,teleporterPositions[i].linkId);
+        }
     }
 };
 

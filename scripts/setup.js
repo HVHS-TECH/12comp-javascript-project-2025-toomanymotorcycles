@@ -33,7 +33,8 @@ checkpointGroup, //all the checkpoints in the game.
 teleporterGroup,
 enemyBulletGroup, //more like enemy bullet hell group...
 hiddenGroup,
-interactPrompt; // the "E" interaction prompt that appears whenever you interact with something.
+interactPrompt, // the "E" interaction prompt that appears whenever you interact with something.
+tilemapSetup = true;
 
 let cheatPrevention = false; //cheat prevention
 
@@ -59,7 +60,7 @@ function resizeImages() {
     }
     for (i=0; i<itemDisplayTextures.length; i++) {
         itemDisplayTextures[i].resize(125,125)
-}
+    }
 }
 function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
@@ -106,7 +107,17 @@ function setup() {
     allSprites.autoCull = false;
     interactPrompt.layer = 999;
     hudTint = 255;
+    allSprites.autoDraw = false;
     resizeImages();
     buildMap();
     player.pos = lczFloorStart[0].pos
+    //gameMap.removeAll();
+    /*setInterval(async () => {
+        setupTilemaps();
+	for (i=0; i<gameMap.length; i++) {
+		if (dist(player.x,player.y,gameMap[i].x,gameMap[i].y) > 800) {
+			gameMap[i].remove();
+		}
+	}
+    }, 100)*/
 };

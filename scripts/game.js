@@ -167,16 +167,6 @@ function draw() {
 		background("green")
 	}
 
-	/*for(i=0;i<allSprites.length;i++) {
-		if (dist(camera.x,camera.y,allSprites[i].x,allSprites[i].y < windowWidth)) {
-			allSprites[i].visible = true;
-			allSprites[i].sleeping = false;
-		} else {
-			allSprites[i].visible = false;
-			allSprites[i].sleeping = true;
-		}
-	}*/
-
 	player.collide(doorGroup)
 
 	escapeZone.overlap(player, () => { gameState = 4 })
@@ -212,7 +202,6 @@ function draw() {
 
 	player.rotation = 0;
 	gameMap.layer = 0;
-	//gameHitbox.layer = 1;
 	checkpointGroup.layer = 2;
 	itemGroup.layer = 3;
 	doorGroup.layer = 4;
@@ -224,6 +213,8 @@ function draw() {
 
 	for(i=0; i<lczFloor.length; i++) {
 		lczFloor[i].removeColliders()
+		lczFloor[i].allowSleeping = true;
+		lczFloor[i].sleeping = true;
 	};
 
 	for(i=0; i<lczFloorStart.length; i++) {
@@ -242,7 +233,20 @@ function draw() {
 		hczFloor[i].removeColliders()
 	};
 
-	allSprites.draw()
+	//setupTilemaps();
+	for (i=0; i<gameMap.length; i++) {
+		if (dist(player.x,player.y,gameMap[i].x,gameMap[i].y) < 800) {
+			gameMap[i].draw()
+		}
+	}
+
+	itemGroup.draw()
+	doorGroup.draw()
+	readerGroup.draw()
+	player.draw()
+	player.character.draw()
+	interactPrompt.draw()
+	
 	if (gameState == 1) {
 		drawHUD();
 	}

@@ -12,6 +12,7 @@
                    PRELOAD
         0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
+
 function loadTilemaps() {
     facilityTileset = loadImage("././assets/world/facility_tiles.png");
     checkpointTileTex = loadImage("././assets/world/checkpoint.png");
