@@ -87,6 +87,18 @@ lczWallMiddle.spriteSheet = facilityTileset;
 lczWallMiddle.addAni({w:64,h:64,row:1,col:0});
 lczWallMiddle.tile = "m";
 
+lczWallMiddleCollision = new Group();
+lczWallMiddleCollision.collider = "static";
+lczWallMiddleCollision.spriteSheet = facilityTileset;
+lczWallMiddleCollision.addAni({w:64,h:64,row:1,col:0});
+lczWallMiddleCollision.tile = "æ";
+
+lczWallTopCollision = new Group();
+lczWallTopCollision.collider = "static";
+lczWallTopCollision.spriteSheet = facilityTileset;
+lczWallTopCollision.addAni({w:64,h:64,row:2,col:1});
+lczWallTopCollision.tile = "þ";
+
 lczWallCrack1 = new Group();
 lczWallCrack1.collider = "static";
 lczWallCrack1.spriteSheet = facilityTileset;
@@ -343,10 +355,10 @@ wallTopCorner2.tile = "R";
             ".....<ffffffffff>.........................................................................................<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
             ".....<ffffffffff>.........................................................................................<oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>",
             ".....<ffffffffff>................................<vvvvvvvvvvvvvvvvvvvvvvffffffffvvvvvvvvvvvvvvvvvvvvvvvvv><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            ".....<ffffffffff>................................<ttttttttttttttttttttttffffffffttttttttttttttttttttttttt><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            ".....R^ffffffff^|................................<mmmmmmmmmmmmmmmmmmmmmmffffffffmmmmmmmmmmmmmmmmmmmmmmmmm><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            ".vvvvvvffffffffvvvvvv..............vvvvvvvvvvvvv.<mmmmmmmmmmmmmmmmmmmmmmffffffffmmmmmmmmmmmmmmmmmmmmmmmmm>.^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.",
-            "<tttttxffffffffxttttt>............<ttttttttttttt><mmmmmmmmmmmmmmmmmmmmmmfffDffffmmmmmmmmmmmmmmmmmmmmmmmmm>.vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv.",
+            ".....<ffffffffff>................................<tttttttttttttttttttttþffffffffþtttttttttttttttttttttttt><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            ".....R^ffffffff^|................................<mmmmmmmmmmmmmmmmmmmmmæffffffffæmmmmmmmmmmmmmmmmmmmmmmmm><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            ".vvvvvvffffffffvvvvvv..............vvvvvvvvvvvvv.<mmmmmmmmmmmmmmmmmmmmmæffffffffæmmmmmmmmmmmmmmmmmmmmmmmm>.^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.",
+            "<tttttxffffffffxttttt>............<ttttttttttttt><mmmmmmmmmmmmmmmmmmmmmæfffDffffæmmmmmmmmmmmmmmmmmmmmmmmm>.vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv.",
             "<mmmmmyffffffffymmmmm>............<mmmmmmmmmmmmm><bbbbbbbbbbbbbbbbbbbbbbffffffffbbbbbbbbbbbbbbbbbbbbbbbbb><tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt>",
             "<mmmmmxffffffffxmmmmm>............<mmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
             "<mmCmmyfffDffffymmmmm>............<mmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
@@ -359,10 +371,10 @@ wallTopCorner2.tile = "R";
             "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>^^^^^^^^^^^^^<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>.............<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>vvvvvvvvvvvvv<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffff>............<fffffffffffffDfffffffffffffffffffftttttttttttttttfffffffffffffffffffffDfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffffmmmmmmmmmmmmmmmfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffmmmmmmmmmmmmmmmfffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffmmmmmmmmmmmmmmmfffffffffffffffffffff>.^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.",
+            "<ffffffffffffffffffff>............<fffffffffffffDffffffffffffffffffffþtttttttttttttþfffffffffffffffffffffDfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffffæmmmmmmmmmmmmmæfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffæmmmmmmmmmmmmmæfffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffæmmmmmmmmmmmmmæfffffffffffffffffffff>.^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.",
             "<ffffffffffffffffffff>.............^^^^^^^^^^^^^.<fffffffffffffffffffbbbbbbbbbbbbbbbfffffffffffffffffffff>.vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv.",
             "<ffffffffffffffffffff>...........................<fffffffffffffffffffffffffffffffffffffffffffffffffffffff><tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt>",
             "<ffff'ffffffffff'ffff>...........................<fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
@@ -554,18 +566,20 @@ wallTopCorner2.tile = "R";
     }
     for (v=0;v<20;v++) {
     for (i=0;i<gameMap.length;i++) {
-        if (lczWallBlue.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i])) {
+        if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i])) {
             
         } else {
-            image(gameMap[i].ani.frameImage,gameMap[i].x,gameMap[i].y);
-            imageTiles.push({img:gameMap[i].ani.frameImage,x:gameMap[i].x,y:gameMap[i].y})
+            if (!lczFloor.includes(gameMap[i])) {
+                print(gameMap[i].image);
+            }
+            imageTiles.push({img:gameMap[i].image,x:gameMap[i].x,y:gameMap[i].y});
             gameMap[i].remove();
         }
-    }
     }
     for(i=0;i<imageTiles.length;i++) {
 		imageTileLayer.image(imageTiles[i].img,imageTiles[i].x,imageTiles[i].y);
 	};
+    }
 };
 
 function buildMap() {

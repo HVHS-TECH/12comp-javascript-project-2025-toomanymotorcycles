@@ -104,10 +104,6 @@ function drawHUD() {
 	imageMode(CENTER);
 }
 
-function drawImageTiles() {
-	image(imageTileLayer, 0, 0);
-}
-
 async function playerDeath(deathType) {
 	if (!deathlock) {
 		deathlock = true;
@@ -217,12 +213,6 @@ function draw() {
 	player.layer = 7;
 	player.character.layer = 7;
 
-	for(i=0; i<lczFloor.length; i++) {
-		lczFloor[i].removeColliders()
-		lczFloor[i].allowSleeping = true;
-		lczFloor[i].sleeping = true;
-	};
-
 	for(i=0; i<lczFloorStart.length; i++) {
 		lczFloorStart[i].removeColliders()
 	};
@@ -239,7 +229,7 @@ function draw() {
 		hczFloor[i].removeColliders()
 	};
 
-	drawImageTiles();
+	image(imageTileLayer,-32,-32)
 	allSprites.draw()
 	
 	if (gameState == 1) {
