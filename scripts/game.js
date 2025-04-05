@@ -234,18 +234,8 @@ function draw() {
 	};
 
 	//setupTilemaps();
-	for (i=0; i<gameMap.length; i++) {
-		if (dist(player.x,player.y,gameMap[i].x,gameMap[i].y) < 800) {
-			gameMap[i].draw()
-		}
-	}
 
-	itemGroup.draw()
-	doorGroup.draw()
-	readerGroup.draw()
-	player.draw()
-	player.character.draw()
-	interactPrompt.draw()
+	allSprites.draw()
 	
 	if (gameState == 1) {
 		drawHUD();

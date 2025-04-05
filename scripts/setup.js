@@ -111,13 +111,4 @@ function setup() {
     resizeImages();
     buildMap();
     player.pos = lczFloorStart[0].pos
-    //gameMap.removeAll();
-    /*setInterval(async () => {
-        setupTilemaps();
-	for (i=0; i<gameMap.length; i++) {
-		if (dist(player.x,player.y,gameMap[i].x,gameMap[i].y) > 800) {
-			gameMap[i].remove();
-		}
-	}
-    }, 100)*/
 };

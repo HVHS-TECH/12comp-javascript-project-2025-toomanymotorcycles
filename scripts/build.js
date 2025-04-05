@@ -551,6 +551,18 @@ wallTopCorner2.tile = "R";
             new Teleporter(teleporterCreator[i].x,teleporterCreator[i].y,teleporterPositions[i].id,teleporterPositions[i].linkId);
         }
     }
+    for (v=0;v<20;v++) {
+    for (i=0;i<gameMap.length;i++) {
+        if (lczWallBlue.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i])) {
+            
+        } else {
+            imageMode(CENTER)
+            print(gameMap[i].ani.frameImage)
+            image(gameMap[i].ani.frameImage,gameMap[i].x,gameMap[i].y);
+            gameMap[i].remove();
+        }
+    }
+    }
 };
 
 function buildMap() {
