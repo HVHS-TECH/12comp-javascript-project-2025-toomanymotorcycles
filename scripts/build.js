@@ -27,6 +27,12 @@ lczFloor.spriteSheet = facilityTileset;
 lczFloor.addAni({w:64,h:64,row:0,col:0});
 lczFloor.tile = "f";
 
+hczFloor = new Group();
+hczFloor.collider = "static";
+hczFloor.spriteSheet = facilityTileset;
+hczFloor.addAni({w:64,h:64,row:0,col:1});
+hczFloor.tile = "F";
+
 checkpointTile = new Group();
 checkpointTile.collider = "static";
 checkpointTile.spriteSheet = checkpointTileTex;
@@ -146,12 +152,6 @@ lczWallTop.collider = "static";
 lczWallTop.spriteSheet = facilityTileset;
 lczWallTop.addAni({w:64,h:64,row:2,col:1});
 lczWallTop.tile = "t";
-
-hczFloor = new Group();
-hczFloor.collider = "static";
-hczFloor.spriteSheet = facilityTileset;
-hczFloor.addAni({w:64,h:64,row:0,col:1});
-hczFloor.tile = "F";
 
 hczWallBottom = new Group();
 hczWallBottom.collider = "static";
@@ -344,6 +344,7 @@ wallTopCorner2.collider = "static";
 wallTopCorner2.spriteSheet = facilityTileset;
 wallTopCorner2.addAni({w:64,h:64,row:5,col:3});
 wallTopCorner2.tile = "R";
+
 }
 
     gameMap = new Tiles(
@@ -362,7 +363,7 @@ wallTopCorner2.tile = "R";
             "<mmmmmyffffffffymmmmm>............<mmmmmmmmmmmmm><bbbbbbbbbbbbbbbbbbbbbbffffffffbbbbbbbbbbbbbbbbbbbbbbbbb><tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt>",
             "<mmmmmxffffffffxmmmmm>............<mmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
             "<mmCmmyfffDffffymmmmm>............<mmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
-            "<bbbbbxffffffffxbbbbb>............<ggggggggggggg><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
+            "<bbbbbxffffffffxbbbbb>............<ggggggggggggg><FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>",
             "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo>",
             "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffff>............<fffffffffffffffffffffffffffffffffffffffffSffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
@@ -568,18 +569,17 @@ wallTopCorner2.tile = "R";
     for (i=0;i<gameMap.length;i++) {
         if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i])) {
             
-        } else {
-            if (!lczFloor.includes(gameMap[i])) {
-                print(gameMap[i].image);
-            }
-            imageTiles.push({img:gameMap[i].image,x:gameMap[i].x,y:gameMap[i].y});
+        } else if(!imageTiles.includes({img:gameMap[i].image,x:gameMap[i].x,y:gameMap[i].y})){
+            imageTiles.push({ani:gameMap[i].ani,x:gameMap[i].x,y:gameMap[i].y});
             gameMap[i].remove();
         }
     }
+
     for(i=0;i<imageTiles.length;i++) {
-		imageTileLayer.image(imageTiles[i].img,imageTiles[i].x,imageTiles[i].y);
-	};
+        
     }
+
+	};
 };
 
 function buildMap() {

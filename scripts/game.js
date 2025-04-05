@@ -230,6 +230,9 @@ function draw() {
 	};
 
 	image(imageTileLayer,-32,-32)
+	for(i=0;i<imageTiles.length;i++) {
+		imageTiles[i].ani.draw(imageTiles[i].x,imageTiles[i].y)
+    }
 	allSprites.draw()
 	
 	if (gameState == 1) {
