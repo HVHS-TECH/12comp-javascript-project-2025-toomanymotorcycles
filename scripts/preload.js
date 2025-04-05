@@ -92,6 +92,7 @@ function loadSFX() {
 
 function preload() {
     //Preloading the game's asset files to avoid any errors.
+    testImage = loadImage("././assets/testing.jpeg")
     loadTilemaps();
     loadWorldSounds();
     loadSFX();

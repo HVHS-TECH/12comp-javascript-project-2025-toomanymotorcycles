@@ -57,6 +57,7 @@ function playerMovement() {
 };
 
 function drawHUD() {
+	imageMode(CORNER);
 	hudHealthbarLerpCurrentValue = lerp(hudHealthbarLerpCurrentValue, 900 / 100 * player.health, 0.075)
 	hudLayer.fill("gray")
 	hudLayer.rect(0, windowHeight - 100, 1000, 100)
@@ -100,6 +101,11 @@ function drawHUD() {
 	camera.off();
 	image(hudLayer, 0, 0);
 	camera.on();
+	imageMode(CENTER);
+}
+
+function drawImageTiles() {
+	image(imageTileLayer, 0, 0);
 }
 
 async function playerDeath(deathType) {
@@ -233,8 +239,7 @@ function draw() {
 		hczFloor[i].removeColliders()
 	};
 
-	//setupTilemaps();
-
+	drawImageTiles();
 	allSprites.draw()
 	
 	if (gameState == 1) {

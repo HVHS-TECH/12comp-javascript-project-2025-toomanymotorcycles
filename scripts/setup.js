@@ -15,6 +15,7 @@
 let 
 gameState, //what state the game is in (on the menu screen, playing the game, on the win screen, on the losing screen etc.)
 hudLayer,
+imageTileLayer,
 hudTint,
 hudHealthbarLerpCurrentValue = 900,
 freeze,
@@ -70,6 +71,7 @@ function setup() {
     escapeZone = new Sprite(1000,-1000,200,200,'d');
     escapeZone.color = "white";
     hudLayer = createGraphics(windowWidth,windowHeight);
+    imageTileLayer = createGraphics(windowWidth,windowHeight);
     interactPrompt = new Sprite(camera.x,camera.y+windowWidth/8,150,150,'s');
     interactPrompt.textSize = 100
     interactPrompt.textColor = "white"

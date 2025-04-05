@@ -1,5 +1,6 @@
 let doorClearances = [{clearance: 1, rotation:0 ,locked: false},{clearance: 1, rotation:0 ,locked: true},{clearance: 2, rotation:1 ,locked: false},{clearance: 1, rotation:1 ,locked: false}]
-let teleporterPositions = [{id:0,linkId:2},{id:1,linkId:3},{id:2,linkId:0},{id:3,linkId:1}]
+let teleporterPositions = [{id:0,linkId:2},{id:1,linkId:3},{id:2,linkId:0},{id:3,linkId:1}];
+let imageTiles = [];
 let objectsCreated = false;
 
 function createDoor(tile, rotation, clearance, voicelocked) {
@@ -556,12 +557,15 @@ wallTopCorner2.tile = "R";
         if (lczWallBlue.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i])) {
             
         } else {
-            gameMap[i].image = gameMap[i].ani.frameImage;
-            image(gameMap[i].image,gameMap[i].x,gameMap[i].y);
+            image(gameMap[i].ani.frameImage,gameMap[i].x,gameMap[i].y);
+            imageTiles.push({img:gameMap[i].ani.frameImage,x:gameMap[i].x,y:gameMap[i].y})
             gameMap[i].remove();
         }
     }
     }
+    for(i=0;i<imageTiles.length;i++) {
+		imageTileLayer.image(imageTiles[i].img,imageTiles[i].x,imageTiles[i].y);
+	};
 };
 
 function buildMap() {
