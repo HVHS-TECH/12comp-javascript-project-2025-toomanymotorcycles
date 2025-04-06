@@ -15,6 +15,7 @@
 let 
 gameState, //what state the game is in (on the menu screen, playing the game, on the win screen, on the losing screen etc.)
 hudLayer,
+fadeProgress, //used in the fade in and fade out animations that occur when you die or teleport; value controld how "faded" everything is from 0 (visible) to 255 (black screen)
 imageTileLayer,
 imageTileBuffer,
 hudTint,
@@ -62,6 +63,9 @@ function resizeImages() {
     }
     for (i=0; i<itemDisplayTextures.length; i++) {
         itemDisplayTextures[i].resize(125,125)
+    }
+    for (i=0; i<signTextures.length; i++) {
+        signTextures[i].resize(125,75)
     }
 }
 function setup() {
@@ -114,4 +118,5 @@ function setup() {
     resizeImages();
     buildMap();
     player.pos = lczFloorStart[0].pos
+    fadeProgress = 0;
 };

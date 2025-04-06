@@ -52,7 +52,7 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 8
         if (player.canUseSpeedItems) {
-            print("SPEED STEROIDS USED")
+            console.log("SPEED STEROIDS USED")
             itemExecution = true;
             player.canUseSpeedItems = false; 
             player.speedMultiplier = 1.2;
@@ -65,7 +65,7 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 9
         if (player.canUseHealthItems) {
-            print("HEALING INJECTION USED")
+            console.log("HEALING INJECTION USED")
             itemExecution = true;
             player.canUseHealthItems = false; 
             for(i=player.health; i<100; i++) {
@@ -79,7 +79,7 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 10
         if (player.canUseStaminaItems && player.canUseSpeedItems && player.canUseHealthItems) {
-            print("EXPERIMENTAL INJECTION 1 USED")
+            console.log("EXPERIMENTAL INJECTION 1 USED")
             itemExecution = true;
             player.canUseStaminaItems = false;
             player.canUseSpeedItems = false;
@@ -88,7 +88,7 @@ const ITEM_FUNCTIONS = [
             player.stamina = player.staminaMax;
             player.fatigued = false;
             player.speedMultiplier = 1.6;
-            print(player.speedMultiplier)
+            console.log(player.speedMultiplier)
             for (i=0; i<75; i++) {
                 player.health --;
                 await sleep(266);
@@ -131,11 +131,11 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 13
         if (!usingVoiceKey) {
-            print("VOICE KEY USED")
+            console.log("VOICE KEY USED")
             usingVoiceKey = true;
             voiceKeyAudio.play();
             await sleep(5000)
-            print("VOICE KEY USE COMPLETE")
+            console.log("VOICE KEY USE COMPLETE")
             usingVoiceKey = false;
         } else {
             console.warn("Player attempted to use voice key while voice key was already being used.")

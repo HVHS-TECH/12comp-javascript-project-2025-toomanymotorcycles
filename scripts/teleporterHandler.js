@@ -10,21 +10,21 @@ class Teleporter{
 		this.linkedTeleporterId = linkedTeleporterId;
 		this.linkedTeleporter = null;
 		this.id = id;
-		print("ID: "+this.id)
-		print("LINK: "+this.linkedTeleporterId)
+		console.log("ID: "+this.id)
+		console.log("LINK: "+this.linkedTeleporterId)
         for (i=0; i<teleporterLinkQueue.length; i++) {
-			print("ATTEMPTING LINK")
+			console.log("ATTEMPTING LINK")
 			if (this.linkedTeleporterId == teleporterLinkQueue[i].id) {
-				print("LINK FOUND")
+				console.log("LINK FOUND")
 				this.linkedTeleporter = teleporterLinkQueue[i];
 				teleporterLinkQueue[i].linkedTeleporter = this;
 				teleporterLinkQueue.splice(i,1);
 			}
 		}
 		if (this.linkedTeleporter == null) {
-			print("NO LINK MADE")
+			console.log("NO LINK MADE")
 			teleporterLinkQueue.push(this);
-			print(teleporterLinkQueue)
+			console.log(teleporterLinkQueue)
 		}
         teleporterGroup.add(this.sprite.hitbox);
 		hiddenGroup.add(this.sprite.hitbox);
@@ -35,9 +35,7 @@ class Teleporter{
         freeze = true;
 		let r;
 		for (r = 1; r < 101; r++) {
-			allSprites.opacity = 1 - r * 0.01
-			hiddenGroup.opacity = 0;
-			print(player.opacity)
+			fadeProgress = r*2.55
 			await sleep(1)
 		}
 		await sleep(1000)
@@ -45,9 +43,7 @@ class Teleporter{
 		player.colour = "purple"
 		freeze = false;
 		for (r = 1; r < 101; r++) {
-			allSprites.opacity = r * 0.01;
-			hiddenGroup.opacity = 0;
-			print(player.opacity)
+			fadeProgress = 255 - r*2.55
 			await sleep(1)
 		}
 		deathlock = false;

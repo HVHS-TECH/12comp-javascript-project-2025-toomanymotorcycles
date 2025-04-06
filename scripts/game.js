@@ -109,13 +109,11 @@ async function playerDeath(deathType) {
 		deathlock = true;
 		player.colour = "red"
 		player.lives--;
-		print("lives " + player.lives)
+		console.log("lives " + player.lives)
 		deathSting.play()
 		await sleep(2000)
 		for (v = 1; v < 101; v++) {
-			allSprites.opacity = 1 - v * 0.01
-			hiddenGroup.opacity = 0;
-			print(player.opacity)
+			fadeProgress = v*2.55
 			await sleep(1)
 		}
 		if (currentCheckpoint != undefined && player.lives > 0) {
@@ -128,9 +126,7 @@ async function playerDeath(deathType) {
 			deathlock = false;
 			gameState = 1;
 			for (v = 1; v < 101; v++) {
-				allSprites.opacity = v * 0.01;
-				hiddenGroup.opacity = 0;
-				print(player.opacity)
+				fadeProgress = 255 - v*2.55
 				await sleep(1)
 			}
 		} else {
@@ -147,6 +143,11 @@ function draw() {
 	// Draw function; the primary game loop. Runs 60 times a second.
 	clear();
 	if (gameState == 1) {
+		if (!gameMusic.isPlaying()) {
+			console.log("PLAYING MUSIC");
+			gameMusic.loop();
+			klaxon.loop();
+		}
 		camera.on();
 		background("black")
 		playerMovement();
@@ -229,11 +230,13 @@ function draw() {
 		hczFloor[i].removeColliders()
 	};
 
-	image(imageTileLayer,-32,-32)
-	for(i=0;i<imageTiles.length;i++) {
-		imageTiles[i].ani.draw(imageTiles[i].x,imageTiles[i].y)
-    }
-	allSprites.draw()
+	image(imageTileLayer,-32,-32);
+	allSprites.draw();
+	camera.off();
+	console.log("fadeprogress "+fadeProgress);
+	fill(0,fadeProgress);
+	rect(0,0,windowWidth,windowHeight);
+	camera.on();
 	
 	if (gameState == 1) {
 		drawHUD();

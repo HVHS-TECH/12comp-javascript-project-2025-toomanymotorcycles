@@ -18,6 +18,20 @@ function loadTilemaps() {
     checkpointTileTex = loadImage("././assets/world/checkpoint.png");
 }
 
+function loadSignTextures() {
+    sign0T = loadImage("././assets/world/signs/sign_00.png");
+    sign1T = loadImage("././assets/world/signs/sign_01.png");
+    sign2T = loadImage("././assets/world/signs/sign_02.png");
+    sign3T = loadImage("././assets/world/signs/sign_03.png");
+    sign4T = loadImage("././assets/world/signs/sign_04.png");
+    sign5T = loadImage("././assets/world/signs/sign_05.png");
+    sign6T = loadImage("././assets/world/signs/sign_06.png");
+    sign7T = loadImage("././assets/world/signs/sign_07.png");
+    sign8T = loadImage("././assets/world/signs/sign_08.png");
+    sign9T = loadImage("././assets/world/signs/sign_09.png");
+    signTextures = [sign0T,sign1T,sign2T,sign3T,sign4T,sign5T,sign6T,sign7T,sign8T,sign9T]
+}
+
 function loadCardReaderTextures() {
     readerT1 = loadImage("././assets/card_reader/reader_1.png");
     readerT2 = loadImage("././assets/card_reader/reader_2.png");
@@ -75,6 +89,7 @@ function loadDoorTextures() {
 }
 
 function loadWorldSounds() {
+    klaxon = loadSound("././assets/background_klaxon.ogg");
     accessDenied = loadSound("././assets/access_denied.flac");
     accessGranted = loadSound("././assets/access_granted.ogg");
     bigDoorAlarm = loadSound("././assets/klaxon1.mp3");
@@ -90,12 +105,18 @@ function loadSFX() {
     takeDamage = loadSound("././assets/take_damage.ogg");
 }
 
+function loadMusic() {
+    gameMusic = loadSound("././assets/music/Twilight.mp3");
+}
+
 function preload() {
     //Preloading the game's asset files to avoid any errors.
     testImage = loadImage("././assets/testing.jpeg")
     loadTilemaps();
+    loadSignTextures();
     loadWorldSounds();
     loadSFX();
+    loadMusic();
     loadDoorTextures();
     loadCardReaderTextures();
     loadItemTextures();
