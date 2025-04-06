@@ -40,6 +40,13 @@ let signTiles = [
 let imageTiles = [];
 let objectsCreated = false;
 
+function findTileGroup(sprite) {
+    let spritegroups = Array.from(sprite.groups);
+    spritegroups.splice(spritegroups.findIndex((element) => element.name = "allSprites"),1);
+    spritegroups.splice(spritegroups.findIndex((element) => element.name = "allSprites"),1);
+    return spritegroups[0];
+}
+
 function createDoor(tile, rotation, clearance, voicelocked) {
     newDoor = new Door(tile.x+32,tile.y-160,rotation,2,4500)
     if (rotation == 0) {
@@ -613,15 +620,17 @@ wallTopCorner2.tile = "R";
     for (i=0;i<gameMap.length;i++) {
         if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i])) {
             
-        } else if(!imageTiles.includes({img:gameMap[i].image,x:gameMap[i].x,y:gameMap[i].y})){
-            imageTiles.push({ani:gameMap[i].ani,x:gameMap[i].x,y:gameMap[i].y});
+        } else if(!imageTiles.includes({row:0,col:1,x:gameMap[i].x,y:gameMap[i].y})){
+            imageTiles.push({row:0,col:1,x:gameMap[i].x,y:gameMap[i].y});
             gameMap[i].remove();
         }
     }
 	};
     for(i=0;i<imageTiles.length;i++) {
-        imageTileLayer.image(imageTiles[i].ani.frameImage,imageTiles[i].x,imageTiles[i].y)
+        imageTileLayer.image(facilityTileset,imageTiles[i].x,imageTiles[i].y,64,64,imageTiles[i].row*64,imageTiles[i].col*64,64,64);
     }
+    console.log(findTileGroup(gameMap[5]).name);
+    console.log(gameMap[5]);
 };
 
 function buildMap() {
