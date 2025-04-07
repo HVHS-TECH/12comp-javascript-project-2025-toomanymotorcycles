@@ -683,17 +683,29 @@ wallTopCorner2.tile = "R";
     console.log()
     for (v=0;v<20;v++) {
     for (i=0;i<gameMap.length;i++) {
+        try {
         if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i])) {
-            
-        } else if(!imageTiles.includes({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y})){
-            //console.log("map tile"+i);
-            imageTiles.push({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y});
+        } else if(!imageTiles.includes({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y}) || !imageTiles.includes({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y})){
+            console.log("tile "+i);
+            console.log(findTileGroup(gameMap[i]).idNum);
+            if (findTileGroup(gameMap[i]).idNum == 21) {
+                console.log("tile 21 failsafe")
+                imageTiles.push({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y});
+            } else {
+                imageTiles.push({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y});
+            }
             gameMap[i].remove();
+        }
+        } catch {
+            if(!imageTiles.includes({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y})){
+                console.log("FAILSAFE")
+                imageTiles.push({row:6,col:4,x:gameMap[i].x,y:gameMap[i].y})
+            }
         }
     }
 	};
     for(i=0;i<imageTiles.length;i++) {
-        imageTileLayer.image(facilityTileset,imageTiles[i].x,imageTiles[i].y,64,64,imageTiles[i].row*64,imageTiles[i].col*64,64,64);
+        imageTileLayer.image(facilityTileset,imageTiles[i].x,imageTiles[i].y,64,64,imageTiles[i].col*64,imageTiles[i].row*64,64,64); //I made a mistake here and fixed it by swapping the uses of the row and column values.
     }
 };
 
