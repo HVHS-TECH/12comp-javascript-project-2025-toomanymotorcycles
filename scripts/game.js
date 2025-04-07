@@ -12,6 +12,23 @@
 				MAIN GAME LOOP
 		0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
+async function playerShoot(bulletSpread) {
+	let newBullet = new Sprite(player.character.x,player.character.y,10,10,'d')
+    newBullet.power = 20;
+    playerBulletGroup.add(newBullet)
+    newBullet.colour = "yellow";
+    newBullet.life = 30
+	let mousepositions = {x:mouse.x,y:mouse.y}
+	newBullet.rotateTowards(mousepositions,1)
+	newBullet.bearing = newBullet.rotation
+    if (random(1,2) == 1) {
+        newBullet.bearing += random(0,bulletSpread)
+    } else {
+        newBullet.bearing -= random(0,bulletSpread)
+    }
+    newBullet.applyForce(200)
+}
+
 function playerMovement() {
 	if (!deathlock) {
 	if (kb.pressing("shift") && player.stamina > 0 && !player.fatigued) {
@@ -109,7 +126,7 @@ async function playerDeath(deathType) {
 		deathlock = true;
 		player.colour = "red"
 		player.lives--;
-		console.log("lives " + player.lives)
+		//console_log_"lives " + player.lives)
 		deathSting.play()
 		await sleep(2000)
 		for (v = 1; v < 101; v++) {
@@ -139,12 +156,19 @@ function spawnItem() {
 	newItem = new Item(windowWidth / 2, windowHeight / 2, 30, 30, 1);
 }
 
+function mousePressed() {
+	if (gameState == 1) {
+		print("AHOOGA")
+		playerShoot();
+	}
+  }
+
 function draw() {
 	// Draw function; the primary game loop. Runs 60 times a second.
 	clear();
 	if (gameState == 1) {
 		if (!gameMusic.isPlaying()) {
-			console.log("PLAYING MUSIC");
+			//console_log_"PLAYING MUSIC");
 			gameMusic.loop();
 			klaxon.loop();
 		}
@@ -162,6 +186,7 @@ function draw() {
 	}
 	if (gameState == 3) {
 		deathlock = false;
+		fadeProgress = 0;
 		background("red")
 	}
 	if (gameState == 4) {
@@ -195,6 +220,11 @@ function draw() {
 	checkpointGroup.overlapped(player.character, () => { interactPrompt.visible = false })
 
 	enemyBulletGroup.overlap(player.character, (bullet) => { takeDamage.play(), player.health -= bullet.power, bullet.remove() })
+	enemyGroup.collide(gameMap);
+
+	playerBulletGroup.overlap(player.character)
+	playerBulletGroup.overlap(player)
+	playerBulletGroup.overlap(playerBulletGroup)
 
 	allSprites.overlap(enemyBulletGroup)
 	allSprites.overlap(player.character)
@@ -233,7 +263,7 @@ function draw() {
 	image(imageTileLayer,-32,-32);
 	allSprites.draw();
 	camera.off();
-	console.log("fadeprogress "+fadeProgress);
+	//console_log_"fadeprogress "+fadeProgress);
 	fill(0,fadeProgress);
 	rect(0,0,windowWidth,windowHeight);
 	camera.on();

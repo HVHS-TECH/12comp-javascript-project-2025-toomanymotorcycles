@@ -18,6 +18,10 @@ let doorClearances = [
     {clearance: 3, rotation:1 ,locked: false}
 ];
 
+let enemyStats = [
+    {size:60,health:20,power:10,speed:30,atkSpeed:100,atkType:1,bulletSpread:3}
+]
+
 let teleporterPositions = [
     {id:4,linkId:6},
     {id:0,linkId:2},
@@ -70,7 +74,13 @@ lczFloor.spriteSheet = facilityTileset;
 lczFloor.addAni({w:64,h:64,row:0,col:0});
 imageValues.set(lczFloor.idNum,{row:0,col:0})
 lczFloor.tile = "f";
-lczFloor.name = "lczFloor";
+
+lczEnemy = new Group();
+lczEnemy.collider = "static";
+lczEnemy.spriteSheet = facilityTileset;
+lczEnemy.addAni({w:64,h:64,row:0,col:0});
+imageValues.set(lczEnemy.idNum,{row:0,col:0})
+lczEnemy.tile = "Ж";
 
 hczFloor = new Group();
 hczFloor.collider = "static";
@@ -146,7 +156,7 @@ lczWallGray.spriteSheet = facilityTileset;
 lczWallGray.addAni({w:64,h:64,row:0,col:6});
 imageValues.set(lczWallGray.idNum,{row:0,col:6});
 lczWallGray.tile = "g";
-console.log("group pass image value ahooga"+imageValues.get(lczWallGray.idNum));
+//console_log_"group pass image value ahooga"+imageValues.get(lczWallGray.idNum));
 
 lczWallMiddle = new Group();
 lczWallMiddle.collider = "static";
@@ -154,7 +164,7 @@ lczWallMiddle.spriteSheet = facilityTileset;
 lczWallMiddle.addAni({w:64,h:64,row:1,col:0});
 imageValues.set(lczWallMiddle.idNum,{row:1,col:0});
 lczWallMiddle.tile = "m";
-console.log("group fail image value ahooga"+imageValues.get(lczWallMiddle.idNum));
+//console_log_"group fail image value ahooga"+imageValues.get(lczWallMiddle.idNum));
 
 lczWallMiddleCollision = new Group();
 lczWallMiddleCollision.collider = "static";
@@ -483,7 +493,7 @@ wallTopCorner2.tile = "R";
             "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffæmmmmmmmmmmmmmæfffffffffffffffffffff>.^^^^^^^^ffffffff^^^^^^^^^^^^^^^^ffffffff^^^^^^^^^^^^ffffffff^^^^^^^^^^^^^^^^ffffffff^^^^^^^^.",
             "<ffffffffffffffffffff>.............^^^^^^^^^^^^^.<fffffffffffffffffffbbbbbbbbbbbbbbbfffffffffffffffffffff>.vvvvvvvvffffffffvvvvvvvv..vvvvvvffffffffvvvvv..vvvvvffffffffvvvvvv..vvvvvvvvffffffffvvvvvvvv.",
             "<ffffffffffffffffffff>...........................<fffffffffffffffffffffffffffffffffffffffffffffffffffffff><tttttttxffffffffxttttttt><tttttxffffffffxtttt><ttttxffffffffxttttt><tttttttxffffffffxttttttt>",
-            "<ffff'ffffffffff'ffff>...........................<fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmyffffffffymmmmmmm><mmmmmyffffffffymmmm><mmmmyffffffffymmmmm><mmmmmmmyffffffffymmmmmmm>",
+            "<ffff'ffffffffff'ffff>...........................<ffffffffffffffffffffffffffЖffffffffffffffffffffffffffff><mmmmmmmyffffffffymmmmmmm><mmmmmyffffffffymmmm><mmmmyffffffffymmmmm><mmmmmmmyffffffffymmmmmmm>",
             ".^^^^^^^^^^^^^^^^^^^^.............................^^^^ffffffff^^^^^^^^^^^ffffffff^^^^^^^^^^^^ffffffff^^^^.<mmmmmmmxffffffffxmmmmmmm><mmmmmxffffffffxmmmm><mmmmxffffffffxmmmmm><mmmmmmmxffffffffxmmmmmmm>",
             "..................................................vvvvffffffffvvvv..vvvvvffffffffvvvvvv..vvvvffffffffvvvv.<mmmmmmmyfffDffffymmmmmmm><mmmmmyfffDffffymmmm><mmmmyfffDffffymmmmm><mmmmmmmyfffDffffymmmmmmm>",
             ".................................................<tttxffffffffxttt><ttttxffffffffxttttt><tttxffffffffxttt><gggggggxffffffffxggggggg><gggggxffffffffxgggg><ggggxffffffffxggggg><gggggggxffffffffxggggggg>",
@@ -672,24 +682,27 @@ wallTopCorner2.tile = "R";
         for (i=0; i<signCreator.length; i++) {
             new Sign(signCreator[i].x,signCreator[i].y, signTiles[i]);
         }
+        for (i=0; i<lczEnemy.length; i++) {
+            new Enemy(lczEnemy[i].x,lczEnemy[i].y,enemyStats[i].size,enemyStats[i].health,enemyStats[i].power,enemyStats[i].speed,enemyStats[i].atkSpeed,enemyStats[i].atkType,enemyStats[i].bulletSpread);
+        }
     }
-    console.log("row: "+imageValues.get(findTileGroup(gameMap[5]).idNum).row)
-    console.log("id: "+findTileGroup(gameMap[8730]).idNum);
-    console.log("group pass: "+findTileGroup(gameMap[8729]).idNum);
-    console.log("group fail: "+findTileGroup(gameMap[8730]).idNum);
-    console.log("group fail image value "+imageValues.get(21));
-    console.log("light middle wall id "+lczWallMiddle.idNum);
-    console.log(gameMap[8730]);
-    console.log()
+    //console_log_"row: "+imageValues.get(findTileGroup(gameMap[5]).idNum).row)
+    //console_log_"id: "+findTileGroup(gameMap[8730]).idNum);
+    //console_log_"group pass: "+findTileGroup(gameMap[8729]).idNum);
+    //console_log_"group fail: "+findTileGroup(gameMap[8730]).idNum);
+    //console_log_"group fail image value "+imageValues.get(21));
+    //console_log_"light middle wall id "+lczWallMiddle.idNum);
+    //console_log_gameMap[8730]);
+    //console_log_)
     for (v=0;v<20;v++) {
     for (i=0;i<gameMap.length;i++) {
         try {
         if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i])) {
         } else if(!imageTiles.includes({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y}) || !imageTiles.includes({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y})){
-            console.log("tile "+i);
-            console.log(findTileGroup(gameMap[i]).idNum);
+            //console_log_"tile "+i);
+            //console_log_findTileGroup(gameMap[i]).idNum);
             if (findTileGroup(gameMap[i]).idNum == 21) {
-                console.log("tile 21 failsafe")
+                //console_log_"tile 21 failsafe")
                 imageTiles.push({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y});
             } else {
                 imageTiles.push({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y});
@@ -698,7 +711,7 @@ wallTopCorner2.tile = "R";
         }
         } catch {
             if(!imageTiles.includes({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y})){
-                console.log("FAILSAFE")
+                //console_log_"FAILSAFE")
                 imageTiles.push({row:6,col:4,x:gameMap[i].x,y:gameMap[i].y})
             }
         }

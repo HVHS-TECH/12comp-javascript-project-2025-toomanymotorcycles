@@ -34,7 +34,8 @@ doorGroup, //all the doors in the game.
 itemGroup, //all the loose items in the game.
 checkpointGroup, //all the checkpoints in the game.
 teleporterGroup,
-enemyBulletGroup, //more like enemy bullet hell group...
+playerBulletGroup, //all player-fired bullets
+enemyBulletGroup, //all enemy-fired bullets; more like enemy bullet hell group...
 hiddenGroup,
 interactPrompt, // the "E" interaction prompt that appears whenever you interact with something.
 tilemapSetup = true;
@@ -86,6 +87,7 @@ function setup() {
     interactPrompt.overlap(allSprites)
     enemyGroup = new Group();
     enemyBulletGroup = new Group();
+    playerBulletGroup = new Group();
     readerGroup = new Group();
     doorGroup = new Group();
     itemGroup = new Group();

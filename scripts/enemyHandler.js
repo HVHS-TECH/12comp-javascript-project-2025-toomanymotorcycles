@@ -32,7 +32,7 @@ class Enemy{
                 player.collide(this.sprite, () => {takeDamage.play(), player.health -= this.sprite.power})
             }
             if (this.attackType == 1) {
-                if (world.rayCast(this.sprite,player) == player) {
+                //if (world.rayCast(this.sprite,player) == player) {
                     if (!this.attackCooldown) {
                         this.sprite.rotateTowards(player,0.25);
                         this.sprite.moveTo(player.x,player.y,this.sprite.moveSpeed);
@@ -47,9 +47,9 @@ class Enemy{
                         this.attackCooldown = this.attackSpeed;
                         this.sprite.move(200,this.sprite.rotation,20)
                     }
-                }
+               // }
             } else if (this.attackType = 2) {
-                if (world.rayCast(this.sprite,player) == player) {
+                //if (world.rayCast(this.sprite,player) == player) {
                     if (this.attackCooldown > 0) {
                         this.sprite.rotateTowards(player,0.25);
                         this.sprite.moveTo(player.x,player.y,this.sprite.moveSpeed);
@@ -79,7 +79,7 @@ class Enemy{
                         }
                         newBullet.applyForce(200)
                     }
-                }
+                //}
             } else {
             console.error("Enemy has invalid attack type! Enemy sprite has been removed.")
             this.sprite.remove()
