@@ -146,6 +146,7 @@ lczWallGray.spriteSheet = facilityTileset;
 lczWallGray.addAni({w:64,h:64,row:0,col:6});
 imageValues.set(lczWallGray.idNum,{row:0,col:6});
 lczWallGray.tile = "g";
+console.log("group pass image value ahooga"+imageValues.get(lczWallGray.idNum));
 
 lczWallMiddle = new Group();
 lczWallMiddle.collider = "static";
@@ -153,7 +154,7 @@ lczWallMiddle.spriteSheet = facilityTileset;
 lczWallMiddle.addAni({w:64,h:64,row:1,col:0});
 imageValues.set(lczWallMiddle.idNum,{row:1,col:0});
 lczWallMiddle.tile = "m";
-console.log("group fail image value "+imageValues.get(lczWallMiddle.idNum));
+console.log("group fail image value ahooga"+imageValues.get(lczWallMiddle.idNum));
 
 lczWallMiddleCollision = new Group();
 lczWallMiddleCollision.collider = "static";
