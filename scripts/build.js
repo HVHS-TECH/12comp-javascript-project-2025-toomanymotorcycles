@@ -43,11 +43,7 @@ let imageTiles = [];
 let objectsCreated = false;
 
 function findTileGroup(sprite) {
-    let spritegroups = Array.from(sprite.groups);
-    spritegroups.splice(spritegroups.findIndex((element) => element.name = "allSprites"),1);
-    spritegroups.splice(spritegroups.findIndex((element) => element.name = "gameMap"),1);
-    console.log(spritegroups[0].name)
-    return sprite.groups.find((element) => element.name = spritegroups[0].name);
+    return sprite.groups.find((element) => element.idNum != allSprites.idNum && element.idNum != gameMap.idNum);
 }
 
 function createDoor(tile, rotation, clearance, voicelocked) {
@@ -113,6 +109,7 @@ lczFloorBigDoor.tile = "D";
 
 signCreator = new Group();
 signCreator.collider = "static";
+imageValues.set(signCreator.idNum,{row:1,col:0});
 signCreator.tile = "ɸ";
 
 lczWallBlue = new Group();
@@ -674,15 +671,21 @@ wallTopCorner2.tile = "R";
             new Sign(signCreator[i].x,signCreator[i].y, signTiles[i]);
         }
     }
-    console.log(lczFloor.name);
-    console.log(findTileGroup(gameMap[5]));
-    console.log(gameMap[5]);
+    console.log("row: "+imageValues.get(findTileGroup(gameMap[5]).idNum).row)
+    console.log("id: "+findTileGroup(gameMap[8730]).idNum);
+    console.log("group pass: "+findTileGroup(gameMap[8729]).idNum);
+    console.log("group fail: "+findTileGroup(gameMap[8730]).idNum);
+    console.log("group fail image value "+imageValues.get(21));
+    console.log("light middle wall id "+lczWallMiddle.idNum);
+    console.log(gameMap[8730]);
+    console.log()
     for (v=0;v<20;v++) {
     for (i=0;i<gameMap.length;i++) {
         if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i])) {
             
-        } else if(!imageTiles.includes({row:imageValues.get(findTileGroup(gameMap[i])).row,col:imageValues.get(findTileGroup(gameMap[i])).col,x:gameMap[i].x,y:gameMap[i].y})){
-            imageTiles.push({row:imageValues.get(findTileGroup(gameMap[i])).row,col:imageValues.get(findTileGroup(gameMap[i])).col,x:gameMap[i].x,y:gameMap[i].y});
+        } else if(!imageTiles.includes({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y})){
+            //console.log("map tile"+i);
+            imageTiles.push({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y});
             gameMap[i].remove();
         }
     }
