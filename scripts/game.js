@@ -18,15 +18,15 @@ async function playerShoot(bulletSpread) {
     playerBulletGroup.add(newBullet)
     newBullet.colour = "yellow";
     newBullet.life = 30
-	let mousepositions = {x:mouse.x,y:mouse.y}
-	newBullet.rotateTowards(mousepositions,1)
-	newBullet.bearing = newBullet.rotation
+	newBullet.rotation = player.crosshair.rotation;
+	newBullet.bearing = newBullet.rotation;
     if (random(1,2) == 1) {
         newBullet.bearing += random(0,bulletSpread)
     } else {
         newBullet.bearing -= random(0,bulletSpread)
     }
     newBullet.applyForce(200)
+	laserMagnumShot.play()
 }
 
 function playerMovement() {
@@ -115,6 +115,8 @@ function drawHUD() {
 	}
 	player.character.x = player.x;
 	player.character.y = player.y-50;
+	player.crosshair.x = player.character.x;
+	player.crosshair.y = player.character.y;
 	camera.off();
 	image(hudLayer, 0, 0);
 	camera.on();
@@ -158,8 +160,7 @@ function spawnItem() {
 
 function mousePressed() {
 	if (gameState == 1) {
-		print("AHOOGA")
-		playerShoot();
+		playerShoot(5);
 	}
   }
 
@@ -186,6 +187,7 @@ function draw() {
 	}
 	if (gameState == 3) {
 		deathlock = false;
+		allSprites.opacity = 0;
 		fadeProgress = 0;
 		background("red")
 	}
@@ -221,14 +223,17 @@ function draw() {
 
 	enemyBulletGroup.overlap(player.character, (bullet) => { takeDamage.play(), player.health -= bullet.power, bullet.remove() })
 	enemyGroup.collide(gameMap);
+	enemyGroup.overlap(playerBulletGroup, (enemy,bullet) => {console.log("ENEMY HIT: "+enemy), enemy.health -= 10, bullet.remove() });
 
 	playerBulletGroup.overlap(player.character)
 	playerBulletGroup.overlap(player)
 	playerBulletGroup.overlap(playerBulletGroup)
 
 	allSprites.overlap(enemyBulletGroup)
+	allSprites.overlap(player.crosshair)
 	allSprites.overlap(player.character)
 	enemyBulletGroup.overlap(doorGroup, (bullet) => { bullet.remove() })
+	enemyBulletGroup.overlap(gameMap, (bullet) => { bullet.remove() })
 
 	interactPrompt.x = camera.x;
 	interactPrompt.y = camera.y + windowWidth / 8;
@@ -260,13 +265,15 @@ function draw() {
 		hczFloor[i].removeColliders()
 	};
 
-	image(imageTileLayer,-32,-32);
+	if (gameState == 1 || gameState == 2) {image(imageTileLayer,-32,-32)};
 	allSprites.draw();
 	camera.off();
 	//console_log_"fadeprogress "+fadeProgress);
 	fill(0,fadeProgress);
 	rect(0,0,windowWidth,windowHeight);
 	camera.on();
+
+	player.crosshair.rotateTowards(mouse,1);
 	
 	if (gameState == 1) {
 		drawHUD();

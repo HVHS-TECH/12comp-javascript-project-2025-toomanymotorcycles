@@ -19,7 +19,7 @@ let doorClearances = [
 ];
 
 let enemyStats = [
-    {size:60,health:20,power:10,speed:30,atkSpeed:100,atkType:1,bulletSpread:3}
+    {size:60,health:20,power:10,speed:5,atkSpeed:10,atkType:2,bulletSpread:3}
 ]
 
 let teleporterPositions = [

@@ -74,6 +74,9 @@ function setup() {
     canvas = new Canvas(windowWidth,windowHeight, "pixellated x100");
     player = new Sprite(1000,500,50,15,'d');
     player.character = new Sprite(player.x,player.y,50,120,'d');
+    player.crosshair = new Sprite(player.character.x,player.character.y,50,120,'d');
+    player.name = "PLAYER"
+    player.character.name = "PLAYERCHARACTER"
     escapeZone = new Sprite(1000,-1000,200,200,'d');
     escapeZone.color = "white";
     hudLayer = createGraphics(windowWidth,windowHeight);
@@ -109,7 +112,8 @@ function setup() {
     player.health = 100;
     player.lives = 3;
     player.mass = 1000;
-    hiddenGroup.add(player)
+    hiddenGroup.add(player);
+    hiddenGroup.add(player.crosshair);
     itemExecution = true;
     gameState = 1;
     freeze = false;

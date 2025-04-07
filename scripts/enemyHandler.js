@@ -24,6 +24,9 @@ class Enemy{
         this.attackCooldown = 0
         this.bulletSpread = bulletSpread
         setInterval(() => {
+            if (this.sprite.health <= 0) {
+                this.sprite.remove();
+            }
         if (!freeze) {
             if (this.attackCooldown > 0) {
                 this.attackCooldown --;
@@ -32,7 +35,7 @@ class Enemy{
                 player.collide(this.sprite, () => {takeDamage.play(), player.health -= this.sprite.power})
             }
             if (this.attackType == 1) {
-                //if (world.rayCast(this.sprite,player) == player) {
+                if (world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character) {
                     if (!this.attackCooldown) {
                         this.sprite.rotateTowards(player,0.25);
                         this.sprite.moveTo(player.x,player.y,this.sprite.moveSpeed);
@@ -47,9 +50,11 @@ class Enemy{
                         this.attackCooldown = this.attackSpeed;
                         this.sprite.move(200,this.sprite.rotation,20)
                     }
-               // }
+               } else {
+                this.sprite.rotationalVelocity = 0;
+               }   
             } else if (this.attackType = 2) {
-                //if (world.rayCast(this.sprite,player) == player) {
+                if (world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character) {
                     if (this.attackCooldown > 0) {
                         this.sprite.rotateTowards(player,0.25);
                         this.sprite.moveTo(player.x,player.y,this.sprite.moveSpeed);
@@ -79,7 +84,9 @@ class Enemy{
                         }
                         newBullet.applyForce(200)
                     }
-                //}
+                } else {
+                    this.sprite.rotationalVelocity = 0;
+                }
             } else {
             console.error("Enemy has invalid attack type! Enemy sprite has been removed.")
             this.sprite.remove()
