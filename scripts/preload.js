@@ -88,8 +88,13 @@ function loadDoorTextures() {
     largeBlastDoorCloseAni2 = loadImage("././assets/doors/bigDoorVertClose.png")
 }
 
-function loadEnemyTextures() {
+function loadEnemyAssets() {
     puddleOfCrystal = loadImage("././assets/enemy/puddle_of_crystal.png");
+    enemyTurret = loadImage("././assets/enemy/suborned_turret.png");
+    laserBullet = loadImage("././assets/enemy/laser_bullet.png");
+    explosion = loadSound("././assets/explosion.wav");
+    turretFire = loadSound("././assets/turret_fire.ogg");
+    laserImpactMetal = loadSound("././assets/laser_impact_metal.ogg");
 }
 
 function loadWorldSounds() {
@@ -103,6 +108,7 @@ function loadWorldSounds() {
     largeBlastDoorOpen = loadSound("././assets/large_blast_door_open.ogg");
     largeBlastDoorClose = loadSound("././assets/large_blast_door_close.ogg");
     laserMagnumShot = loadSound("././assets/laser_magnum_shot.wav");
+    laserMagnumReload = loadSound("././assets/laser_magnum_reload.ogg");
 }
 
 function loadSFX() {
@@ -116,7 +122,8 @@ function loadMusic() {
 
 function preload() {
     //Preloading the game's asset files to avoid any errors.
-    testImage = loadImage("././assets/testing.jpeg")
+    testImage = loadImage("././assets/testing.jpeg");
+    laserMagnumT = loadImage("././assets/laser_magnum.png");
     loadTilemaps();
     loadSignTextures();
     loadWorldSounds();
@@ -126,5 +133,5 @@ function preload() {
     loadCardReaderTextures();
     loadItemTextures();
     loadItemDisplayTextures();
-    loadEnemyTextures();
+    loadEnemyAssets();
 };

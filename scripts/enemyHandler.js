@@ -23,16 +23,20 @@ class Enemy{
         this.attackType = attackType
         this.attackCooldown = 0
         this.bulletSpread = bulletSpread
-        if (this.attackType == 1) {
-            if (this.sprite.moveSpeed == 0) {
+        if (this.sprite.moveSpeed == 0) {
+            if (this.attackType == 1) {
                 this.sprite.image = puddleOfCrystal;
-            } 
-        } else if (this.attackType == 2) {
-
+            } else if (this.attackType == 2) {
+                this.sprite.image = enemyTurret;
         }
-        setInterval(() => {
+        }
+        this.attack = setInterval(() => {
             if (this.sprite.health <= 0) {
+                if (this.sprite.moveSpeed == 0) {
+                    explosion.play();
+                }
                 this.sprite.remove();
+                clearInterval(this.attack);
             }
         if (!freeze) {
             if (this.attackCooldown > 0) {
@@ -45,9 +49,11 @@ class Enemy{
                 if (this.sprite.moveSpeed == 0) {
                     player.overlapping(this.sprite, () => {if (gameState == 1) {takeDamage.play(), player.health -= this.sprite.power}});
                 }
-                if ((world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character) && this.sprite.moveSpeed > 0) {
+                if ((world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character || world.rayCast(this.sprite.pos,player) == player.crosshair)) {
                     if (!this.attackCooldown) {
-                        this.sprite.rotateTowards(player,0.25);
+                        print(this.sprite.moveSpeed);
+                        if(this.sprite.moveSpeed > 0){this.sprite.rotateTowards(player,0.25);}
+                        print(this.sprite.moveSpeed);
                         this.sprite.moveTo(player.x,player.y,this.sprite.moveSpeed);
                     }
                 } else {
@@ -60,13 +66,9 @@ class Enemy{
                         this.attackCooldown = this.attackSpeed;
                         this.sprite.move(200,this.sprite.rotation,20)
                     }
-               } else {
-                this.sprite.rotationalVelocity = 0;
-                this.sprite.vel.x = 0;
-                this.sprite.vel.y = 0;
-               }   
+                }   
             } else if (this.attackType == 2) {
-                if (world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character) {
+                if (world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character || world.rayCast(this.sprite.pos,player) == player.crosshair) {
                     if (this.attackCooldown > 0) {
                         this.sprite.rotateTowards(player,0.25);
                         this.sprite.moveTo(player.x,player.y,this.sprite.moveSpeed);
@@ -76,6 +78,7 @@ class Enemy{
                         let newBullet = new Sprite(this.sprite.x,this.sprite.y,10,10,'d')
                         newBullet.power = this.sprite.power;
                         enemyBulletGroup.add(newBullet)
+                        newBullet.image = laserBullet;
                         if (newBullet.power >= 25) {
                             newBullet.colour = "white";
                             newBullet.width = 40;
@@ -88,12 +91,16 @@ class Enemy{
                         } else {
                             newBullet.colour = "yellow";
                         }
-                        newBullet.life = 30
+                        newBullet.life = 200
                         if (random(1,2) == 1) {
                             newBullet.bearing = this.sprite.rotation + random(0,bulletSpread)
                         } else {
                             newBullet.bearing = this.sprite.rotation - random(0,bulletSpread)
                         }
+                        if (this.sprite.moveSpeed == 0) {
+                            turretFire.play();
+                        }
+                        newBullet.rotation == newBullet.bearing;
                         newBullet.applyForce(200)
                     }
                 } else {

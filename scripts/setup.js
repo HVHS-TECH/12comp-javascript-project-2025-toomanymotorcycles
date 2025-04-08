@@ -49,7 +49,8 @@ itemDisplayTextures,
 securityIDTextures;
 
 
-const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function (WHY IS THIS NOT NATIVE IN JAVASCRIPT)
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function, not my code (WHY IS THIS NOT NATIVE TO JAVASCRIPT)
+
 function resizeImages() {
     readerT1.resize(30,40);
     readerT2.resize(30,40);
@@ -70,13 +71,17 @@ function resizeImages() {
         signTextures[i].resize(125,75)
     }
     puddleOfCrystal.resize(60,60);
+    enemyTurret.resize(80,80);
+    laserBullet.resize(20,20);
+    laserMagnumT.resize(60,60);
 }
 function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
     canvas = new Canvas(windowWidth,windowHeight, "pixellated x100");
     player = new Sprite(1000,500,50,15,'d');
     player.character = new Sprite(player.x,player.y,50,120,'d');
-    player.crosshair = new Sprite(player.character.x,player.character.y,50,120,'d');
+    player.crosshair = new Sprite(player.character.x,player.character.y,40,40,'d');
+    player.crosshair.image = laserMagnumT;
     player.name = "PLAYER"
     player.character.name = "PLAYERCHARACTER"
     escapeZone = new Sprite(1000,-1000,200,200,'d');
@@ -114,9 +119,12 @@ function setup() {
     player.canUseSpeedItems = true;
     player.health = 100;
     player.lives = 3;
+    player.loadedAmmo = 6;
+    player.shotCooldown = false;
+    player.shotCooldownReg = 500;
+    player.shotCooldownReload = 8200;
     player.mass = 1000;
     hiddenGroup.add(player);
-    hiddenGroup.add(player.crosshair);
     itemExecution = true;
     gameState = 1;
     freeze = false;

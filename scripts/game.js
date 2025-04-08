@@ -13,20 +13,38 @@
 		0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
 async function playerShoot(bulletSpread) {
-	let newBullet = new Sprite(player.character.x,player.character.y,10,10,'d')
-    newBullet.power = 20;
-    playerBulletGroup.add(newBullet)
-    newBullet.colour = "yellow";
-    newBullet.life = 30
-	newBullet.rotation = player.crosshair.rotation;
-	newBullet.bearing = newBullet.rotation;
-    if (random(1,2) == 1) {
-        newBullet.bearing += random(0,bulletSpread)
-    } else {
-        newBullet.bearing -= random(0,bulletSpread)
-    }
-    newBullet.applyForce(200)
-	laserMagnumShot.play()
+	if (!player.shotCooldown) {
+		if (player.loadedAmmo > 0) {
+			player.shotCooldown = true;
+			let newBullet = new Sprite(player.character.x,player.character.y,10,10,'d')
+   			newBullet.power = 20;
+    		playerBulletGroup.add(newBullet)
+    		newBullet.colour = "yellow";
+    		newBullet.life = 200
+			newBullet.rotation = player.crosshair.rotation;
+			player.crosshair.rotation = player.crosshair.rotation -= 60;
+			newBullet.bearing = newBullet.rotation;
+			newBullet.image = laserBullet;
+    		if (random(1,2) == 1) {
+        		newBullet.bearing += random(0,bulletSpread)
+    		} else {
+        		newBullet.bearing -= random(0,bulletSpread)
+    		}
+    		newBullet.applyForce(200)
+			laserMagnumShot.play()
+			player.loadedAmmo --;
+			if (player.loadedAmmo == 0) {
+				await sleep(player.shotCooldownReg);
+				laserMagnumReload.play();
+				await sleep(player.shotCooldownReload);
+				player.loadedAmmo = 6;
+				player.shotCooldown = false;
+			} else {
+				await sleep(player.shotCooldownReg);
+				player.shotCooldown = false;
+			}
+		}
+	}
 }
 
 function playerMovement() {
@@ -76,14 +94,21 @@ function playerMovement() {
 function drawHUD() {
 	imageMode(CORNER);
 	hudHealthbarLerpCurrentValue = lerp(hudHealthbarLerpCurrentValue, 900 / 100 * player.health, 0.075)
-	hudLayer.fill("gray")
-	hudLayer.rect(0, windowHeight - 100, 1000, 100)
 	hudLayer.fill("black")
 	hudLayer.rect(50, windowHeight - 75, 900, 50)
 	hudLayer.fill("maroon")
 	hudLayer.rect(50, windowHeight - 75, hudHealthbarLerpCurrentValue, 50)
 	hudLayer.fill("red")
 	hudLayer.rect(50, windowHeight - 75, 900 / 100 * player.health, 50)
+	hudLayer.fill("black")
+	hudLayer.rect(50, windowHeight - 200, 90, 90);
+	hudLayer.textSize(90)
+	hudLayer.fill("white")
+	if (player.loadedAmmo == 0) {
+		hudLayer.text("R",65,windowHeight-125);
+	} else {
+		hudLayer.text(player.loadedAmmo,60,windowHeight-125);
+	}
 	hudLayer.fill("darkgray")
 	hudLayer.rect(0, 0, 900, 200)
 	hudLayer.rect(25, 25, 150, 150)
@@ -222,8 +247,14 @@ function draw() {
 	checkpointGroup.overlapped(player.character, () => { interactPrompt.visible = false })
 
 	enemyBulletGroup.overlap(player.character, (bullet) => { takeDamage.play(), player.health -= bullet.power, bullet.remove() })
-	enemyGroup.collide(gameMap);
-	enemyGroup.overlap(playerBulletGroup, (enemy,bullet) => {console.log("ENEMY HIT: "+enemy), enemy.health -= 10, bullet.remove() });
+	enemyBulletGroup.overlap(allSprites)
+	enemyBulletGroup.overlap(gameMap, (bullet) => { bullet.remove() })
+	enemyBulletGroup.overlap(doorGroup, (bullet) => { bullet.remove() })
+	playerBulletGroup.overlap(allSprites)
+	playerBulletGroup.overlap(gameMap, (bullet) => { bullet.remove() })
+	playerBulletGroup.overlap(doorGroup, (bullet) => { bullet.remove() })
+	
+	enemyGroup.overlap(playerBulletGroup, (enemy,bullet) => {console.log("ENEMY HIT: "+enemy); enemy.health -= 50; if (enemy.moveSpeed == 0) {laserImpactMetal.play()}; bullet.remove() });
 
 	playerBulletGroup.overlap(player.character)
 	playerBulletGroup.overlap(player)
@@ -248,6 +279,8 @@ function draw() {
 	enemyGroup.layer = 6;
 	player.layer = 7;
 	player.character.layer = 7;
+	playerBulletGroup.layer = 8;
+	player.crosshair.layer = 9;
 
 	for(i=0; i<lczFloorStart.length; i++) {
 		lczFloorStart[i].removeColliders()
@@ -273,7 +306,7 @@ function draw() {
 	rect(0,0,windowWidth,windowHeight);
 	camera.on();
 
-	player.crosshair.rotateTowards(mouse,1);
+	player.crosshair.rotateTowards(mouse,0.2);
 	
 	if (gameState == 1) {
 		drawHUD();
