@@ -45,7 +45,7 @@ class Enemy{
                 if (this.sprite.moveSpeed == 0) {
                     player.overlapping(this.sprite, () => {if (gameState == 1) {takeDamage.play(), player.health -= this.sprite.power}});
                 }
-                if ((world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character) && this.sprite.moveSpeed != 0) {
+                if ((world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character) && this.sprite.moveSpeed > 0) {
                     if (!this.attackCooldown) {
                         this.sprite.rotateTowards(player,0.25);
                         this.sprite.moveTo(player.x,player.y,this.sprite.moveSpeed);
@@ -55,7 +55,7 @@ class Enemy{
                     this.sprite.vel.y = 0;
                     this.sprite.rotationalVelocity = 0;
                 }
-                if (dist(player.x,player.y,this.sprite.x,this.sprite.y) < 200 && this.sprite.moveSpeed != 0) {
+                if (dist(player.x,player.y,this.sprite.x,this.sprite.y) < 200 && this.sprite.moveSpeed > 0) {
                     if (this.attackCooldown == 0) {
                         this.attackCooldown = this.attackSpeed;
                         this.sprite.move(200,this.sprite.rotation,20)
