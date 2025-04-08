@@ -88,6 +88,10 @@ function loadDoorTextures() {
     largeBlastDoorCloseAni2 = loadImage("././assets/doors/bigDoorVertClose.png")
 }
 
+function loadEnemyTextures() {
+    puddleOfCrystal = loadImage("././assets/enemy/puddle_of_crystal.png");
+}
+
 function loadWorldSounds() {
     klaxon = loadSound("././assets/background_klaxon.ogg");
     accessDenied = loadSound("././assets/access_denied.flac");
@@ -122,4 +126,5 @@ function preload() {
     loadCardReaderTextures();
     loadItemTextures();
     loadItemDisplayTextures();
+    loadEnemyTextures();
 };

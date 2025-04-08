@@ -19,7 +19,21 @@ let doorClearances = [
 ];
 
 let enemyStats = [
-    {size:60,health:20,power:10,speed:5,atkSpeed:10,atkType:2,bulletSpread:3}
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:80,health:300,power:10,speed:5,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:80,health:300,power:10,speed:5,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:80,health:300,power:10,speed:5,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:80,health:300,power:10,speed:5,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
+    {size:80,health:300,power:10,speed:5,atkSpeed:10,atkType:1,bulletSpread:3}
 ]
 
 let teleporterPositions = [
@@ -115,7 +129,14 @@ lczFloorBigDoor.collider = "static";
 lczFloorBigDoor.spriteSheet = facilityTileset;
 lczFloorBigDoor.addAni({w:64,h:64,row:0,col:0});
 imageValues.set(lczFloorBigDoor.idNum,{row:0,col:0});
-lczFloorBigDoor.tile = "D";
+lczFloorBigDoor.tile = "d";
+
+hczFloorBigDoor = new Group();
+hczFloorBigDoor.collider = "static";
+hczFloorBigDoor.spriteSheet = facilityTileset;
+hczFloorBigDoor.addAni({w:64,h:64,row:0,col:0});
+imageValues.set(hczFloorBigDoor.idNum,{row:0,col:1});
+hczFloorBigDoor.tile = "D";
 
 signCreator = new Group();
 signCreator.collider = "static";
@@ -477,33 +498,33 @@ wallTopCorner2.tile = "R";
             "<tttttxffffffffxttttt>............<ttttttttttttt><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm>.vvvvvvvvffffffffvvvvvvvvvvvvvvvvffffffffvvvvvvvvvvvvffffffffvvvvvvvvvvvvvvvvffffffffvvvvvvvv.",
             "<mmmmmyffffffffymmmmm>............<mmmmmmmmmmmmm><bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb><tttttttxffffffffxttttttttttttttxffffffffxttttttttttxffffffffxttttttttttttttxffffffffxttttttt>",
             "<mmɸmmxffffffffxmmɸmm>............<mmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmyffffffffymmmmmmmmmmmmmmyffffffffymmmmmmmmmmyffffffffymmmmmmmmmmmmmmyffffffffymmmmmmm>",
-            "<mmCmmyfffDffffymmmmm>............<mmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmɸmɸmmxffffffffxmmmmmmmmmmmmmmxffffffffxmmmmmmmmmmxffffffffxmmmmmmmmmmmmmmxffffffffxmmmmmmm>",
-            "<bbbbbxffffffffxbbbbb>............<ggggggggggggg><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmyfffDffffymmmmmmmmmmmmmmyfffDffffymmmmmmmmmmyfffDffffymmmmmmmmmmmmmmyfffDffffymmmmmmm>",
+            "<mmCmmyfffdffffymmmmm>............<mmmmmmmmmmmmm><ffffffffffffffffffffffffffffffffЖffffffffffffffffffffff><mmɸmɸmmxffffffffxmmmmmmmmmmmmmmxffffffffxmmmmmmmmmmxffffffffxmmmmmmmmmmmmmmxffffffffxmmmmmmm>",
+            "<bbbbbxffffffffxbbbbb>............<ggggggggggggg><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmyfffdffffymmmmmmmmmmmmmmyfffdffffymmmmmmmmmmyfffdffffymmmmmmmmmmmmmmyfffdffffymmmmmmm>",
             "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><oooooooxffffffffxooooooooooooooxffffffffxooooooooooxffffffffxooooooooooooooxffffffffxooooooo>",
             "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffff>............<fffffffffffffffffffffffffffffffffffffffffSffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffff>............<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'>",
-            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffffff'fffffffff'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>^^^^^^^^^^^^^<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>.............<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<fffffffffffffffffffffffffffffffffffffffffSfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffЖffffffffffffffffffffffffff>",
+            "<ffffffffffffffЖfffff>............<ffffffffffffffffffЖffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'>",
+            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffffff'fffffffff'ffffffffffffffffffЖffffffffffffffffffffffffffffffЖfffffffffffffffffffffffffffffffffffffffffffffffffffffffЖfffffffffff>",
+            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>^^^^^^^^^^^^^<ffffffffffЖffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>.............<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffЖfffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>vvvvvvvvvvvvv<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffff>............<fffffffffffffDffffffffffffffffffffþtttttttttttttþfffffffffffffffffffffDffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'>",
+            "<ffffffffffffffffffff>............<fffffffffffffdffffffffffffffffffffþtttttttttttttþfffffffffffffffffffffdfffffffffffffffЖffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'>",
             "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffffæmmmmmmmmmmmmmæfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffæmmmmmɸmɸmmmmmæfffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffæmmmmmmmmmmmmmæfffffffffffffffffffff>.^^^^^^^^ffffffff^^^^^^^^^^^^^^^^ffffffff^^^^^^^^^^^^ffffffff^^^^^^^^^^^^^^^^ffffffff^^^^^^^^.",
+            "<fffЖffffffffffffffff>............<fffffffffffff><fffffffffffffffffffæmmmmmɸmɸmmmmmæfffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffæmmmmmmmmmmmmmæffffffffffЖffffffffff>.^^^^^^^^ffffffff^^^^^^^^^^^^^^^^ffffffff^^^^^^^^^^^^ffffffff^^^^^^^^^^^^^^^^ffffffff^^^^^^^^.",
             "<ffffffffffffffffffff>.............^^^^^^^^^^^^^.<fffffffffffffffffffbbbbbbbbbbbbbbbfffffffffffffffffffff>.vvvvvvvvffffffffvvvvvvvv..vvvvvvffffffffvvvvv..vvvvvffffffffvvvvvv..vvvvvvvvffffffffvvvvvvvv.",
             "<ffffffffffffffffffff>...........................<fffffffffffffffffffffffffffffffffffffffffffffffffffffff><tttttttxffffffffxttttttt><tttttxffffffffxtttt><ttttxffffffffxttttt><tttttttxffffffffxttttttt>",
             "<ffff'ffffffffff'ffff>...........................<ffffffffffffffffffffffffffЖffffffffffffffffffffffffffff><mmmmmmmyffffffffymmmmmmm><mmmmmyffffffffymmmm><mmmmyffffffffymmmmm><mmmmmmmyffffffffymmmmmmm>",
             ".^^^^^^^^^^^^^^^^^^^^.............................^^^^ffffffff^^^^^^^^^^^ffffffff^^^^^^^^^^^^ffffffff^^^^.<mmmmmmmxffffffffxmmmmmmm><mmmmmxffffffffxmmmm><mmmmxffffffffxmmmmm><mmmmmmmxffffffffxmmmmmmm>",
-            "..................................................vvvvffffffffvvvv..vvvvvffffffffvvvvvv..vvvvffffffffvvvv.<mmmmmmmyfffDffffymmmmmmm><mmmmmyfffDffffymmmm><mmmmyfffDffffymmmmm><mmmmmmmyfffDffffymmmmmmm>",
+            "..................................................vvvvffffffffvvvv..vvvvvffffffffvvvvvv..vvvvffffffffvvvv.<mmmmmmmyfffdffffymmmmmmm><mmmmmyfffdffffymmmm><mmmmyfffdffffymmmmm><mmmmmmmyfffdffffymmmmmmm>",
             ".................................................<tttxffffffffxttt><ttttxffffffffxttttt><tttxffffffffxttt><gggggggxffffffffxggggggg><gggggxffffffffxgggg><ggggxffffffffxggggg><gggggggxffffffffxggggggg>",
             ".................................................<mmmyffffffffymmm><mmmmyffffffffymmmmm><mmmyffffffffymmm><ffffffffffffffffffffffff><fffffffffffffffffff><fffffffffffffffffff><ffffffffffffffffffffffff>",
             ".................................................<mmmxffffffffxmmm><mmmmxffffffffxmmmmm><mmmxffffffffxmmm><ffffffffffffffffffffffff><fffffffffffffffffff><fffffffffffffffffff><ffffffffffffffffffffffff>",
-            ".................................................<mmmyfffDffffymmm><mmmmyfffDffffymmmmm><mmmyfffDffffymmm><ffffffffffffffffffffffff><fffffffffffffffffff><fffffffffffffffffff><ffffffffffffffffffffffff>",
+            ".................................................<mmmyfffdffffymmm><mmmmyfffdffffymmmmm><mmmyfffdffffymmm><ffffffffffffffffffffffff><fffffffffffffffffff><fffffffffffffffffff><ffffffffffffffffffffffff>",
             ".................................................<gggxffffffffxggg><ggggxffffffffxggggg><gggxffffffffxggg>.^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.",
+            ".................................................<fffffffЖffffffff><fffffffffffffffffff><ffffffffffffffff>..............................................................................................",
             ".................................................<ffffffffffffffff><fffffffffffffffffff><ffffffffffffffff>..............................................................................................",
-            ".................................................<ffffffffffffffff><fffffffffffffffffff><ffffffffffffffff>..............................................................................................",
-            ".................................................<ffffffffffffffff><fffffffffffffffffff><ffffffffffffffff>..............................................................................................",
+            ".................................................<ffffffffffffffff><ffffffffffЖffffffff><ffffffffffffffff>..............................................................................................",
             ".................................................<ffffffffffffffff><fffffffffffffffffff><ffffffffffffffff>..............................................................................................",
             ".................................................<ffffffffffffffff><fffffffffffffffffff><ffffffffffffffff>..............................................................................................",
             ".................................................<ffffffffffffffff><fffffffffffffffffff><ffffffffffffffff>..............................................................................................",
@@ -538,7 +559,7 @@ wallTopCorner2.tile = "R";
             "<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'>",
-            "<'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^..^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>",
@@ -583,7 +604,7 @@ wallTopCorner2.tile = "R";
             "<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
             "<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
             "<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
-            "<'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffDffffffffffffffffffffffffffffffffffffffffffffffffffffffffDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
+            "<'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdffffffffffffffffffffffffffffffffffffffffffffffffffffffffDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
             "<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
             "<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
             "<^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.<fffffffffffffffffffffffffffffffffffffffffffffffffffffff>.^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^>",
@@ -671,7 +692,13 @@ wallTopCorner2.tile = "R";
     if (!objectsCreated) {
         objectsCreated = true;
         for (i=0; i<lczFloorBigDoor.length; i++) {
-            createDoor(lczFloorBigDoor[i],doorClearances[i].rotation,doorClearances[i].clearance,doorClearances[i].locked);
+            allDoors.add(lczFloorBigDoor[i]);
+        }
+        for (i=0; i<hczFloorBigDoor.length; i++) {
+            allDoors.add(hczFloorBigDoor[i]);
+        }
+        for (i=0; i<allDoors.length; i++) {
+            createDoor(allDoors[i],doorClearances[i].rotation,doorClearances[i].clearance,doorClearances[i].locked);
         }
         for (i=0; i<checkpointTile.length; i++) {
             hiddenGroup.add(new Checkpoint(checkpointTile[i].x,checkpointTile[i].y).sprite);

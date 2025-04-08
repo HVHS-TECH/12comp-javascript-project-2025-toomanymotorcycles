@@ -15,6 +15,7 @@
 let 
 gameState, //what state the game is in (on the menu screen, playing the game, on the win screen, on the losing screen etc.)
 hudLayer,
+allDoors, //a group containing all tilemap tiles that create doors.
 fadeProgress, //used in the fade in and fade out animations that occur when you die or teleport; value controld how "faded" everything is from 0 (visible) to 255 (black screen)
 imageTileLayer,
 imageTileBuffer,
@@ -68,6 +69,7 @@ function resizeImages() {
     for (i=0; i<signTextures.length; i++) {
         signTextures[i].resize(125,75)
     }
+    puddleOfCrystal.resize(60,60);
 }
 function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
@@ -97,6 +99,7 @@ function setup() {
     hiddenGroup = new Group();
     checkpointGroup = new Group();
     teleporterGroup = new Group();
+    allDoors = new Group();
     itemGroup.overlap(player);
     player.clearanceLevel = 0;
     player.speed = 5;

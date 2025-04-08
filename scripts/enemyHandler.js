@@ -23,6 +23,13 @@ class Enemy{
         this.attackType = attackType
         this.attackCooldown = 0
         this.bulletSpread = bulletSpread
+        if (this.attackType == 1) {
+            if (this.sprite.moveSpeed == 0) {
+                this.sprite.image = puddleOfCrystal;
+            } 
+        } else if (this.attackType == 2) {
+
+        }
         setInterval(() => {
             if (this.sprite.health <= 0) {
                 this.sprite.remove();
@@ -32,10 +39,13 @@ class Enemy{
                 this.attackCooldown --;
                 this.sprite.rotationalVelocity = 0;
             } else {
-                player.collide(this.sprite, () => {takeDamage.play(), player.health -= this.sprite.power})
+                player.collide(this.sprite, () => {if (gameState == 1) {takeDamage.play(), player.health -= this.sprite.power}})
             }
             if (this.attackType == 1) {
-                if (world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character) {
+                if (this.sprite.moveSpeed == 0) {
+                    player.overlapping(this.sprite, () => {if (gameState == 1) {takeDamage.play(), player.health -= this.sprite.power}});
+                }
+                if ((world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character) && this.sprite.moveSpeed != 0) {
                     if (!this.attackCooldown) {
                         this.sprite.rotateTowards(player,0.25);
                         this.sprite.moveTo(player.x,player.y,this.sprite.moveSpeed);
@@ -45,15 +55,17 @@ class Enemy{
                     this.sprite.vel.y = 0;
                     this.sprite.rotationalVelocity = 0;
                 }
-                if (dist(player.x,player.y,this.sprite.x,this.sprite.y) < 200) {
+                if (dist(player.x,player.y,this.sprite.x,this.sprite.y) < 200 && this.sprite.moveSpeed != 0) {
                     if (this.attackCooldown == 0) {
                         this.attackCooldown = this.attackSpeed;
                         this.sprite.move(200,this.sprite.rotation,20)
                     }
                } else {
                 this.sprite.rotationalVelocity = 0;
+                this.sprite.vel.x = 0;
+                this.sprite.vel.y = 0;
                }   
-            } else if (this.attackType = 2) {
+            } else if (this.attackType == 2) {
                 if (world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character) {
                     if (this.attackCooldown > 0) {
                         this.sprite.rotateTowards(player,0.25);
@@ -86,6 +98,8 @@ class Enemy{
                     }
                 } else {
                     this.sprite.rotationalVelocity = 0;
+                    this.sprite.vel.x = 0;
+                    this.sprite.vel.y = 0;
                 }
             } else {
             console.error("Enemy has invalid attack type! Enemy sprite has been removed.")
