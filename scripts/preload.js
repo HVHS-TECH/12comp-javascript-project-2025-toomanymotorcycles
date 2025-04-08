@@ -102,7 +102,7 @@ function loadWorldSounds() {
     smallBlastDoorClose = loadSound("././assets/small_blast_door_close.ogg");
     largeBlastDoorOpen = loadSound("././assets/large_blast_door_open.ogg");
     largeBlastDoorClose = loadSound("././assets/large_blast_door_close.ogg");
-    laserMagnumShot = loadSound("././assets/laser_magnum_shot.ogg");
+    laserMagnumShot = loadSound("././assets/laser_magnum_shot.wav");
 }
 
 function loadSFX() {
