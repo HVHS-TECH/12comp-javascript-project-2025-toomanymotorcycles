@@ -12,7 +12,9 @@
 				MAIN GAME LOOP
 		0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
-let menutext = "";
+let 
+menutext = "",
+subtext = "";
 
 async function introSequence() {
 	if (!introSequencePlaying) {
@@ -69,6 +71,8 @@ async function lose() {
 		await sleep(2000);
 		loseMusic.play();
 		menutext = "YOU WERE NEVER SEEN AGAIN";
+		await sleep(2000);
+		subtext = "KILLSCORE: "+killscore
 	}
 }
 
@@ -310,6 +314,9 @@ function draw() {
 		fadeProgress = 0;
 		background("black");
 		text(menutext, 200, 350);
+		textSize(100);
+		fill("white");
+		text(subtext, 200, windowHeight - 800);
 		lose();
 	}
 	if (gameState == 4) {
@@ -344,10 +351,8 @@ function draw() {
 
 	enemyBulletGroup.overlap(player.character, (bullet) => { takeDamage.play(), player.health -= bullet.power, bullet.remove() })
 	enemyBulletGroup.overlap(allSprites)
-	enemyBulletGroup.overlap(gameMap, (bullet) => { bullet.remove() })
-	enemyBulletGroup.overlap(doorGroup, (bullet) => { bullet.remove() })
 	playerBulletGroup.overlap(allSprites)
-	playerBulletGroup.overlap(gameMap, (bullet) => { bullet.remove() })
+	playerBulletGroup.overlap(gameMap, (bullet,tile) => { if (!lczEnemy.includes(tile) && !hczEnemy.includes(tile)) {bullet.remove()} })
 	playerBulletGroup.overlap(doorGroup, (bullet) => { bullet.remove() })
 	
 	enemyGroup.overlap(playerBulletGroup, (enemy,bullet) => {console.log("ENEMY HIT: "+enemy); enemy.health -= 50; if (enemy.moveSpeed == 0) {laserImpactMetal.play()}; bullet.remove() });
@@ -360,7 +365,7 @@ function draw() {
 	allSprites.overlap(player.crosshair)
 	allSprites.overlap(player.character)
 	enemyBulletGroup.overlap(doorGroup, (bullet) => { bullet.remove() })
-	enemyBulletGroup.overlap(gameMap, (bullet) => { bullet.remove() })
+	enemyBulletGroup.overlap(gameMap, (bullet,tile) => { if (!lczEnemy.includes(tile)) {bullet.remove()} })
 
 	interactPrompt.x = camera.x;
 	interactPrompt.y = camera.y + windowWidth / 8;
@@ -392,6 +397,14 @@ function draw() {
 
 	for(i=0; i<teleporterCreator.length; i++) {
 		teleporterCreator[i].removeColliders()
+	};
+
+	for(i=0; i<lczEnemy.length; i++) {
+		lczEnemy[i].removeColliders()
+	};
+
+	for(i=0; i<hczEnemy.length; i++) {
+		hczEnemy[i].removeColliders()
 	};
 
 	if (gameState == 1 || gameState == 2) {image(imageTileLayer,-32,-32)};

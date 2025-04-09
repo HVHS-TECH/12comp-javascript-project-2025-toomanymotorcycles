@@ -17,6 +17,7 @@
 
 let 
 gameState, //what state the game is in (on the menu screen, playing the game, on the win screen, on the losing screen etc.)
+killscore, //enemies add points to this upon being killed.
 hudLayer,
 allDoors, //a group containing all tilemap tiles that create doors.
 fadeProgress, //used in the fade in and fade out animations that occur when you die or teleport; value controld how "faded" everything is from 0 (visible) to 255 (black screen)
@@ -105,6 +106,7 @@ function setupRestart() {
     player.mass = 1000;
     player.pos = lczFloorStart[0].pos
     fadeProgress = 0;
+    killscore = 0;
 }
 
 function setup() {

@@ -19,51 +19,51 @@ let doorClearances = [
 ];
 
 let enemyStats = [
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
 ]
 
 let teleporterPositions = [
@@ -116,7 +116,11 @@ function spawnEnemies() {
     print(lczEnemy.length);
     for (i=0; i<lczEnemy.length; i++) {
         print("ENEMY")
-        new Enemy(lczEnemy[i].x,lczEnemy[i].y,enemyStats[i].size,enemyStats[i].health,enemyStats[i].power,enemyStats[i].speed,enemyStats[i].atkSpeed,enemyStats[i].atkType,enemyStats[i].bulletSpread);
+        new Enemy(lczEnemy[i].x,lczEnemy[i].y,enemyStats[i].size,enemyStats[i].health,enemyStats[i].power,enemyStats[i].speed,enemyStats[i].atkSpeed,enemyStats[i].atkType,enemyStats[i].killScore,enemyStats[i].bulletSpread);
+    }
+    for (i=0; i<hczEnemy.length; i++) {
+        print("ENEMY")
+        new Enemy(hczEnemy[i].x,hczEnemy[i].y,enemyStats[lczEnemy.length+1+i].size,enemyStats[lczEnemy.length+1+i].health,enemyStats[lczEnemy.length+1+i].power,enemyStats[lczEnemy.length+1+i].speed,enemyStats[lczEnemy.length+1+i].atkSpeed,enemyStats[lczEnemy.length+1+i].atkType,enemyStats[lczEnemy.length+1+i].killScore,enemyStats[lczEnemy.length+1+i].bulletSpread);
     }
 }
 
@@ -142,6 +146,13 @@ hczFloor.spriteSheet = facilityTileset;
 hczFloor.addAni({w:64,h:64,row:0,col:1});
 imageValues.set(hczFloor.idNum.idNum,{row:0,col:1});
 hczFloor.tile = "F";
+
+hczEnemy = new Group();
+hczEnemy.collider = "static";
+hczEnemy.spriteSheet = facilityTileset;
+hczEnemy.addAni({w:64,h:64,row:0,col:0});
+imageValues.set(hczEnemy.idNum,{row:0,col:1})
+hczEnemy.tile = "Д";
 
 checkpointTile = new Group();
 checkpointTile.collider = "static";
@@ -749,7 +760,6 @@ wallTopCorner2.tile = "R";
         for (i=0; i<signCreator.length; i++) {
             new Sign(signCreator[i].x,signCreator[i].y, signTiles[i]);
         }
-        //spawnEnemies();
     }
     //console_log_"row: "+imageValues.get(findTileGroup(gameMap[5]).idNum).row)
     //console_log_"id: "+findTileGroup(gameMap[8730]).idNum);
@@ -762,7 +772,7 @@ wallTopCorner2.tile = "R";
     for (v=0;v<20;v++) {
     for (i=0;i<gameMap.length;i++) {
         try {
-        if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i]) || lczEnemy.includes(gameMap[i])) {
+        if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i]) || lczEnemy.includes(gameMap[i]) || hczEnemy.includes(gameMap[i])) {
         } else if(!imageTiles.includes({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y}) || !imageTiles.includes({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y})){
             //console_log_"tile "+i);
             //console_log_findTileGroup(gameMap[i]).idNum);

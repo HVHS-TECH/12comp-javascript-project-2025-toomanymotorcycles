@@ -10,9 +10,10 @@ class Enemy{
      * @param {int} speed How fast the enemy is.
      * @param {int} attackSpeed How fast the enemy attacks (in milliseconds).
      * @param {int} attackType The type of attack the enemy performs. 1: melee attack, 2: ranged attack.
+     * @param {int} killScore The amount of points that this enemy adds to the player's kill score upon death.
      * @param {int} bulletSpread How inaccurate the enemy's attacks are - this value is added or subtracted from the enemy's firing direction. Only relevant for ranged enemies.
      */
-    constructor(x,y,size,health,power,speed,attackSpeed,attackType,bulletSpread) {
+    constructor(x,y,size,health,power,speed,attackSpeed,attackType,killScore,bulletSpread) {
         this.sprite = new Sprite(x,y,size,size,'k')
         enemyGroup.add(this.sprite)
         this.sprite.parentRef = this
@@ -22,6 +23,7 @@ class Enemy{
         this.attackSpeed = attackSpeed
         this.attackType = attackType
         this.attackCooldown = 0
+        this.killScore = killScore
         this.bulletSpread = bulletSpread
         if (this.sprite.moveSpeed == 0) {
             if (this.attackType == 1) {
@@ -35,6 +37,7 @@ class Enemy{
                 if (this.sprite.moveSpeed == 0) {
                     explosion.play();
                 }
+                killscore += this.killScore;
                 this.sprite.remove();
                 clearInterval(this.attack);
             }
