@@ -12,6 +12,80 @@
 				MAIN GAME LOOP
 		0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
+let menutext = "";
+
+async function introSequence() {
+	if (!introSequencePlaying) {
+	introSequencePlaying = true;
+	menutext = "";
+	print("AAA")
+	await sleep(1000);
+	print("AAA")
+	background("black");
+	menutext = "B";
+	await sleep(100);
+	print("AAA")
+	background("black");
+	menutext = "BL";
+	await sleep(100);
+	print("AAA")
+	background("black");
+	menutext = "BLA";
+	await sleep(100);
+	print("AAA")
+	background("black");
+	menutext = "BLAC";
+	await sleep(100);
+	print("AAA")
+	background("black");
+	menutext = "BLACK";
+	await sleep(100);
+	print("AAA")
+	background("black");
+	menutext = "BLACKS";
+	await sleep(100);
+	print("AAA")
+	background("black");
+	menutext = "BLACKSI";
+	await sleep(100);
+	print("AAA")
+	background("black");
+	menutext = "BLACKSIT";
+	await sleep(100);
+	print("AAA")
+	background("black");
+	menutext = "BLACKSITE";
+	}
+}
+
+async function lose() {
+	if (!loseSequencePlaying) {
+		loseSequencePlaying = true;
+		gameMusic.stop();
+		klaxon.stop();
+		menutext = "";
+		fill("red");
+		textSize(150);
+		await sleep(2000);
+		loseMusic.play();
+		menutext = "YOU WERE NEVER SEEN AGAIN";
+	}
+}
+
+function menuActions() {
+	if (menuPlay.mouse.pressed()) {
+		spawnEnemies();
+		setupRestart();
+		allSprites.opacity = 1;
+		freeze = false;
+		deathlock = false;
+		gameState = 1;
+	}
+	if (menuQuit.mouse.pressed()) {
+		window.close();
+	}
+}
+
 async function playerShoot(bulletSpread) {
 	if (!player.shotCooldown) {
 		if (player.loadedAmmo > 0) {
@@ -184,7 +258,7 @@ function spawnItem() {
 }
 
 function mousePressed() {
-	if (gameState == 1) {
+	if (gameState == 1 && !deathlock) {
 		playerShoot(5);
 	}
   }
@@ -192,6 +266,25 @@ function mousePressed() {
 function draw() {
 	// Draw function; the primary game loop. Runs 60 times a second.
 	clear();
+	if (gameState == 0) {
+		background("black");
+		textSize(200);
+		fill("white");
+		text(menutext, 200, 350);
+		if(menuPlay.mouse.hovering()) {textSize(120);} else {textSize(100);}
+		text("> PLAY", 200, windowHeight - 600);
+		if(menuInst.mouse.hovering()) {textSize(120);} else {textSize(100);}
+		text("> INSTRUCTIONS", 200, windowHeight - 475);
+		if(menuQuit.mouse.hovering()) {textSize(120);} else {textSize(100);}
+		text("> QUIT", 200, windowHeight - 350);
+		freeze = true;
+		deathlock = true;
+		fadeProgress = 0;
+		allSprites.opacity = 0;
+		menuGroup.opacity = 0.01;
+		introSequence();
+		menuActions()
+	}
 	if (gameState == 1) {
 		if (!gameMusic.isPlaying()) {
 			//console_log_"PLAYING MUSIC");
@@ -211,10 +304,13 @@ function draw() {
 		playerDeath();
 	}
 	if (gameState == 3) {
-		deathlock = false;
+		deathlock = true;
+		freeze = true;
 		allSprites.opacity = 0;
 		fadeProgress = 0;
-		background("red")
+		background("black");
+		text(menutext, 200, 350);
+		lose();
 	}
 	if (gameState == 4) {
 		deathlock = false;
@@ -290,23 +386,26 @@ function draw() {
 		lczFloorBigDoor[i].removeColliders()
 	};
 
-	for(i=0; i<teleporterCreator.length; i++) {
-		teleporterCreator[i].removeColliders()
+	for(i=0; i<hczFloorBigDoor.length; i++) {
+		hczFloorBigDoor[i].removeColliders()
 	};
 
-	for(i=0; i<hczFloor.length; i++) {
-		hczFloor[i].removeColliders()
+	for(i=0; i<teleporterCreator.length; i++) {
+		teleporterCreator[i].removeColliders()
 	};
 
 	if (gameState == 1 || gameState == 2) {image(imageTileLayer,-32,-32)};
 	allSprites.draw();
 	camera.off();
 	//console_log_"fadeprogress "+fadeProgress);
-	fill(0,fadeProgress);
-	rect(0,0,windowWidth,windowHeight);
+	if (gameState == 1 || gameState == 2) {
+		fill(0,fadeProgress);
+		rect(0,0,windowWidth,windowHeight);
+	}
+	
 	camera.on();
 
-	player.crosshair.rotateTowards(mouse,0.2);
+	if (!deathlock) {player.crosshair.rotateTowards(mouse,0.2)};
 	
 	if (gameState == 1) {
 		drawHUD();

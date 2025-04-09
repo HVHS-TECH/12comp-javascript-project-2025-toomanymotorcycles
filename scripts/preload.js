@@ -118,6 +118,7 @@ function loadSFX() {
 
 function loadMusic() {
     gameMusic = loadSound("././assets/music/Twilight.mp3");
+    loseMusic = loadSound("././assets/music/Extinction.mp3");
 }
 
 function preload() {

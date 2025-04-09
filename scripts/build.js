@@ -110,6 +110,16 @@ function createDoor(tile, rotation, clearance, voicelocked) {
     
 }
 
+function spawnEnemies() {
+    print("ENEMIEZ")
+    enemyGroup.removeAll();
+    print(lczEnemy.length);
+    for (i=0; i<lczEnemy.length; i++) {
+        print("ENEMY")
+        new Enemy(lczEnemy[i].x,lczEnemy[i].y,enemyStats[i].size,enemyStats[i].health,enemyStats[i].power,enemyStats[i].speed,enemyStats[i].atkSpeed,enemyStats[i].atkType,enemyStats[i].bulletSpread);
+    }
+}
+
 function setupTilemaps() {
     if (!objectsCreated) {
 lczFloor = new Group();
@@ -739,9 +749,7 @@ wallTopCorner2.tile = "R";
         for (i=0; i<signCreator.length; i++) {
             new Sign(signCreator[i].x,signCreator[i].y, signTiles[i]);
         }
-        for (i=0; i<lczEnemy.length; i++) {
-            new Enemy(lczEnemy[i].x,lczEnemy[i].y,enemyStats[i].size,enemyStats[i].health,enemyStats[i].power,enemyStats[i].speed,enemyStats[i].atkSpeed,enemyStats[i].atkType,enemyStats[i].bulletSpread);
-        }
+        //spawnEnemies();
     }
     //console_log_"row: "+imageValues.get(findTileGroup(gameMap[5]).idNum).row)
     //console_log_"id: "+findTileGroup(gameMap[8730]).idNum);
@@ -754,7 +762,7 @@ wallTopCorner2.tile = "R";
     for (v=0;v<20;v++) {
     for (i=0;i<gameMap.length;i++) {
         try {
-        if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i])) {
+        if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i]) || lczEnemy.includes(gameMap[i])) {
         } else if(!imageTiles.includes({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y}) || !imageTiles.includes({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y})){
             //console_log_"tile "+i);
             //console_log_findTileGroup(gameMap[i]).idNum);

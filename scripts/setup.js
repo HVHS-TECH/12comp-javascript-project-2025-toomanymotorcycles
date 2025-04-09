@@ -12,6 +12,9 @@
                 INITIAL SETUP
         0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
 ************************************************/
+
+// THE HOLY BLOCK OF DECLARATIONS
+
 let 
 gameState, //what state the game is in (on the menu screen, playing the game, on the win screen, on the losing screen etc.)
 hudLayer,
@@ -23,6 +26,9 @@ hudTint,
 hudHealthbarLerpCurrentValue = 900,
 freeze,
 deathlock,
+introSequencePlaying = false,
+loseSequencePlaying = false,
+winSequencePlaying = false,
 currentCheckpoint, //the player's current checkpoint.
 itemExecution, //a check variable - whenever an item is used successfully this is set to true. This is to make sure that an item isn't removed from the player's inventory when it isn't supposed to be.
 player, //the player sprite.
@@ -41,12 +47,14 @@ hiddenGroup,
 interactPrompt, // the "E" interaction prompt that appears whenever you interact with something.
 tilemapSetup = true;
 
-let cheatPrevention = false; //cheat prevention
+let cheatPrevention = false; //cheat prevention - was never used
 
 let
 itemTextures,
 itemDisplayTextures,
 securityIDTextures;
+
+// AMEN
 
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function, not my code (WHY IS THIS NOT NATIVE TO JAVASCRIPT)
@@ -75,6 +83,30 @@ function resizeImages() {
     laserBullet.resize(20,20);
     laserMagnumT.resize(60,60);
 }
+
+function setupRestart() {
+    player.clearanceLevel = 0;
+    player.speed = 5;
+    player.speedMultiplier = 1;
+    player.staminaMax = 120;
+    player.stamina = player.staminaMax;
+    player.fatigued = false;
+    player.inventory = [];
+    player.canUseItems = true;
+    player.canUseStaminaItems = true;
+    player.canUseHealthItems = true;
+    player.canUseSpeedItems = true;
+    player.health = 100;
+    player.lives = 3;
+    player.loadedAmmo = 6;
+    player.shotCooldown = false;
+    player.shotCooldownReg = 500;
+    player.shotCooldownReload = 8200;
+    player.mass = 1000;
+    player.pos = lczFloorStart[0].pos
+    fadeProgress = 0;
+}
+
 function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
     canvas = new Canvas(windowWidth,windowHeight, "pixellated x100");
@@ -84,6 +116,14 @@ function setup() {
     player.crosshair.image = laserMagnumT;
     player.name = "PLAYER"
     player.character.name = "PLAYERCHARACTER"
+    // these are all to do with the starting menu and they only appear at the start of the game so I didn't declare their variable names in the holy block of declarations.
+    menuPlay = new Sprite(450, windowHeight - 650, 500, 100, 's');
+    menuInst = new Sprite(650, windowHeight - 525, 900, 100, 's');
+    menuQuit = new Sprite(450, windowHeight - 400, 500, 100, 's');
+    menuGroup = new Group();
+    menuGroup.add(menuPlay);
+    menuGroup.add(menuInst);
+    menuGroup.add(menuQuit);
     escapeZone = new Sprite(1000,-1000,200,200,'d');
     escapeZone.color = "white";
     hudLayer = createGraphics(windowWidth,windowHeight);
@@ -106,27 +146,9 @@ function setup() {
     teleporterGroup = new Group();
     allDoors = new Group();
     itemGroup.overlap(player);
-    player.clearanceLevel = 0;
-    player.speed = 5;
-    player.speedMultiplier = 1;
-    player.staminaMax = 120;
-    player.stamina = player.staminaMax;
-    player.fatigued = false;
-    player.inventory = [];
-    player.canUseItems = true;
-    player.canUseStaminaItems = true;
-    player.canUseHealthItems = true;
-    player.canUseSpeedItems = true;
-    player.health = 100;
-    player.lives = 3;
-    player.loadedAmmo = 6;
-    player.shotCooldown = false;
-    player.shotCooldownReg = 500;
-    player.shotCooldownReload = 8200;
-    player.mass = 1000;
     hiddenGroup.add(player);
     itemExecution = true;
-    gameState = 1;
+    gameState = 0;
     freeze = false;
     allSprites.autoCull = false;
     interactPrompt.layer = 999;
