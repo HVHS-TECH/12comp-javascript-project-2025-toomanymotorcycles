@@ -15,7 +15,7 @@ class Door{
             this.sprite.hitbox2 = new Sprite(x,y,1,1,'k')
             if (horizontal) {
                 this.sprite.height = 100;
-                this.sprite.width = 500;
+                this.sprite.width = 575;
                 this.sprite.rotation = 90;
                 this.sprite.hitbox1.width = 100;
                 this.sprite.hitbox1.height = 50;

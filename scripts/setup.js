@@ -57,7 +57,6 @@ securityIDTextures;
 
 // AMEN
 
-
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function, not my code (WHY IS THIS NOT NATIVE TO JAVASCRIPT)
 
 function resizeImages() {
@@ -111,21 +110,29 @@ function setupRestart() {
 
 function setup() {
     //Initial game setup. Creation of the player sprite, the enemy group etc. etc.
-    canvas = new Canvas(windowWidth,windowHeight, "pixellated x100");
-    player = new Sprite(1000,500,50,15,'d');
-    player.character = new Sprite(player.x,player.y,50,120,'d');
-    player.crosshair = new Sprite(player.character.x,player.character.y,40,40,'d');
-    player.crosshair.image = laserMagnumT;
+
+    canvas = new Canvas(windowWidth,windowHeight, "pixellated x100"); //this line creates the actual drawing canvas - without it the page would simply display a white screen.
+
+    // these lines create the playable character
+    player = new Sprite(1000,500,50,15,'d'); // invisible hitbox
+    player.character = new Sprite(player.x,player.y,50,120,'d'); //visible character
+    player.crosshair = new Sprite(player.character.x,player.character.y,40,40,'d'); //the crosshair controls where the bullets go -
+    player.crosshair.image = laserMagnumT; // - and it also looks like a gun
     player.name = "PLAYER"
     player.character.name = "PLAYERCHARACTER"
+
     // these are all to do with the starting menu and they only appear at the start of the game so I didn't declare their variable names in the holy block of declarations.
-    menuPlay = new Sprite(450, windowHeight - 650, 500, 100, 's');
-    menuInst = new Sprite(650, windowHeight - 525, 900, 100, 's');
-    menuQuit = new Sprite(450, windowHeight - 400, 500, 100, 's');
-    menuGroup = new Group();
-    menuGroup.add(menuPlay);
+    // they are clickable sprites placed over the start menu text - they allow you to actually click the text.
+    menuPlay = new Sprite(450, windowHeight - 3*(windowHeight/8) - 50 , 500, 100, 's'); // the play button
+    menuInst = new Sprite(650, windowHeight - 2*(windowHeight/8) - 50, 900, 100, 's'); //the instructions button
+    menuQuit = new Sprite(450, windowHeight - (windowHeight/8) - 50, 500, 100, 's'); // the quit button; closes the game window upon being clicked.
+    menuGroup = new Group(); // a group containing all menu buttons
+    menuGroup.add(menuPlay); 
     menuGroup.add(menuInst);
     menuGroup.add(menuQuit);
+    // well, NOW containing all menu buttons
+
+    
     escapeZone = new Sprite(1000,-1000,200,200,'d');
     escapeZone.color = "white";
     hudLayer = createGraphics(windowWidth,windowHeight);

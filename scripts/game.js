@@ -70,9 +70,9 @@ async function lose() {
 		textSize(150);
 		await sleep(2000);
 		loseMusic.play();
-		menutext = "YOU WERE NEVER SEEN AGAIN";
+		menutext = "FLATLINED";
 		await sleep(2000);
-		subtext = "KILLSCORE: "+killscore
+		subtext = "KILLSCORE:\n"+killscore
 	}
 }
 
@@ -80,6 +80,9 @@ function menuActions() {
 	if (menuPlay.mouse.pressed()) {
 		spawnEnemies();
 		setupRestart();
+		loseMusic.stop();
+		loseSequencePlaying = false;
+		winSequencePlaying = false;
 		allSprites.opacity = 1;
 		freeze = false;
 		deathlock = false;
@@ -252,6 +255,8 @@ async function playerDeath(deathType) {
 				await sleep(1)
 			}
 		} else {
+			menutext = ""
+			subtext = ""
 			gameState = 3;
 		}
 	}
@@ -274,18 +279,18 @@ function draw() {
 		background("black");
 		textSize(200);
 		fill("white");
-		text(menutext, 200, 350);
+		text(menutext, 200, windowHeight/4);
 		if(menuPlay.mouse.hovering()) {textSize(120);} else {textSize(100);}
-		text("> PLAY", 200, windowHeight - 600);
+		text("> PLAY", 200, windowHeight - 3*(windowHeight/8));
 		if(menuInst.mouse.hovering()) {textSize(120);} else {textSize(100);}
-		text("> INSTRUCTIONS", 200, windowHeight - 475);
+		text("> INSTRUCTIONS", 200, windowHeight - 2*(windowHeight/8));
 		if(menuQuit.mouse.hovering()) {textSize(120);} else {textSize(100);}
-		text("> QUIT", 200, windowHeight - 350);
+		text("> QUIT", 200, windowHeight - (windowHeight/8));
 		freeze = true;
 		deathlock = true;
 		fadeProgress = 0;
 		allSprites.opacity = 0;
-		menuGroup.opacity = 0.01;
+		menuGroup.opacity = 1;
 		introSequence();
 		menuActions()
 	}
@@ -311,13 +316,26 @@ function draw() {
 		deathlock = true;
 		freeze = true;
 		allSprites.opacity = 0;
+		menuGroup.opacity = 1;
+		menuInst.opacity = 0;
 		fadeProgress = 0;
 		background("black");
-		text(menutext, 200, 350);
 		textSize(100);
+		fill("red");
+		text(menutext, 100, windowHeight/4);
+		textSize(60);
 		fill("white");
-		text(subtext, 200, windowHeight - 800);
+		text(subtext, 100, windowHeight/4+200);
+		menuPlay.x = 450;
+		menuPlay.y = windowHeight - windowHeight/4-25;
+		menuQuit.x = 450;
+		menuQuit.y = windowHeight - windowHeight/4+75;
+		if (menuQuit.mouse.hovering()) {textSize(120);} else {textSize(100);}
+		text("> QUIT", 100, windowHeight - windowHeight/4+100);
+		if (menuPlay.mouse.hovering()) {textSize(120);} else {textSize(100);}
+		text("> RESTART", 100, windowHeight - windowHeight/4);
 		lose();
+		menuActions();
 	}
 	if (gameState == 4) {
 		deathlock = false;
@@ -425,4 +443,6 @@ function draw() {
 	}
 
 	hiddenGroup.opacity = 0;
+
+	allSprites.debug = true;
 };
