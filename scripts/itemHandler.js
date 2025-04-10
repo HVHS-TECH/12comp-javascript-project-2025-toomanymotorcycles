@@ -105,12 +105,15 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 11
         if (player.canUseHealthItems) {
+            //console_log_"EXPERIMENTAL INJECTION 2 USED")
             itemExecution = true;
-            player.canUseHealthItems = false; 
-            for(i=player.health; i<100; i++) {
-                player.health ++;
+            player.canUseHealthItems = false;
+            for(i=0; i<10; i++) {
+                player.health --;
                 await sleep(50);
             };
+            player.health = 100;
+            await sleep(50);
             player.canUseHealthItems = true;
         } else {
             console.warn("Player attempted to use health-related item while health-related item cooldown was active.")
@@ -119,11 +122,16 @@ const ITEM_FUNCTIONS = [
     async () => { // Item ID: 12
         if (player.canUseHealthItems) {
             itemExecution = true;
-            player.canUseHealthItems = false; 
-            for(i=player.health; i<100; i++) {
-                player.health ++;
+            player.canUseHealthItems = false;
+            player.prevX = player.x;
+            player.prevY = player.y;
+            for(i=player.health; i<Math.round(random(5,20)); i++) {
+                player.x = random(100,10000);
+                player.y = random(100,10000);
                 await sleep(50);
             };
+            player.x = player.prevX;
+            player.y = player.prevY;
             player.canUseHealthItems = true;
         } else {
             console.warn("Player attempted to use health-related item while health-related item cooldown was active.")
@@ -147,7 +155,18 @@ class Item{
     constructor(x,y,itemID,triggerOnPickup) {
         this.sprite = new Sprite(x,y,30,30,'k');
         this.sprite.parentRef = this;
-        this.itemID = itemID;
+        console.log("ITEMID: "+itemID)
+        if (itemID == -1) {
+            while (true) {
+                console.log("RANDOM")
+                this.itemID = Math.round(random(0,13));
+                if ((this.itemID < 1 || this.itemID > 6) && this.itemID != 13) {break}
+            }
+        } else {
+            console.log("SET")
+            this.itemID = itemID;
+        }
+        console.log("SETITEMID: "+this.itemID)
         this.sprite.image = itemTextures[this.itemID];
         this.triggerOnPickup = triggerOnPickup;
         itemGroup.add(this.sprite);

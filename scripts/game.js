@@ -21,41 +21,41 @@ async function introSequence() {
 	if (!introSequencePlaying) {
 	introSequencePlaying = true;
 	menutext = "";
-	print("AAA")
+	console.log("AAA")
 	await sleep(1000);
-	print("AAA")
+	console.log("AAA")
 	background("black");
 	menutext = "B";
 	await sleep(100);
-	print("AAA")
+	console.log("AAA")
 	background("black");
 	menutext = "BL";
 	await sleep(100);
-	print("AAA")
+	console.log("AAA")
 	background("black");
 	menutext = "BLA";
 	await sleep(100);
-	print("AAA")
+	console.log("AAA")
 	background("black");
 	menutext = "BLAC";
 	await sleep(100);
-	print("AAA")
+	console.log("AAA")
 	background("black");
 	menutext = "BLACK";
 	await sleep(100);
-	print("AAA")
+	console.log("AAA")
 	background("black");
 	menutext = "BLACKS";
 	await sleep(100);
-	print("AAA")
+	console.log("AAA")
 	background("black");
 	menutext = "BLACKSI";
 	await sleep(100);
-	print("AAA")
+	console.log("AAA")
 	background("black");
 	menutext = "BLACKSIT";
 	await sleep(100);
-	print("AAA")
+	console.log("AAA")
 	background("black");
 	menutext = "BLACKSITE";
 	}
@@ -100,6 +100,7 @@ async function lose() {
 function menuActions() {
 	if (menuPlay.mouse.pressed()) {
 		spawnEnemies();
+		spawnItems();
 		setupRestart();
 		loseMusic.stop();
 		loseSequencePlaying = false;
@@ -283,10 +284,6 @@ async function playerDeath(deathType) {
 	}
 }
 
-function spawnItem() {
-	newItem = new Item(windowWidth / 2, windowHeight / 2, 30, 30, 1);
-}
-
 function mousePressed() {
 	if (gameState == 1 && !deathlock) {
 		playerShoot(5);
@@ -463,8 +460,16 @@ function draw() {
 		lczEnemy[i].removeColliders()
 	};
 
+	for(i=0; i<lczItem.length; i++) {
+		lczItem[i].removeColliders()
+	};
+
 	for(i=0; i<hczEnemy.length; i++) {
 		hczEnemy[i].removeColliders()
+	};
+
+	for(i=0; i<hczItem.length; i++) {
+		hczItem[i].removeColliders()
 	};
 
 	for(i=0; i<menuGroup.length; i++) {

@@ -81,6 +81,35 @@ let teleporterPositions = [
     {id:11,linkId:9}
 ];
 
+let itemStats = [
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false}
+]
 let signTiles = [
     2,2,4,0,3,0,5,0,5,0,5,0,6,0
 ]
@@ -111,7 +140,7 @@ function createDoor(tile, rotation, clearance, voicelocked) {
 }
 
 function spawnEnemies() {
-    print("ENEMIEZ")
+    console.log("ENEMIEZ")
     for (i=0;i<enemyGroup.length;i++) {
         enemyGroup[i].moveSpeed = -1;
         enemyGroup[i].parentRef.killScore = 0;
@@ -119,16 +148,31 @@ function spawnEnemies() {
     }
     enemyGroup.removeAll();
     killscore = 0;
-    print(lczEnemy.length);
+    console.log(lczEnemy.length);
     for (i=0; i<lczEnemy.length; i++) {
-        print("ENEMY")
+        console.log("ENEMY")
         new Enemy(lczEnemy[i].x,lczEnemy[i].y,enemyStats[i].size,enemyStats[i].health,enemyStats[i].power,enemyStats[i].speed,enemyStats[i].atkSpeed,enemyStats[i].atkType,enemyStats[i].killScore,enemyStats[i].bulletSpread);
     }
     for (i=0; i<hczEnemy.length; i++) {
-        print("ENEMY")
+        console.log("ENEMY")
         new Enemy(hczEnemy[i].x,hczEnemy[i].y,enemyStats[lczEnemy.length+1+i].size,enemyStats[lczEnemy.length+1+i].health,enemyStats[lczEnemy.length+1+i].power,enemyStats[lczEnemy.length+1+i].speed,enemyStats[lczEnemy.length+1+i].atkSpeed,enemyStats[lczEnemy.length+1+i].atkType,enemyStats[lczEnemy.length+1+i].killScore,enemyStats[lczEnemy.length+1+i].bulletSpread);
     }
     reset = false;
+}
+
+function spawnItems() {
+    console.log("ITEMZ")
+    itemGroup.removeAll();
+    for (i=0; i<lczItem.length; i++) {
+        console.log("AHOOGA")
+        console.log("ITEMID: "+itemStats[i].itemID)
+        new Item(lczItem[i].x,lczItem[i].y,itemStats[i].itemID,itemStats[i].ToP);
+    }
+    for (i=0; i<hczItem.length; i++) {
+        console.log("AHOOGA")
+        console.log("ITEMID: "+itemStats[lczItem.length+1+i].itemID)
+        new Item(hczItem[i].x,hczItem[i].y,itemStats[lczItem.length+1+i].itemID,itemStats[lczItem.length+1+i].ToP);
+    }
 }
 
 function setupTilemaps() {
@@ -572,8 +616,8 @@ wallTopCorner2.tile = "R";
             "<mmɸmmxffffffffxmmɸmm>............<mmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmyffffffffymmmmmmmmmmmmmmyffffffffymmmmmmmmmmyffffffffymmmmmmmmmmmmmmyffffffffymmmmmmm>",
             "<mmCmmyfffdffffymmmmm>............<mmmmmmmmmmmmm><ffffffffffffffffffffffffffffffffЖffffffffffffffffffffff><mmɸmɸmmxffffffffxmmmmmmmmmmmmmmxffffffffxmmmmmmmmmmxffffffffxmmmmmmmmmmmmmmxffffffffxmmmmmmm>",
             "<bbbbbxffffffffxbbbbb>............<ggggggggggggg><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmyfffdffffymmmmmmmmmmmmmmyfffdffffymmmmmmmmmmyfffdffffymmmmmmmmmmmmmmyfffdffffymmmmmmm>",
-            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><oooooooxffffffffxooooooooooooooxffffffffxooooooooooxffffffffxooooooooooooooxffffffffxooooooo>",
-            "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<fffffffffffff><ffffffffµffffffffffffffµfffffffffffffffffffffffffffffff><oooooooxffffffffxooooooooooooooxffffffffxooooooooooxffffffffxooooooooooooooxffffffffxooooooo>",
+            "<ffffffffffffffffffff>............<fµµµµµµµµµµµf><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffff>............<fffffffffffffffffffffffffffffffffffffffffSfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffЖffffffffffffffffffffffffff>",
             "<ffffffffffffffЖfffff>............<ffffffffffffffffffЖffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'>",
             "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffffff'fffffffff'ffffffffffffffffffЖffffffffffffffffffffffffffffffЖfffffffffffffffffffffffffffffffffffffffffffffffffffffffЖfffffffffff>",
@@ -581,10 +625,10 @@ wallTopCorner2.tile = "R";
             "<ffffffffffffffffffff>............<ffffЖfffffffffffffffffffffffffffff>.............<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffЖfffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffff>vvvvvvvvvvvvv<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffff>............<fffffffffffffdffffffffffffffffffffþtttttttttttttþfffffffffffffffffffffdfffffffffffffffЖffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'>",
-            "<ffffffffffffffffffff>............<ffffffffffffffffffffffffffffffffffæmmmmmmmmmmmmmæfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<fffЖffffffffffffffff>............<fffffffffffff><fffffffffffffffffffæmmmmmɸmɸmmmmmæfffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffff>............<ffffffffffffffffffffffµfffffffffffæmmmmmmmmmmmmmæfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<fffЖffffffffffffffff>............<fµµµµµµµµµµµf><ffffffµffffffffffffæmmmmmɸmɸmmmmmæfffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffff>............<fffffffffffff><fffffffffffffffffffæmmmmmmmmmmmmmæffffffffffЖffffffffff>.^^^^^^^^ffffffff^^^^^^^^^^^^^^^^ffffffff^^^^^^^^^^^^ffffffff^^^^^^^^^^^^^^^^ffffffff^^^^^^^^.",
-            "<ffffffffffffffffffff>.............^^^^^^^^^^^^^.<fffffffffffffffffffbbbbbbbbbbbbbbbfffffffffffffffffffff>.vvvvvvvvffffffffvvvvvvvv..vvvvvvffffffffvvvvv..vvvvvffffffffvvvvvv..vvvvvvvvffffffffvvvvvvvv.",
+            "<ffffffffffffffffffff>.............^^^^^^^^^^^^^.<ffffffffffffµffffffbbbbbbbbbbbbbbbfffffffffffffffffffff>.vvvvvvvvffffffffvvvvvvvv..vvvvvvffffffffvvvvv..vvvvvffffffffvvvvvv..vvvvvvvvffffffffvvvvvvvv.",
             "<ffffffffffffffffffff>...........................<fffffffffffffffffffffffffffffffffffffffffffffffffffffff><tttttttxffffffffxttttttt><tttttxffffffffxtttt><ttttxffffffffxttttt><tttttttxffffffffxttttttt>",
             "<ffff'ffffffffff'ffff>...........................<ffffffffffffffffffffffffffЖffffffffffffffffffffffffffff><mmmmmmmyffffffffymmmmmmm><mmmmmyffffffffymmmm><mmmmyffffffffymmmmm><mmmmmmmyffffffffymmmmmmm>",
             ".^^^^^^^^^^^^^^^^^^^^.............................^^^^ffffffff^^^^^^^^^^^ffffffff^^^^^^^^^^^^ffffffff^^^^.<mmmmmmmxffffffffxmmmmmmm><mmmmmxffffffffxmmmm><mmmmxffffffffxmmmmm><mmmmmmmxffffffffxmmmmmmm>",
@@ -793,7 +837,7 @@ wallTopCorner2.tile = "R";
     for (v=0;v<20;v++) {
     for (i=0;i<gameMap.length;i++) {
         try {
-        if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i]) || lczEnemy.includes(gameMap[i]) || hczEnemy.includes(gameMap[i])) {
+        if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i]) || lczEnemy.includes(gameMap[i]) || hczEnemy.includes(gameMap[i]) || lczItem.includes(gameMap[i]) || hczItem.includes(gameMap[i])) {
         } else if(!imageTiles.includes({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y}) || !imageTiles.includes({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y})){
             //console_log_"tile "+i);
             //console_log_findTileGroup(gameMap[i]).idNum);
