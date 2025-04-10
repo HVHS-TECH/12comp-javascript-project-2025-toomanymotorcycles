@@ -147,6 +147,13 @@ lczEnemy.addAni({w:64,h:64,row:0,col:0});
 imageValues.set(lczEnemy.idNum,{row:0,col:0})
 lczEnemy.tile = "Ж";
 
+lczItem = new Group();
+lczItem.collider = "static";
+lczItem.spriteSheet = facilityTileset;
+lczItem.addAni({w:64,h:64,row:0,col:0});
+imageValues.set(lczItem.idNum,{row:0,col:0})
+lczItem.tile = "µ";
+
 hczFloor = new Group();
 hczFloor.collider = "static";
 hczFloor.spriteSheet = facilityTileset;
@@ -160,6 +167,13 @@ hczEnemy.spriteSheet = facilityTileset;
 hczEnemy.addAni({w:64,h:64,row:0,col:0});
 imageValues.set(hczEnemy.idNum,{row:0,col:1})
 hczEnemy.tile = "Д";
+
+hczItem = new Group();
+hczItem.collider = "static";
+hczItem.spriteSheet = facilityTileset;
+hczItem.addAni({w:64,h:64,row:0,col:0});
+imageValues.set(hczItem.idNum,{row:0,col:1})
+hczItem.tile = "Ø";
 
 checkpointTile = new Group();
 checkpointTile.collider = "static";

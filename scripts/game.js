@@ -467,6 +467,10 @@ function draw() {
 		hczEnemy[i].removeColliders()
 	};
 
+	for(i=0; i<menuGroup.length; i++) {
+		menuGroup[i].removeColliders()
+	};
+
 	if (gameState == 1 || gameState == 2) {image(imageTileLayer,-32,-32)};
 	allSprites.draw();
 	camera.off();
