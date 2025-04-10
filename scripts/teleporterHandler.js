@@ -41,11 +41,11 @@ class Teleporter{
 		await sleep(1000)
         player.pos = this.linkedTeleporter.sprite.hitbox.pos;
 		player.colour = "purple"
-		freeze = false;
 		for (r = 1; r < 101; r++) {
 			fadeProgress = 255 - r*2.55
 			await sleep(1)
 		}
+		freeze = false;
 		deathlock = false;
 		}
     }

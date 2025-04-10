@@ -15,6 +15,7 @@
 let 
 menutext = "",
 subtext = "";
+subtext2 = ""
 
 async function introSequence() {
 	if (!introSequencePlaying) {
@@ -60,13 +61,33 @@ async function introSequence() {
 	}
 }
 
+async function win() {
+	if (!winSequencePlaying) {
+		winSequencePlaying = true;
+		gameMusic.stop();
+		klaxon.stop();
+		menutext = "";
+		subtext = "";
+		subtext2 = "";
+		textSize(150);
+		await sleep(2000);
+		//loseMusic.play();
+		menutext = "YOU ESCAPED";
+		await sleep(2000);
+		subtext = "KILLSCORE:\n"+killscore
+		await sleep(1000);
+		subtext2 = "COMPLETION TIME:\n"+"???"
+	}
+}
+
 async function lose() {
 	if (!loseSequencePlaying) {
 		loseSequencePlaying = true;
 		gameMusic.stop();
 		klaxon.stop();
 		menutext = "";
-		fill("red");
+		subtext = "";
+		subtext2 = "";
 		textSize(150);
 		await sleep(2000);
 		loseMusic.play();
@@ -338,9 +359,30 @@ function draw() {
 		menuActions();
 	}
 	if (gameState == 4) {
-		deathlock = false;
+		deathlock = true;
+		freeze = true;
 		allSprites.opacity = 0;
-		background("green")
+		menuGroup.opacity = 1;
+		menuInst.opacity = 0;
+		fadeProgress = 0;
+		background("black");
+		textSize(100);
+		fill("white");
+		text(menutext, 100, windowHeight/4);
+		textSize(60);
+		fill("white");
+		text(subtext, 100, windowHeight/4+200);
+		text(subtext2, 700, windowHeight/4+200);
+		menuPlay.x = 450;
+		menuPlay.y = windowHeight - windowHeight/4-25;
+		menuQuit.x = 450;
+		menuQuit.y = windowHeight - windowHeight/4+75;
+		if (menuQuit.mouse.hovering()) {textSize(120);} else {textSize(100);}
+		text("> QUIT", 100, windowHeight - windowHeight/4+100);
+		if (menuPlay.mouse.hovering()) {textSize(120);} else {textSize(100);}
+		text("> RESTART", 100, windowHeight - windowHeight/4);
+		win();
+		menuActions();
 	}
 
 	player.collide(doorGroup)
@@ -367,7 +409,7 @@ function draw() {
 	checkpointGroup.overlapping(player.character, (checkpoint) => { if (kb.pressed("e") && currentCheckpoint != checkpoint) { interactPrompt.visible = false, checkpoint.parentRef.onInteract() } })
 	checkpointGroup.overlapped(player.character, () => { interactPrompt.visible = false })
 
-	enemyBulletGroup.overlap(player.character, (bullet) => { takeDamage.play(), player.health -= bullet.power, bullet.remove() })
+	enemyBulletGroup.overlap(player.character, (bullet) => { if(!freeze) {takeDamage.play(), player.health -= bullet.power, bullet.remove()} })
 	enemyBulletGroup.overlap(allSprites)
 	playerBulletGroup.overlap(allSprites)
 	playerBulletGroup.overlap(gameMap, (bullet,tile) => { if (!lczEnemy.includes(tile) && !hczEnemy.includes(tile)) {bullet.remove()} })
@@ -444,5 +486,5 @@ function draw() {
 
 	hiddenGroup.opacity = 0;
 
-	allSprites.debug = true;
+	//allSprites.debug = true;
 };

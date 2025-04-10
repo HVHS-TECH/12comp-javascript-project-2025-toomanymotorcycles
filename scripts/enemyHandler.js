@@ -25,6 +25,7 @@ class Enemy{
         this.attackCooldown = 0
         this.killScore = killScore
         this.bulletSpread = bulletSpread
+        this.dead = false; // a failsafe to stop the enemy firing if it is dead. for some reason, they started firing while dead and I have no idea why.
         if (this.sprite.moveSpeed == 0) {
             if (this.attackType == 1) {
                 this.sprite.image = puddleOfCrystal;
@@ -34,14 +35,16 @@ class Enemy{
         }
         this.attack = setInterval(() => {
             if (this.sprite.health <= 0) {
+                this.dead = true;
                 if (this.sprite.moveSpeed == 0) {
                     explosion.play();
                 }
                 killscore += this.killScore;
+                enemyGroup.remove(this.sprite);
                 this.sprite.remove();
                 clearInterval(this.attack);
             }
-        if (!freeze) {
+        if (!freeze && !this.dead) {
             if (this.attackCooldown > 0) {
                 this.attackCooldown --;
                 this.sprite.rotationalVelocity = 0;

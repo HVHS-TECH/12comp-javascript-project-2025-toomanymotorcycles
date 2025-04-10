@@ -19,50 +19,50 @@ let doorClearances = [
 ];
 
 let enemyStats = [
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
-    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-900000},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
+    {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
 ]
 
@@ -112,7 +112,13 @@ function createDoor(tile, rotation, clearance, voicelocked) {
 
 function spawnEnemies() {
     print("ENEMIEZ")
+    for (i=0;i<enemyGroup.length;i++) {
+        enemyGroup[i].moveSpeed = -1;
+        enemyGroup[i].parentRef.killScore = 0;
+        enemyGroup[i].health = 0;
+    }
     enemyGroup.removeAll();
+    killscore = 0;
     print(lczEnemy.length);
     for (i=0; i<lczEnemy.length; i++) {
         print("ENEMY")
@@ -122,6 +128,7 @@ function spawnEnemies() {
         print("ENEMY")
         new Enemy(hczEnemy[i].x,hczEnemy[i].y,enemyStats[lczEnemy.length+1+i].size,enemyStats[lczEnemy.length+1+i].health,enemyStats[lczEnemy.length+1+i].power,enemyStats[lczEnemy.length+1+i].speed,enemyStats[lczEnemy.length+1+i].atkSpeed,enemyStats[lczEnemy.length+1+i].atkType,enemyStats[lczEnemy.length+1+i].killScore,enemyStats[lczEnemy.length+1+i].bulletSpread);
     }
+    reset = false;
 }
 
 function setupTilemaps() {
