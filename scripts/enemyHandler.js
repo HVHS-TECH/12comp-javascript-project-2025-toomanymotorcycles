@@ -31,7 +31,13 @@ class Enemy{
                 this.sprite.image = puddleOfCrystal;
             } else if (this.attackType == 2) {
                 this.sprite.image = enemyTurret;
-        }
+            }
+        } else {
+            if (this.attackType == 1) {
+                this.sprite.image = enemyMelee;
+            } else if (this.attackType == 2) {
+                this.sprite.image = enemyRanged;
+            }
         }
         this.attack = setInterval(() => {
             if (this.sprite.health <= 0) {

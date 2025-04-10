@@ -6,7 +6,7 @@ const ITEM_FUNCTIONS = [
             itemExecution = true;
             player.canUseHealthItems = false;
             for(i=player.health; i>0; i--) {
-                //console_log_"WHY DID YOU DO THIS");
+                console.log("WHY DID YOU DO THIS");
                 takeDamage.play();
                 player.health --;
                 await sleep(10);
@@ -38,7 +38,7 @@ const ITEM_FUNCTIONS = [
         if (player.canUseStaminaItems) {
             itemExecution = true;
             player.canUseStaminaItems = false, 
-            //console_log_"ADRENALINE STIM USED"),
+            console.log("ADRENALINE STIM USED"),
             player.staminaMax = 600,
             player.stamina = player.staminaMax,
             player.fatigued = false,
@@ -52,7 +52,7 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 8
         if (player.canUseSpeedItems) {
-            //console_log_"SPEED STEROIDS USED")
+            console.log("SPEED STEROIDS USED")
             itemExecution = true;
             player.canUseSpeedItems = false; 
             player.speedMultiplier = 1.2;
@@ -65,7 +65,7 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 9
         if (player.canUseHealthItems) {
-            //console_log_"HEALING INJECTION USED")
+            console.log("HEALING INJECTION USED")
             itemExecution = true;
             player.canUseHealthItems = false; 
             for(i=player.health; i<100; i++) {
@@ -79,7 +79,7 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 10
         if (player.canUseStaminaItems && player.canUseSpeedItems && player.canUseHealthItems) {
-            //console_log_"EXPERIMENTAL INJECTION 1 USED")
+            console.log("EXPERIMENTAL INJECTION 1 USED")
             itemExecution = true;
             player.canUseStaminaItems = false;
             player.canUseSpeedItems = false;
@@ -88,7 +88,7 @@ const ITEM_FUNCTIONS = [
             player.stamina = player.staminaMax;
             player.fatigued = false;
             player.speedMultiplier = 1.6;
-            //console_log_player.speedMultiplier)
+            console.log(player.speedMultiplier)
             for (i=0; i<75; i++) {
                 player.health --;
                 await sleep(266);
@@ -105,12 +105,14 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 11
         if (player.canUseHealthItems) {
-            //console_log_"EXPERIMENTAL INJECTION 2 USED")
+            console.log("EXPERIMENTAL INJECTION 2 USED")
             itemExecution = true;
             player.canUseHealthItems = false;
-            for(i=0; i<10; i++) {
+            for(g=0; g<10; g++) {
+                print("DAMAGE x"+g)
+                takeDamage.play();
                 player.health --;
-                await sleep(50);
+                await sleep(500);
             };
             player.health = 100;
             await sleep(50);
@@ -121,11 +123,14 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 12
         if (player.canUseHealthItems) {
+            console.log("EXPERIMENTAL INJECTION 3 USED")
             itemExecution = true;
             player.canUseHealthItems = false;
             player.prevX = player.x;
             player.prevY = player.y;
-            for(i=player.health; i<Math.round(random(5,20)); i++) {
+            console.log("TELEPORT GO")
+            for(g=0; g<Math.round(random(5,200)); g++) {
+                console.log("TELEPORT")
                 player.x = random(100,10000);
                 player.y = random(100,10000);
                 await sleep(50);
@@ -139,11 +144,11 @@ const ITEM_FUNCTIONS = [
     },
     async () => { // Item ID: 13
         if (!usingVoiceKey) {
-            //console_log_"VOICE KEY USED")
+            console.log("VOICE KEY USED")
             usingVoiceKey = true;
             voiceKeyAudio.play();
             await sleep(5000)
-            //console_log_"VOICE KEY USE COMPLETE")
+            console.log("VOICE KEY USE COMPLETE")
             usingVoiceKey = false;
         } else {
             console.warn("Player attempted to use voice key while voice key was already being used.")
@@ -178,7 +183,7 @@ class Item{
         } else if (player.inventory.length < 5) {
         this.sprite.remove();
         player.inventory.push(this);
-        //console_log_player.inventory.toString());
+        console.log(player.inventory.toString());
        }
     }
 }

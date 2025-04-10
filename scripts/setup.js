@@ -46,7 +46,8 @@ playerBulletGroup, //all player-fired bullets
 enemyBulletGroup, //all enemy-fired bullets; more like enemy bullet hell group...
 hiddenGroup,
 interactPrompt, // the "E" interaction prompt that appears whenever you interact with something.
-tilemapSetup = true;
+tilemapSetup = true,
+instructionsVisible = false;
 
 let cheatPrevention = false; //cheat prevention - was never used
 
@@ -80,6 +81,8 @@ function resizeImages() {
     }
     puddleOfCrystal.resize(60,60);
     enemyTurret.resize(80,80);
+    enemyMelee.resize(100,100);
+    enemyRanged.resize(100,100);
     laserBullet.resize(20,20);
     laserMagnumT.resize(60,60);
 }

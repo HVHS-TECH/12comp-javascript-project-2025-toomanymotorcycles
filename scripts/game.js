@@ -71,7 +71,7 @@ async function win() {
 		subtext2 = "";
 		textSize(150);
 		await sleep(2000);
-		//loseMusic.play();
+		winMusic.play();
 		menutext = "YOU ESCAPED";
 		await sleep(2000);
 		subtext = "KILLSCORE:\n"+killscore
@@ -98,6 +98,7 @@ async function lose() {
 }
 
 function menuActions() {
+	if (!instructionsVisible) {
 	if (menuPlay.mouse.pressed()) {
 		spawnEnemies();
 		spawnItems();
@@ -110,8 +111,12 @@ function menuActions() {
 		deathlock = false;
 		gameState = 1;
 	}
+	if (menuInst.mouse.pressed()) {
+		instructionsVisible = true;
+	}
 	if (menuQuit.mouse.pressed()) {
 		window.close();
+	}
 	}
 }
 
@@ -288,22 +293,32 @@ function mousePressed() {
 	if (gameState == 1 && !deathlock) {
 		playerShoot(5);
 	}
+	if (instructionsVisible) {
+		instructionsVisible = false;
+	}
   }
 
 function draw() {
 	// Draw function; the primary game loop. Runs 60 times a second.
 	clear();
 	if (gameState == 0) {
+		camera.off();
 		background("black");
 		textSize(200);
 		fill("white");
 		text(menutext, 200, windowHeight/4);
-		if(menuPlay.mouse.hovering()) {textSize(120);} else {textSize(100);}
+		if(menuPlay.mouse.hovering() && !instructionsVisible) {textSize(120);} else {textSize(100);}
 		text("> PLAY", 200, windowHeight - 3*(windowHeight/8));
-		if(menuInst.mouse.hovering()) {textSize(120);} else {textSize(100);}
+		if(menuInst.mouse.hovering() && !instructionsVisible) {textSize(120);} else {textSize(100);}
 		text("> INSTRUCTIONS", 200, windowHeight - 2*(windowHeight/8));
-		if(menuQuit.mouse.hovering()) {textSize(120);} else {textSize(100);}
+		if(menuQuit.mouse.hovering() && !instructionsVisible) {textSize(120);} else {textSize(100);}
 		text("> QUIT", 200, windowHeight - (windowHeight/8));
+		if (instructionsVisible) {
+			print("INSTRUCTIONS!!!!!!!!")
+			imageMode(CENTER);
+			image(instructions, windowWidth/2, windowHeight/2);
+			imageMode(CORNER);
+		}
 		freeze = true;
 		deathlock = true;
 		fadeProgress = 0;

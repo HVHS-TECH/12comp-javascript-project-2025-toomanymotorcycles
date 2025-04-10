@@ -91,6 +91,8 @@ function loadDoorTextures() {
 function loadEnemyAssets() {
     puddleOfCrystal = loadImage("././assets/enemy/puddle_of_crystal.png");
     enemyTurret = loadImage("././assets/enemy/suborned_turret.png");
+    enemyMelee = loadImage("././assets/enemy/melee_enemy.png");
+    enemyRanged = loadImage("././assets/enemy/gun_enemy.png");
     laserBullet = loadImage("././assets/enemy/laser_bullet.png");
     explosion = loadSound("././assets/explosion.wav");
     turretFire = loadSound("././assets/turret_fire.ogg");
@@ -119,11 +121,13 @@ function loadSFX() {
 function loadMusic() {
     gameMusic = loadSound("././assets/music/Twilight.mp3");
     loseMusic = loadSound("././assets/music/Extinction.mp3");
+    winMusic = loadSound("././assets/music/ThereIsHope.mp3");
 }
 
 function preload() {
     //Preloading the game's asset files to avoid any errors.
     testImage = loadImage("././assets/testing.jpeg");
+    instructions = loadImage("././assets/instructions.png");
     laserMagnumT = loadImage("././assets/laser_magnum.png");
     loadTilemaps();
     loadSignTextures();
