@@ -58,7 +58,7 @@ securityIDTextures;
 
 // AMEN
 
-const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function, not my code (WHY IS THIS NOT NATIVE TO JAVASCRIPT)
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function, not my code, no idea who actually wrote this, forgot where I got it from, so many different places have this line of code (ALSO, WHY IS THIS NOT NATIVE TO JAVASCRIPT!?)
 
 function resizeImages() {
     readerT1.resize(30,40);
