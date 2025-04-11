@@ -517,9 +517,9 @@ function draw() {
 	
 	enemyGroup.overlap(playerBulletGroup, (enemy,bullet) => {console.log("ENEMY HIT: "+enemy); enemy.health -= 50; if (enemy.moveSpeed == 0) {laserImpactMetal.play()}; bullet.remove() }); //if a player bullet hits an enemy, the enemy takes damage equal to the bullet's power and special sound effects are played if the enemy's move speed is zero (if it's a turret or a puddle of crystal)
 
-	//playerBulletGroup.overlap(player.character)
-	//playerBulletGroup.overlap(player)
-	//playerBulletGroup.overlap(playerBulletGroup)
+	playerBulletGroup.overlap(player.character)
+	playerBulletGroup.overlap(player)
+	playerBulletGroup.overlap(playerBulletGroup)
 
 	//allSprites.overlap(enemyBulletGroup)
 	allSprites.overlap(player.crosshair) //everything overlaps the player's gun

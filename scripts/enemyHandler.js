@@ -16,15 +16,15 @@ class Enemy{
     constructor(x,y,size,health,power,speed,attackSpeed,attackType,killScore,bulletSpread) {
         this.sprite = new Sprite(x,y,size,size,'k')
         enemyGroup.add(this.sprite)
-        this.sprite.parentRef = this
-        this.sprite.health = health //enemy health
-        this.sprite.power = power //enemy power
-        this.sprite.moveSpeed = speed //enemy speef
-        this.attackSpeed = attackSpeed //enemy attack speed
-        this.attackType = attackType //enemy attack type
-        this.attackCooldown = 0 //time remianing until enemy can attack again
-        this.killScore = killScore //points awarded upon death
-        this.bulletSpread = bulletSpread //enemy bullet inaccuracy
+        this.sprite.parentRef = this;
+        this.sprite.health = health; //enemy health
+        this.sprite.power = power; //enemy power
+        this.sprite.moveSpeed = speed; //enemy speef
+        this.attackSpeed = attackSpeed; //enemy attack speed
+        this.attackType = attackType; //enemy attack type
+        this.attackCooldown = 0; //time remianing until enemy can attack again
+        this.killScore = killScore; //points awarded upon death
+        this.bulletSpread = bulletSpread; //enemy bullet inaccuracy
         this.dead = false; // a failsafe to stop the enemy firing if it is dead. for some reason, they started firing while dead and I have no idea why.
         if (this.sprite.moveSpeed == 0) { //if the enemy cannot move
             if (this.attackType == 1) { //if the enemy has a melee attack, make it a puddle of crystal
@@ -84,11 +84,11 @@ class Enemy{
                 }   
             } else if (this.attackType == 2) { //if this enemy is of type ranged
                 if (world.rayCast(this.sprite.pos,player) == player || world.rayCast(this.sprite.pos,player) == player.character || world.rayCast(this.sprite.pos,player) == player.crosshair) { //if the enemy can see the player (if the enemy's raycast towards the player hits the player)
-                    if (this.attackCooldown > 0 && this.sprite.moveSpeed > 0) { //if the enemy can attack and move, it moves towards the player
+                    if (this.attackCooldown > 0) { //if the enemy can attack and move, it moves towards the player
                         this.sprite.rotateTowards(player,0.25);
-                        this.sprite.moveTo(player.x,player.y,this.sprite.moveSpeed);
+                        if (this.sprite.moveSpeed > 0) {this.sprite.moveTo(player.x,player.y,this.sprite.moveSpeed)};
                     }
-                    if (this.attackCooldown == 0) { //if the enmy can fire, it will. See the playerShoot() function in "game.js" for more information - enemy bullets are spawned the same way
+                    if (this.attackCooldown == 0) { //if the enemy can fire, it will. See the playerShoot() function in "game.js" for more information - enemy bullets are spawned the same way
                         this.attackCooldown = this.attackSpeed; //enemy cooldown is activated
                         let newBullet = new Sprite(this.sprite.x,this.sprite.y,10,10,'d')
                         newBullet.power = this.sprite.power;
