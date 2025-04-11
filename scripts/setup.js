@@ -58,9 +58,9 @@ securityIDTextures;
 
 // AMEN
 
-const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function, not my code, no idea who actually wrote this, forgot where I got it from, so many different places have this line of code (ALSO, WHY IS THIS NOT NATIVE TO JAVASCRIPT!?)
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay)); //sleep function used in conjunction with the await keyword, waits a specified time in milliseconds before moving on to the next line of code not my code, no idea who actually wrote this, forgot where I got it from, so many different places have this line of code (ALSO, WHY IS THIS NOT NATIVE TO JAVASCRIPT!?)
 
-function resizeImages() {
+function resizeImages() { //resizes all images to that they match their sprite hitboxes
     readerT1.resize(30,40);
     readerT2.resize(30,40);
     readerT3.resize(30,40);
@@ -87,28 +87,28 @@ function resizeImages() {
     laserMagnumT.resize(60,60);
 }
 
-function setupRestart() {
-    player.clearanceLevel = 0;
-    player.speed = 5;
-    player.speedMultiplier = 1;
-    player.staminaMax = 120;
-    player.stamina = player.staminaMax;
-    player.fatigued = false;
-    player.inventory = [];
-    player.canUseItems = true;
-    player.canUseStaminaItems = true;
-    player.canUseHealthItems = true;
-    player.canUseSpeedItems = true;
-    player.health = 100;
-    player.lives = 3;
-    player.loadedAmmo = 6;
-    player.shotCooldown = false;
-    player.shotCooldownReg = 500;
-    player.shotCooldownReload = 8200;
-    player.mass = 1000;
-    player.pos = lczFloorStart[0].pos
-    fadeProgress = 0;
-    killscore = 0;
+function setupRestart() { // resets all player data
+    player.clearanceLevel = 0; // controls where the player can go
+    player.speed = 5; // obvious
+    player.speedMultiplier = 1; // obvious
+    player.staminaMax = 120; // obvious
+    player.stamina = player.staminaMax; // obvious
+    player.fatigued = false; // whether the player is fatigued or not
+    player.inventory = []; //the player's inventory
+    player.canUseItems = true; //whether or not the player can use any items
+    player.canUseStaminaItems = true; //whether or not the player can use stamina items
+    player.canUseHealthItems = true; //whether or not the player can use health items
+    player.canUseSpeedItems = true; //whether or not the player can use speed items
+    player.health = 100; //obvious
+    player.lives = 3; //obvious
+    player.loadedAmmo = 6; //how much ammo the player has loaded into their weapon
+    player.shotCooldown = false; //whether or not the player can fire
+    player.shotCooldownReg = 500; //the regular shot cooldown in milliseconds
+    player.shotCooldownReload = 8200; //the shot cooldown if the player is reloading in milliseconds
+    player.mass = 1000; // DEPRECATED
+    player.pos = lczFloorStart[0].pos //sets the player's position to the starting tile.
+    fadeProgress = 0; //how black the screen is
+    killscore = 0; //the player's kill score - the player earns points when enemies are killed
 }
 
 function setup() {
@@ -135,11 +135,17 @@ function setup() {
     menuGroup.add(menuQuit);
     // well, NOW containing all menu buttons
 
-    
-    escapeZone = new Sprite(1000,-1000,200,200,'d');
+    //these lines create the escape zone - touch it and you win
+    escapeZone = new Sprite(320,0,200,1000,'d');
     escapeZone.color = "white";
+
+    //this creates a graphics layer for the player's HUD
     hudLayer = createGraphics(windowWidth,windowHeight);
+
+    //creates a graphics layer for all image tiles - see "build.js" for more information
     imageTileLayer = createGraphics(15000,15000);
+
+    //creates the "E" interact promt
     interactPrompt = new Sprite(camera.x,camera.y+windowWidth/8,150,150,'s');
     interactPrompt.textSize = 100
     interactPrompt.textColor = "white"
@@ -147,6 +153,8 @@ function setup() {
     interactPrompt.color = "black"
     interactPrompt.visible = false;
     interactPrompt.overlap(allSprites)
+
+    //creates all of the groups used in the game's code
     enemyGroup = new Group();
     enemyBulletGroup = new Group();
     playerBulletGroup = new Group();
@@ -157,17 +165,22 @@ function setup() {
     checkpointGroup = new Group();
     teleporterGroup = new Group();
     allDoors = new Group();
+
+    //ensures that the player can walk over items
     itemGroup.overlap(player);
+
+    //makes the player's base hitbox invisible
     hiddenGroup.add(player);
-    itemExecution = true;
+
+    itemExecution = true; // a value set to true if an item works when it is used to make sure that it is not deleted if the item isn't actually used.
     gameState = 0;
     freeze = false;
-    allSprites.autoCull = false;
-    interactPrompt.layer = 999;
-    hudTint = 255;
-    allSprites.autoDraw = false;
+    allSprites.autoCull = false; //sprites will never auto-despawn if they get too far off-camera
+    interactPrompt.layer = 999; //makes the interaction prompt draw over everything else
+    hudTint = 255; // DEPRECATED
+    allSprites.autoDraw = false; //sprites must be drawn manually
     resizeImages();
     buildMap();
     player.pos = lczFloorStart[0].pos
-    fadeProgress = 0;
+    fadeProgress = 0; // makes the game visible
 };

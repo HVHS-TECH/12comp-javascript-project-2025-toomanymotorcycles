@@ -5,7 +5,7 @@ const ITEM_FUNCTIONS = [
         if (player.canUseHealthItems) {
             itemExecution = true;
             player.canUseHealthItems = false;
-            for(i=player.health; i>0; i--) {
+            for(o=player.health; o>0; o--) {
                 console.log("WHY DID YOU DO THIS");
                 takeDamage.play();
                 player.health --;
@@ -68,7 +68,7 @@ const ITEM_FUNCTIONS = [
             console.log("HEALING INJECTION USED")
             itemExecution = true;
             player.canUseHealthItems = false; 
-            for(i=player.health; i<100; i++) {
+            for(d=player.health; d<100; d++) {
                 player.health ++;
                 await sleep(50);
             };
@@ -89,7 +89,7 @@ const ITEM_FUNCTIONS = [
             player.fatigued = false;
             player.speedMultiplier = 1.6;
             console.log(player.speedMultiplier)
-            for (i=0; i<75; i++) {
+            for (t=0; t<75; t++) {
                 player.health --;
                 await sleep(266);
             };

@@ -19,6 +19,7 @@ function loadTilemaps() {
 }
 
 function loadSignTextures() {
+    //loads the textures of the signs
     sign0T = loadImage("././assets/world/signs/sign_00.png");
     sign1T = loadImage("././assets/world/signs/sign_01.png");
     sign2T = loadImage("././assets/world/signs/sign_02.png");
@@ -33,6 +34,7 @@ function loadSignTextures() {
 }
 
 function loadCardReaderTextures() {
+     //loads the textures of the card readers
     readerT1 = loadImage("././assets/card_reader/reader_1.png");
     readerT2 = loadImage("././assets/card_reader/reader_2.png");
     readerT3 = loadImage("././assets/card_reader/reader_3.png");
@@ -46,6 +48,7 @@ function loadCardReaderTextures() {
 }
 
 function loadItemTextures() {
+    //loads the textures of the items in the game world
     item0T = loadImage("././assets/items/item_0.png");
     item1ST = loadImage("././assets/items/SecurityID-1.png");
     item2ST = loadImage("././assets/items/SecurityID-2.png");
@@ -64,6 +67,7 @@ function loadItemTextures() {
 }
 
 function loadItemDisplayTextures() {
+    //loads the textures of the items as they are seen in the inventory
     disp0T = loadImage("././assets/display/item_0.png");
     disp1ST = loadImage("././assets/display/SecurityID-1.png");
     disp2ST = loadImage("././assets/display/SecurityID-2.png");
@@ -82,6 +86,7 @@ function loadItemDisplayTextures() {
 }
 
 function loadDoorTextures() {
+    //loads the textures and animations of the doors
     largeBlastDoorOpenAni = loadImage("././assets/doors/bigDoorOpen.png")
     largeBlastDoorOpenAni2 = loadImage("././assets/doors/bigDoorVertOpen.png")
     largeBlastDoorCloseAni = loadImage("././assets/doors/bigDoorClose.png")
@@ -89,6 +94,7 @@ function loadDoorTextures() {
 }
 
 function loadEnemyAssets() {
+    //loads the textures of the enemies and the bullets
     puddleOfCrystal = loadImage("././assets/enemy/puddle_of_crystal.png");
     enemyTurret = loadImage("././assets/enemy/suborned_turret.png");
     enemyMelee = loadImage("././assets/enemy/melee_enemy.png");
@@ -100,6 +106,7 @@ function loadEnemyAssets() {
 }
 
 function loadWorldSounds() {
+    //loads all world-based sounds
     klaxon = loadSound("././assets/background_klaxon.ogg");
     accessDenied = loadSound("././assets/access_denied.flac");
     accessGranted = loadSound("././assets/access_granted.ogg");
@@ -114,21 +121,23 @@ function loadWorldSounds() {
 }
 
 function loadSFX() {
+    //loads all UI-based sounds
     deathSting = loadSound("././assets/death_sting.wav");
     takeDamage = loadSound("././assets/take_damage.ogg");
 }
 
 function loadMusic() {
+    //loads the music
     gameMusic = loadSound("././assets/music/Twilight.mp3");
     loseMusic = loadSound("././assets/music/Extinction.mp3");
     winMusic = loadSound("././assets/music/ThereIsHope.mp3");
 }
 
 function preload() {
-    //Preloading the game's asset files to avoid any errors.
-    testImage = loadImage("././assets/testing.jpeg");
-    instructions = loadImage("././assets/instructions.png");
-    laserMagnumT = loadImage("././assets/laser_magnum.png");
+    //Preloads everything.
+    testImage = loadImage("././assets/testing.jpeg"); //DEPRECATED - only ever used in testing
+    instructions = loadImage("././assets/instructions.png"); //the instructions
+    laserMagnumT = loadImage("././assets/laser_magnum.png");//the texture of your gun
     loadTilemaps();
     loadSignTextures();
     loadWorldSounds();

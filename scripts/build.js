@@ -1,3 +1,6 @@
+
+// when a door is created, its stats are drawn from the objects in this array
+
 let doorClearances = [
     {clearance: 1, rotation:0 ,locked: true},
     {clearance: 2, rotation:0 ,locked: false},
@@ -41,6 +44,8 @@ let doorClearances = [
     {clearance: 3, rotation:1 ,locked: false},
     {clearance: 4, rotation:1 ,locked: false}
 ];
+
+// same here with enemies
 
 let enemyStats = [
     {size:60,health:99999,power:10,speed:0,atkSpeed:10,atkType:1,bulletSpread:3,killScore:-9999},
@@ -90,6 +95,8 @@ let enemyStats = [
     {size:80,health:300,power:10,speed:0,atkSpeed:10,atkType:2,bulletSpread:3,killScore:200},
 ]
 
+//and with teleporters
+
 let teleporterPositions = [
     {id:4,linkId:6},
     {id:0,linkId:2},
@@ -104,6 +111,8 @@ let teleporterPositions = [
     {id:10,linkId:8},
     {id:11,linkId:9}
 ];
+
+//and with items
 
 let itemStats = [
     {itemID:-1,ToP:false},
@@ -127,7 +136,7 @@ let itemStats = [
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
-    {itemID:1,ToP:false},
+    {itemID:1,ToP:true},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
@@ -148,17 +157,15 @@ let itemStats = [
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
-    {itemID:2,ToP:false},
+    {itemID:2,ToP:true},
     {itemID:-1,ToP:false},
-    {itemID:3,ToP:false},
-    {itemID:-1,ToP:false},
-    {itemID:-1,ToP:false},
+    {itemID:3,ToP:true},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
-    {itemID:4,ToP:false},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
+    {itemID:4,ToP:true},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
@@ -180,8 +187,10 @@ let itemStats = [
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
+    {itemID:-1,ToP:false},
+    {itemID:6,ToP:true},
     {itemID:13,ToP:false},
-    {itemID:6,ToP:false},
+    {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
@@ -215,19 +224,27 @@ let itemStats = [
     {itemID:-1,ToP:false},
     {itemID:-1,ToP:false},
 ]
+
+//and with sign decorations (the rectangular signs like "L 1 C" that you can see in the game)
 let signTiles = [
     2,2,4,0,3,0,5,0,5,0,5,0,7,0
 ]
 
+//this map contains spritesheet texture positions keyed to tile group ids whose tiles have that particular texture
 let imageValues = new Map()
 
+// these are all the drawn "image tiles" - an image tile is a sprite replaced with an image because it has no collision (e.g the floor tiles)
 let imageTiles = [];
+
+// DEPRECATED - the game no longer needs this (I'm afraid to remove it in case something breaks)
 let objectsCreated = false;
 
+// this function finds a tile sprite's "tilegroup" - the group from which the sprite derives its texture - by returning the first reference in the sprite's "groups" array that isn't the "allSprites" group or the "gameMap" group; this is all done using the groups' id number.
 function findTileGroup(sprite) {
     return sprite.groups.find((element) => element.idNum != allSprites.idNum && element.idNum != gameMap.idNum);
 }
 
+// this function creates a door and its readers. See "doorHandler.js" and "readerHandler.js" for more information.
 function createDoor(tile, rotation, clearance, voicelocked) {
     newDoor = new Door(tile.x+32,tile.y-160,rotation,2,4500)
     if (rotation == 0) {
@@ -244,6 +261,7 @@ function createDoor(tile, rotation, clearance, voicelocked) {
     
 }
 
+// this functions creates an enemy. See "enemyHandler.js" for more information.
 function spawnEnemies() {
     console.log("ENEMIEZ")
     for (i=0;i<enemyGroup.length;i++) {
@@ -265,6 +283,7 @@ function spawnEnemies() {
     reset = false;
 }
 
+// this functions creates an item. See "itemHandler.js" for more information.
 function spawnItems() {
     console.log("ITEMZ")
     itemGroup.removeAll();
@@ -280,14 +299,18 @@ function spawnItems() {
     }
 }
 
+// this function sets up the game's tilegroups and draws the game map.
+
 function setupTilemaps() {
     if (!objectsCreated) {
-lczFloor = new Group();
-lczFloor.collider = "static";
-lczFloor.spriteSheet = facilityTileset;
-lczFloor.addAni({w:64,h:64,row:0,col:0});
-imageValues.set(lczFloor.idNum,{row:0,col:0})
-lczFloor.tile = "f";
+lczFloor = new Group(); // creates the group
+lczFloor.collider = "static"; //ensures that physics does not affect any sprites in the group.
+lczFloor.spriteSheet = facilityTileset; //declares the group's spritesheet.
+lczFloor.addAni({w:64,h:64,row:0,col:0}); //textures the sprite using said spritesheet.
+imageValues.set(lczFloor.idNum,{row:0,col:0}) //sends the group's texture sheet position data to the imageValues array.
+lczFloor.tile = "f"; //declares the group's tile identifier. More information on this below.
+
+//this repeats infinity plus one times so I'm not going to comment the rest of it.
 
 lczEnemy = new Group();
 lczEnemy.collider = "static";
@@ -704,7 +727,7 @@ wallTopCorner2.tile = "R";
 
 }
 
-    gameMap = new Tiles(
+    gameMap = new Tiles( //draws the game map. Tiles are placed using group tile identifiers - the game draws a tile at the identifier's position. "." means no tile is drawn there.
         [
             ".....<ffffffffff>..........................................................................................vvvvvvvvvvvvvvvvvvvvvvvv..vvvvvvvvvvvvvvvvvvv..vvvvvvvvvvvvvvvvvvv..vvvvvvvvvvvvvvvvvvvvvvvv.",
             ".....<ffffffffff>.........................................................................................<tttttttttttttttttttttttt><ttttttttttttttttttt><ttttttttttttttttttt><tttttttttttttttttttttttt>",
@@ -720,7 +743,7 @@ wallTopCorner2.tile = "R";
             "<mmmmmyffffffffymmmmm>............<mmmmmmmmmmmmm><bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb><tttttttxffffffffxttttttttttttttxffffffffxttttttttttxffffffffxttttttttttttttxffffffffxttttttt>",
             "<mmɸmmxffffffffxmmɸmm>............<mmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><mmmmmmmyffffffffymmmmmmmmmmmmmmyffffffffymmmmmmmmmmyffffffffymmmmmmmmmmmmmmyffffffffymmmmmmm>",
             "<mmCmmyfffdffffymmmmm>............<mmmmmmmmmmmmm><ffffffffffffffffffffffffffffffffЖffffffffffffffffffffff><mmɸmɸmmxffffffffxmmmmmmmmmmmmmmxffffffffxmmmmmmmmmmxffffffffxmmmmmmmmmmmmmmxffffffffxmmmmmmm>",
-            "<bbbbbxffffffffxbbbbb>............<ggggggggggggg><fffffffffffffffffffffffffffffffffffffffffffffffµfffffff><mmmmmmmyfffdffffymmmmmmmmmmmmmmyfffdffffymmmmmmmmmmyfffdffffymmmmmmmmmmmmmmyfffdffffymmmmmmm>",
+            "<bbbbbxffffffffxbbbbb>............<ggggggggggggg><fffffffffffffffffffffffffffffffffffffffffffffffµfffffff><mmmmmmmyfffdffffymmmmmmCmmmmmmmyfffdffffymmmmmmmmmmyfffdffffymmmmmmmmmmmmmmyfffdffffymmmmmmm>",
             "<ffffffffffffffffffff>............<fffffffffffff><ffffffffµffffffffffffffµfffffffffffffffffffffffffffffff><oooooooxffffffffxooooooooooooooxffffffffxooooooooooxffffffffxooooooooooooooxffffffffxooooooo>",
             "<ffffffffffffffffffff>............<fµµµµµµµµµµµf><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<ffffffffffffffffffff>............<fffffffffffffffffffffffffffffffffffffffffSfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffЖffffffffffffffffffffffffff>",
@@ -768,16 +791,16 @@ wallTopCorner2.tile = "R";
             "<ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffffffffff><ffffffffffff><ffffffffffff><fffµµfffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffffffffffffffff>",
             "<^^ffffffff^^..^^ffffffff^^..^^ffffffff^^..^^ffffffff^^..^^^^^ffffffff^^^^^..^^^^^^^^^^^^..^^ffffffff^^..^^ffffffff^^..^^ffffffff^^..^^ffffffff^^..^^ffffffff^^..^^ffffffff^^..^^^^^^^^ffffffff^^^^^^^^>",
             "<vvffffffffvvvvvvffffffffvvvvvvffffffffvvvvvvffffffffvvvvvvvvvffffffffvvvvv..vvvvvvvvvvvvvvvvffffffffvvvvvvffffffffvvvvvvffffffffvvvvvvffffffffvvvvvvffffffffvvvvvvffffffffvvvvvvvvvvvvffffffffvvvvvvvv>",
-            "<ttffffffffttttttfffffffftttttxffffffffxttttxffffffffxtttttttxffffffffxtttt><tttttttttttttttxffffffffxttttxffffffffxttttxffffffffxttttxffffffffxttttxffffffffxttttxffffffffxttttttttttxffffffffxttttttt>",
-            "<mmffffffffmmmmmmffffffffmmmmmyffffffffymmmmyffffffffymmmmmmmyffffffffymmmm><mmmmmmmmmmmmmmmyffffffffymmmmyffffffffymmmmyffffffffymmmmyffffffffymmmmyffffffffymmmmyffffffffymmmmmmmmmmyffffffffymmmmmmm>",
-            "<mmffffffffmmmmmmffffffffmmmmmxffffffffxmmmmxffffffffxmmmmmmmxffffffffxmmmm><mmɸmɸmmmmmmmmmmxffffffffxmmmmxffffffffxmmmmxffffffffxmmmmxffffffffxmmmmxffffffffxmmmmxffffffffxmmmmmmmmmmxffffffffxmmmmmmm>",
-            "<mmfffdffffmmmmmmfffdffffmmmmmyfffdffffymmmmyfffdffffymmmmmmmyfffdffffymmmm><mmmmmmmmmmmmmmmyfffdffffymmmmyfffdffffymmmmyfffdffffymmmmyfffdffffymmmmyfffdffffymmmmyfffdffffymmmmmmmmmmyfffdffffymmmmmmm>",
-            "<ooffffffffooooooffffffffoooooxffffffffxooooxffffffffxoooooooxffffffffxoooo><rrrrrrrrrrrrrrrxffffffffxrrrrxffffffffxrrrrxffffffffxrrrrxffffffffxrrrrxffffffffxrrrrxffffffffxrrrrrrrrrrxffffffffxrrrrrrr>",
+            "<txffffffffxttttxffffffffxttttxffffffffxttttxffffffffxtttttttxffffffffxtttt><tttttttttttttttxffffffffxttttxffffffffxttttxffffffffxttttxffffffffxttttxffffffffxttttxffffffffxttttttttttxffffffffxttttttt>",
+            "<myffffffffymmmmyffffffffymmmmyffffffffymmmmyffffffffymmmmmmmyffffffffymmmm><mmmmmmmmmmmmmmmyffffffffymmmmyffffffffymmmmyffffffffymmmmyffffffffymmmmyffffffffymmmmyffffffffymmmmmmmmmmyffffffffymmmmmmm>",
+            "<mxffffffffxmmmmxffffffffxmmmmxffffffffxmmmmxffffffffxmmmmmmmxffffffffxmmmm><mmɸmɸmmmmmmmmmmxffffffffxmmmmxffffffffxmmmmxffffffffxmmmmxffffffffxmmmmxffffffffxmmmmxffffffffxmmmmmmmmmmxffffffffxmmmmmmm>",
+            "<myfffdffffymmmmyfffdffffymmmmyfffdffffymmmmyfffdffffymmmmmmmyfffdffffymmmm><mmmmmmmCmmmmmmmyfffdffffymmmmyfffdffffymmmmyfffdffffymmmmyfffdffffymmmmyfffdffffymmmmyfffdffffymmmmmmmmmmyfffdffffymmmmmmm>",
+            "<oxffffffffxooooxffffffffxooooxffffffffxooooxffffffffxoooooooxffffffffxoooo><rrrrrrrrrrrrrrrxffffffffxrrrrxffffffffxrrrrxffffffffxrrrrxffffffffxrrrrxffffffffxrrrrxffffffffxrrrrrrrrrrxffffffffxrrrrrrr>",
             "<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff><ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffЖffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffЖfffffffffffffffffff>",
-            "<'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffµfffffffffffffffffffffffffff'>",
+            "<'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffµffffffffffffffffffffffffff'>",
             "<fffffffffffffffffffffffffffffffffffffffffffffffffffЖffffffffffffffffffЖfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
-            "<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffµµfffffffffffffffffffffffffffffµµµfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
+            "<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffµµfffffffffffffffffffffffffffffµµµffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffЖffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<fffffffffffffffЖfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'>",
             "<'fffffffffffffffffffffffffffffffffffffffffffffffffffЖfffffffffffffffffffffdfffffffffffffffЖfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
@@ -785,11 +808,11 @@ wallTopCorner2.tile = "R";
             "<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff><fffffffffffffffffffffffffffffffffffffffffЖffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff>",
             "<^^ffffffff^^^^^^ffffffff^^^^^^ffffffff^^^^^^ffffffff^^^^^^^^^ffffffff^^^^^..^^^^^^^^^^^^^^^^ffffffff^^^^^^ffffffff^^^^^^ffffffff^^^^^^ffffffff^^^^^^ffffffff^^^^^^ffffffff^^^^^^^^^^^^ffffffff^^^^^^^^>",
             "<vvffffffffvv..vvffffffffvv..vvffffffffvv..vvffffffffvv..vvvvvffffffffvvvvv..vvvvvvvvvvvv..vvffffffffvv..vvffffffffvv..vvffffffffvv..vvffffffffvv..vvffffffffvv..vvffffffffvv..vvvvvvvvffffffffvvvvvvvv>",
-            "<ttfffffffftt><ttfffffffftt><txffffffffxt><txffffffffxt><ttttxffffffffxtttt><tttttttttttt><txffffffffxt><txffffffffxt><txffffffffxt><txffffffffxt><txffffffffxt><txffffffffxt><tttttttxffffffffxttttttt>",
-            "<mmffffffffmm><mmffffffffmm><myffffffffym><myffffffffym><mmmmyffffffffymmmm><mmmmmmmmmmmm><myffffffffym><myffffffffym><myffffffffym><myffffffffym><myffffffffym><myffffffffym><mmmmmmmyffffffffymmmmmmm>",
-            "<mmffffffffmm><mmffffffffmm><mxffffffffxm><mxffffffffxm><mmmmxffffffffxmmmm><mmmmmmmmmmmm><mxffffffffxm><mxffffffffxm><mxffffffffxm><mxffffffffxm><mxffffffffxm><mxffffffffxm><mmmmmmmxffffffffxmmmmmmm>",
-            "<mmfffdffffmm><mmfffdffffmm><myfffdffffym><myfffdffffym><mmmmyfffdffffymmmm><mmmmmmmmmmmm><myfffdffffym><myfffdffffym><myfffdffffym><myfffdffffym><myfffdffffym><myfffdffffym><mmmmmmmyfffdffffymmmmmmm>",
-            "<ggffffffffgg><ggffffffffgg><gxffffffffxg><gxffffffffxg><ggggxffffffffxgggg><gggggggggggg><gxffffffffxg><gxffffffffxg><gxffffffffxg><gxffffffffxg><gxffffffffxg><gxffffffffxg><gggggggxffffffffxggggggg>",
+            "<txffffffffxt><txffffffffxt><txffffffffxt><txffffffffxt><ttttxffffffffxtttt><tttttttttttt><txffffffffxt><txffffffffxt><txffffffffxt><txffffffffxt><txffffffffxt><txffffffffxt><tttttttxffffffffxttttttt>",
+            "<myffffffffym><myffffffffym><myffffffffym><myffffffffym><mmmmyffffffffymmmm><mmmmmmmmmmmm><myffffffffym><myffffffffym><myffffffffym><myffffffffym><myffffffffym><myffffffffym><mmmmmmmyffffffffymmmmmmm>",
+            "<mxffffffffxm><mxffffffffxm><mxffffffffxm><mxffffffffxm><mmmmxffffffffxmmmm><mmmmmmmmmmmm><mxffffffffxm><mxffffffffxm><mxffffffffxm><mxffffffffxm><mxffffffffxm><mxffffffffxm><mmmmmmmxffffffffxmmmmmmm>",
+            "<myfffdffffym><myfffdffffym><myfffdffffym><myfffdffffym><mmmmyfffdffffymmmm><mmmmmmmmmmmm><myfffdffffym><myfffdffffym><myfffdffffym><myfffdffffym><myfffdffffym><myfffdffffym><mmmmmmmyfffdffffymmmmmmm>",
+            "<gxffffffffxg><gxffffffffxg><gxffffffffxg><gxffffffffxg><ggggxffffffffxgggg><gggggggggggg><gxffffffffxg><gxffffffffxg><gxffffffffxg><gxffffffffxg><gxffffffffxg><gxffffffffxg><gggggggxffffffffxggggggg>",
             "<ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><fffffµffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffffffffffffffff>",
             "<ffffffffffff><ffffffffffff><fffffµµfffff><fffµffffffff><ffffffµfffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><fffffffffµµµµfffffffffff>",
             "<ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><ffffffffffff><fffffµµfffff><ffffffffffff><ffffffffffffffffffffffff>",
@@ -806,7 +829,7 @@ wallTopCorner2.tile = "R";
             "<tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt><ttttttttttttttttttttttttttttttttttttttttttttttttttttttt><TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
             "<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm><MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM>",
             "<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm><mmɸmɸmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmɸmɸmm><MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM>",
-            "<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm><mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm><MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM>",
+            "<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm><mmmmmmmmmmmmmmmmmmmmmmmmmmCmmmmmmmmmmmmmmmmmmmmmmmmmmmm><MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM>",
             "<gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg><ggggggggggggggggggggggggggggggggggggggggggggggggggggggg><BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB>",
             "<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
             "<ffffffffffffffffЖfffffffffffffffffffffffffffffffffffffffffffffffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
@@ -816,7 +839,7 @@ wallTopCorner2.tile = "R";
             "<tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt><ffffffffffffffffffffffffffffffffffffffffЖffffffffffffff><TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT>",
             "<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM>",
             "<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><MMɸMɸMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM>",
-            "<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm><ffffffffffffffµffffffffffffffffffffffffffffffffffffffff><MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM>",
+            "<mmmmmmmmmmmmmmmmmmmmmmmmmmmmmCmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm><ffffffffffffffµffffffffffffffffffffffffffffffffffffffff><MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM>",
             "<rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr><ffffffffffffffffffffffffЖffffffffffffffffffffffffffffff><BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB>",
             "<ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff><fffffffffffffffffffffffffffffffffffffffffffffffffffffff><FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
             "<fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF>",
@@ -910,24 +933,27 @@ wallTopCorner2.tile = "R";
         0, 0, //x, y
         64, 64 //w, h
     )
+
+    // this creates objects on object tiles.
+
     if (!objectsCreated) {
         objectsCreated = true;
-        for (i=0; i<lczFloorBigDoor.length; i++) {
+        for (i=0; i<lczFloorBigDoor.length; i++) { //adds all tiles in the HCZ Floor group to allDoors
             allDoors.add(lczFloorBigDoor[i]);
         }
-        for (i=0; i<hczFloorBigDoor.length; i++) {
+        for (i=0; i<hczFloorBigDoor.length; i++) { //adds all tiles in the HCZ Floor group to allDoors
             allDoors.add(hczFloorBigDoor[i]);
         }
-        for (i=0; i<allDoors.length; i++) {
+        for (i=0; i<allDoors.length; i++) { //creates doors at the positions of all door tiles.
             createDoor(allDoors[i],doorClearances[i].rotation,doorClearances[i].clearance,doorClearances[i].locked);
         }
-        for (i=0; i<checkpointTile.length; i++) {
+        for (i=0; i<checkpointTile.length; i++) { //creates checkpoints at the positions of all checkpoint tiles.
             hiddenGroup.add(new Checkpoint(checkpointTile[i].x,checkpointTile[i].y).sprite);
         }
-        for (i=0; i<teleporterCreator.length; i++) {
+        for (i=0; i<teleporterCreator.length; i++) { //creates teleporters at the positions of all teleporter tiles.
             new Teleporter(teleporterCreator[i].x,teleporterCreator[i].y,teleporterPositions[i].id,teleporterPositions[i].linkId);
         }
-        for (i=0; i<signCreator.length; i++) {
+        for (i=0; i<signCreator.length; i++) { //creates signs at the positions of all sign tiles.
             new Sign(signCreator[i].x,signCreator[i].y, signTiles[i]);
         }
     }
@@ -939,23 +965,30 @@ wallTopCorner2.tile = "R";
     //console_log_"light middle wall id "+lczWallMiddle.idNum);
     //console_log_gameMap[8730]);
     //console_log_)
-    for (v=0;v<20;v++) {
-    for (i=0;i<gameMap.length;i++) {
+
+    // thsi function converts all tiles that have no need to remain sprites into images
+    for (v=0;v<20;v++) { // repeat 20 times
+    for (i=0;i<gameMap.length;i++) { // for every drawn tile
         try {
-        if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i]) || lczEnemy.includes(gameMap[i]) || hczEnemy.includes(gameMap[i]) || lczItem.includes(gameMap[i]) || hczItem.includes(gameMap[i]) || hczFloor.includes(gameMap[i])) {
+            //if the tile is not on the exemption list of special tiles (like walls, doors, checkpoints, enemy and item creators etc.)
+        if (lczWallBlue.includes(gameMap[i]) || cautionLine1.includes(gameMap[i]) || cautionLine2.includes(gameMap[i]) || lczWallMiddleCollision.includes(gameMap[i]) || lczWallTopCollision.includes(gameMap[i]) || signCreator.includes(gameMap[i]) || checkpointTile.includes(gameMap[i]) || lczWallRed.includes(gameMap[i]) || lczWallOrange.includes(gameMap[i]) || lczWallPurple.includes(gameMap[i]) || lczWallGray.includes(gameMap[i]) || hczWallBottom.includes(gameMap[i]) || wallTopLeft.includes(gameMap[i]) || wallTopRight.includes(gameMap[i]) || wallTopUp.includes(gameMap[i]) || wallTopDown.includes(gameMap[i]) || lczFloorStart.includes(gameMap[i]) || lczEnemy.includes(gameMap[i]) || hczEnemy.includes(gameMap[i]) || lczItem.includes(gameMap[i]) || hczItem.includes(gameMap[i]) ) {
         } else if(!imageTiles.includes({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y}) || !imageTiles.includes({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y})){
             //console_log_"tile "+i);
             //console_log_findTileGroup(gameMap[i]).idNum);
-            if (findTileGroup(gameMap[i]).idNum == 21) {
+            if (findTileGroup(gameMap[i]).idNum == 21) { //if the tile's tile group id is 21 (if it is a white wall)
                 //console_log_"tile 21 failsafe")
-                imageTiles.push({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y});
+                imageTiles.push({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y}); //send this data to the image tiles array
+                gameMap[i].remove(); //remove the tile
+            } else if (hczFloor.includes(gameMap[i])) { //if the hczFloor tile group includes this tile
+                imageTiles.push({row:0,col:1,x:gameMap[i].x,y:gameMap[i].y}); //send this data to the image tiles array
+                gameMap[i].remove(); //remove the tile
             } else {
-                imageTiles.push({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y});
+                imageTiles.push({row:imageValues.get(findTileGroup(gameMap[i]).idNum).row,col:imageValues.get(findTileGroup(gameMap[i]).idNum).col,x:gameMap[i].x,y:gameMap[i].y}); //retrieve the tile's image data from the imageValues array and send that data to the image tiles array
+                gameMap[i].remove(); //remove the tile
             }
-            gameMap[i].remove();
         }
         } catch {
-            if(!imageTiles.includes({row:1,col:0,x:gameMap[i].x,y:gameMap[i].y})){
+            if(!imageTiles.includes({row:6,col:4,x:gameMap[i].x,y:gameMap[i].y})){ //if something goes wrong send failsafe data to the image tiles array
                 //console_log_"FAILSAFE")
                 imageTiles.push({row:6,col:4,x:gameMap[i].x,y:gameMap[i].y})
             }
@@ -963,21 +996,12 @@ wallTopCorner2.tile = "R";
     }
 	};
     for(i=0;i<imageTiles.length;i++) {
-        imageTileLayer.image(facilityTileset,imageTiles[i].x,imageTiles[i].y,64,64,imageTiles[i].col*64,imageTiles[i].row*64,64,64); //I made a mistake here and fixed it by swapping the uses of the row and column values.
+        imageTileLayer.image(facilityTileset,imageTiles[i].x,imageTiles[i].y,64,64,imageTiles[i].col*64,imageTiles[i].row*64,64,64); //draws all data in the image tiles array as images to the canvas - I made a mistake here and fixed it by swapping the uses of the row and column values.
     }
 };
 
-function buildMap() {
+function buildMap() { //ok let's be honest why is this still here it doesn't need to be a function
     setupTilemaps()
-    randomItem = new Item(30,30,0)
-    randomItem.color = "red"
-    randomItem2 = new Item(50,50,7)
-    randomItem3 = new Item(70,70,10)
-    randomItem4 = new Item(90,90,8)
-    randomItem5 = new Item(110,110,9)
-    randomItem6 = new Item(210,1500,13)
-    keycard1 = new Item(310,1540,4,true)
-    //dumbTestEnemy = new Enemy(1000,0,60,1000,1,5,10,2,0)
 }
 
 //lczFloor.removeColliders()
