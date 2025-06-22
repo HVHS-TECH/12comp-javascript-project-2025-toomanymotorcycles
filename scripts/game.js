@@ -102,9 +102,12 @@ async function lose() { //near identical to the win sequence - only shows your k
 	}
 }
 
-function menuActions() { //controls the actions of the menu buttons
+function menuActions(endgameCheck) { //controls the actions of the menu buttons
 	if (!instructionsVisible) { //makes sure the buttons only work if the instructions aren't visible
 		if (menuPlay.mouse.pressed()) { //starts the game
+			if (endgameCheck) {
+				window.gghEntryHandler.recordEntry("killscore",killscore);
+			}
 			spawnEnemies();
 			spawnItems();
 			setupRestart();
@@ -131,6 +134,9 @@ function menuActions() { //controls the actions of the menu buttons
 			instructionsVisible = true;
 		}
 		if (menuQuit.mouse.pressed()) {
+			if (endgameCheck) {
+				window.gghEntryHandler.recordEntry("killscore",killscore);
+			}
 			//closes the game
 			window.close();
 		}
@@ -405,7 +411,7 @@ function draw() {
 		menuGroup.opacity = 0.01;
 
 		introSequence();
-		menuActions()
+		menuActions(false)
 	}
 	if (gameState == 1) { //if the actual game is being played - this whole section of code is explained above
 		if (!gameMusic.isPlaying()) { //play the music
@@ -455,7 +461,7 @@ function draw() {
 		if (menuPlay.mouse.hovering()) { textSize(120); } else { textSize(100); }
 		text("> RESTART", 100, windowHeight - windowHeight / 4);
 		lose();
-		menuActions();
+		menuActions(true);
 	}
 	if (gameState == 4) { //the win screen
 		//near identical to the loss screen
@@ -482,7 +488,7 @@ function draw() {
 		if (menuPlay.mouse.hovering()) { textSize(120); } else { textSize(100); }
 		text("> RESTART", 100, windowHeight - windowHeight / 4);
 		win(); //third difference - win sequence, not loss sequence
-		menuActions();
+		menuActions(true);
 	}
 
 	player.collide(doorGroup) // the player can't walk through doors
